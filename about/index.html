@@ -13,11 +13,11 @@
 
     <title>
         
-          使用github+hexo搭建个人blog - Kylen的博客 | Kylen Blog
+          About - Kylen的博客 | Kylen Blog
         
     </title>
 
-    <link rel="canonical" href="http://yoursite.com/2019/06/03/使用github-hexo搭建个人blog/">
+    <link rel="canonical" href="http://yoursite.com/about/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -147,144 +147,193 @@
 
 
     <!-- Main Content -->
-    
-<!-- Image to hack wechat -->
-<!-- <img src="http://yoursite.com/img/icon_wechat.png" width="0" height="0"> -->
-<!-- <img src="{{ site.baseurl }}/{% if page.header-img %}{{ page.header-img }}{% else %}{{ site.header-img }}{% endif %}" width="0" height="0"> -->
-
-<!-- Post Header -->
-<style type="text/css">
-    header.intro-header{
-        background-image: url('/img/home-bg.jpg')
-    }
-</style>
-<header class="intro-header">
+    <!-- Page Header -->
+<header class="intro-header" style="background-image: url('/img/about-bg.jpg')">
     <div class="container">
         <div class="row">
-            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-                <div class="post-heading">
-                    <div class="tags">
-                        
-                    </div>
-                    <h1>使用github+hexo搭建个人blog</h1>
-                    <h2 class="subheading"></h2>
-                    <span class="meta">
-                        Posted by Kylen Xu on
-                        2019-06-03
-                    </span>
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 ">
+                <div class="site-heading">
+                    <h1>About</h1>
+                    <!--<hr class="small">-->
+                    <span class="subheading">Hey, this is Kaijun.</span>
                 </div>
             </div>
         </div>
     </div>
 </header>
 
-<!-- Post Content -->
-<article>
-    <div class="container">
-        <div class="row">
 
+
+<!-- Main Content -->
+<div class="container">
+    <div class="row">
+        
+
+<!-- USE SIDEBAR -->
     <!-- Post Container -->
             <div class="
-                col-lg-8 col-lg-offset-2
-                col-md-10 col-md-offset-1
-                post-container">
-
-                <p>关键字 <code>github</code> <code>github page</code> <code>个人blog搭建</code></p>
-<h3 id="基本思路"><a href="#基本思路" class="headerlink" title="基本思路"></a>基本思路</h3><p>Github page + hexo前者提供静态站点托管服务，后者快速构建blog。平时写blog的流程：码字 =》本地构建 =》部署到github</p>
-<h3 id="GitHub-page"><a href="#GitHub-page" class="headerlink" title="GitHub page"></a>GitHub page</h3><p>Github是一个代码托管平台和开发者社区，开发者可以在Github上创建自己的开源项目并与其他开发者协作开发。</p>
-<blockquote>
-<p>GitHub Pages是一种静态站点托管服务，旨在直接从GitHub存储库托管您的个人，组织或项目页面。</p>
+                col-lg-8 col-lg-offset-1
+                col-md-8 col-md-offset-1
+                col-sm-12
+                col-xs-12
+                post-container
+            ">
+            
+                <blockquote>
+<p>写写代码，做做设计，看看产品。<br>世界那么大，多玩玩看看。</p>
 </blockquote>
-<p>所以我们可以把blog直接托管在Github上。但同时也要清楚Github Page本身不是为blog站点这种形式的内容服务的，它主要面向个人、组织、项目的一些介绍和使用。对此，我们要心知肚明。</p>
-<p>具体的操作步骤</p>
-<ol>
-<li><p>创建一个仓库<br><img src="http://ps7h0vq3x.bkt.clouddn.com/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202019-05-29%20%E4%B8%8B%E5%8D%883.30.57.png" alt="创建仓库"><br>这里仓库名称一定要规范<code>[github名称].github.io</code>，这涉及到hexo在部署的时候一些静态资源的路径问题，不按此规范会出现css、js等资源找不到，页面渲染失败的情况。<br>可以勾选<code>README</code>文件，这样初始项目就包含一个<code>README</code>文件而不是空的</p>
-</li>
-<li><p>进入当前项目的配置页面<br>普通项目设置Github page时需要配置Github page的source，我们选择master分支<br><img src="http://ps7h0vq3x.bkt.clouddn.com/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202019-05-29%20%E4%B8%8B%E5%8D%883.34.34.png" alt="配置Github page"><br>配置成功之后，可以看到page页面的url：<code>https://kylenxu.github.io/myblog/</code>打开已经可以看到页面<br>我们可以回到配置页面设置blog的主题，配置主题之后会创建一次提交<br>选择主题之后会发现blog库中已经新增一个配置文件<code>_config.yml</code>，配置信息很简单，只有一条：<code>theme: jekyll-theme-cayman</code>，Github page会根据这个配置信息使用Jekyll构建静态文件然后部署。<br>若是按照步骤一设置项目名称，可以发现这里不需要再配置直接可以查看Github page页面</p>
-</li>
-</ol>
-<p>除了Github page。我们还需要一个blog的框架。</p>
-<h3 id="hexo"><a href="#hexo" class="headerlink" title="hexo"></a>hexo</h3><blockquote>
-<p>Hexo 是一个快速、简洁且高效的博客框架。Hexo 使用 Markdown（或其他渲染引擎）解析文章，在几秒内，即可利用靓丽的主题生成静态网页。</p>
-</blockquote>
-<p>类似hexo的博客框架比如：Jekyll、Octopress等。<br>hexo和Jekyll主要的差别：Github page本身使用Jekyll根据工程文件构建静态文件，hexo则是我们在本地直接生成静态文件之后再部署。更多博客框架的区别可以自行搜索。</p>
-<p>hexo具体使用步骤（hexo相关的设计和介绍在<a href="https://hexo.io/zh-cn/docs/" target="_blank" rel="noopener">hexo官网</a>有详细的介绍，以下只是选取的一部分）：</p>
-<ol>
-<li><p>安装前提<br>Hexo要求安装<a href="http://nodejs.org/" target="_blank" rel="noopener">Node.js</a>(版本要求6.9+)、<a href="https://git-scm.com/" target="_blank" rel="noopener">Git</a><br>可通过命令<code>which node</code> <code>which git</code>查看本地是否安装node和git<br>可通过命令<code>node --version</code> <code>git --version</code>查看本地node和git的版本</p>
-</li>
-<li><p>全局安装Hexo<br><code>npm install -g hexo-cli</code><br>安装完毕之后在命令行中可使用<code>hexo</code>命令</p>
-</li>
-<li><p>使用hexo命令初始化项目<br><code>hexo init &lt;folder&gt;</code> 初始化项目<br><code>cd &lt;folder&gt;</code> 进入项目文件夹<br><code>npm install</code> 安装依赖<br><code>cd [projectName]</code>之后可以看到项目基本的文件结构<br><code>hexo serve</code>本地启服务预览效果，默认url:<code>http://localhost:4000/</code></p>
-</li>
-<li><p>使用hexo创建一篇新的文章<br><code>hexo new [layout] &lt;titile&gt;</code><br>layout指定文章的布局，默认值为<code>post</code>可不填，在<code>/source</code>目录下会新建一个对应布局的文件。具体命令可查看<a href="https://hexo.io/zh-cn/docs/writing" target="_blank" rel="noopener">hexo官方文档写作</a></p>
-</li>
-</ol>
-<h3 id="hexo使用Github-page部署"><a href="#hexo使用Github-page部署" class="headerlink" title="hexo使用Github page部署"></a>hexo使用Github page部署</h3><p>其实到这里我们已经清楚看到使用hexo blog已经构建成功了，不过只能运行在本地。</p>
-<p>hexo和GitHub page的结合其实很简单，在了解了hexo的基本使用之后，我们知道平时我们的写作都会在hexo项目下。</p>
-<p>具体部署到Github page的步骤：<br>在此之前我们已经在Github新建了一个仓库作为blog库，blog库和普通的库没有任何区别，只是blog库的名称是按照特殊规则组织的。</p>
-<ol>
-<li>hexo部署<br>hexo有一套详细的部署规则，具体可查看<a href="https://hexo.io/zh-cn/docs/deployment" target="_blank" rel="noopener">hexo官方文档部署</a>，这里简单介绍下，部署到Github需要安装依赖<a href="https://github.com/hexojs/hexo-deployer-git" target="_blank" rel="noopener">hexo-deployer-git</a>，执行命令<code>npm install hexo-deployer-git --save</code>；修改配置文件，主要修改<code>repo</code>为Github上blog库地址<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">deploy:</span></span><br><span class="line"><span class="attr">  type:</span> <span class="string">git</span></span><br><span class="line"><span class="attr">  repo:</span> <span class="string">&lt;repository</span> <span class="string">url&gt;</span> <span class="comment">#https://bitbucket.org/JohnSmith/johnsmith.bitbucket.io</span></span><br><span class="line"><span class="attr">  branch:</span> <span class="string">[branch]</span> <span class="comment">#published</span></span><br><span class="line"><span class="attr">  message:</span> <span class="string">[message]</span></span><br></pre></td></tr></table></figure>
+<p>9月21日上午，阳光明媚，鲜花斗艳。帕洛阿尔托苹果店里欢声笑语，人头攒动。苹果公司首席执行官蒂姆·库克先生在店长欧阳猛南陪同下，不远千米，深入到一线店面，为那里的员工带去节曰的问候和良好的祝愿。<br><br>“果粉们，你们辛苦了，我代表某果公司，祝你们身体健康，生活幸福，工作成功！”库克亲切慰问广大员工和顾客，并就iOS7、iPhone 5S和iPhone 5C的销售状况进行调研。 <br><br>“您现在每月工资有多少？肾5S拿到了吗？”在店里，库克关切地向果粉们问起这一问题。当听说果粉们排到了5S，库克满意地连连点头。接着他指出，近年来苹果事业发展取得巨大成就，特别是iPhone影响剧增，老百姓对iOS满意度逐步提高，在这个转变过程中，果粉的辛勤工作功不可没。<br><br>库克看到一个中国小朋友在排队买iPhone 5S，亲切的问：“5288元一台能承受不？”小朋友回答到：“能！”当得知这位小朋友卖了一个肾来买iPhone 5S时，库克叮嘱道：“在支持苹果的同时，也要爱护身体。”<br><br>库克与购买苹果手机的果粉们兴致勃勃地参观了苹果专卖店，和员工们拉了拉家常，并饶有兴趣地玩了四盘切西瓜游戏，与普通员工同乐。<br><br>在交谈中，库克多次关心地强调：“有了iPhone 5C，就不卖iPhone 5了。”并对顾客说：“好好休息，身体是革命的本钱嘛！”会谈始终在亲切友好的气氛中进行。<br><br>顾客们就库克的讲话达成了广泛的共识，并承认世界上只有iOS最流畅，要紧紧的团结在以库克先生为首席执行官的苹果公司集体周围，一心一意抓学习，聚精会神谋发展。<br><br><br>帕洛阿尔托苹果专卖店当日原则通过《蒂姆·库克首席执行官在加州新苹果店的讲话纪要》，并下发各分店认真学习、研讨。</p>
+<p style="text-align:right;">
+    —— <a href="http://www.zhihu.com/question/19687065" target="_blank" rel="noopener">李书航 － 什么是「共产中文腔调」？ </a>
+</p>
 
-
-
-</li>
-</ol>
-<ol start="2">
-<li>更新<br><code>hexo g</code> 构建静态文件<br><code>hexo d</code> 部署<br>可写为<code>hexo g &amp;&amp; hexo d</code></li>
-</ol>
-<p>ps：过程中遇到的git和github用户名的问题可以自行搜索解决</p>
-<h3 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h3><p><a href="https://help.github.com/en/articles/what-is-github-pages" target="_blank" rel="noopener">Github page介绍说明</a><br><a href="https://hexo.io/zh-cn/docs/index.html" target="_blank" rel="noopener">hexo官方文档</a></p>
-
-
-                <hr>
-
+                <!-- 如果开启评论功能 -->
                 
+                    <hr>
 
-                <ul class="pager">
                     
-                        <li class="previous">
-                            <a href="/2019/06/05/workflow小白入门/" data-toggle="tooltip" data-placement="top" title="Alfred workflow小白入门">&larr; Previous Post</a>
-                        </li>
-                    
-                    
-                        <li class="next">
-                            <a href="/2019/05/30/hello-world/" data-toggle="tooltip" data-placement="top" title="Hello World">Next Post &rarr;</a>
-                        </li>
-                    
-                </ul>
 
-                
+                    
+                    <!-- disqus 评论框 start -->
+                    <div class="comment">
+                        <div id="disqus_thread" class="disqus-thread"></div>
+                    </div>
+                    <!-- disqus 评论框 end -->
+                    
 
-                
-                <!-- disqus 评论框 start -->
-                <div class="comment">
-                    <div id="disqus_thread" class="disqus-thread"></div>
-                </div>
-                <!-- disqus 评论框 end -->
+
+                    
+
+                    
+                    <!-- disqus 公共JS代码 start (一个网页只需插入一次) -->
+                    <script type="text/javascript">
+                        /* * * CONFIGURATION VARIABLES * * */
+                        var disqus_shortname = "hexo-theme-huxblog";
+                        var disqus_identifier = "http://yoursite.com/about/index.html";
+                        var disqus_url = "http://yoursite.com/about/index.html";
+
+                        (function() {
+                            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+                        })();
+
+                        
+                    </script>
+                    <!-- disqus 公共JS代码 end -->
+                    
+
+
+
                 
 
             </div>
-    <!-- Side Catalog Container -->
-        
-
     <!-- Sidebar Container -->
-
             <div class="
-                col-lg-8 col-lg-offset-2
-                col-md-10 col-md-offset-1
-                sidebar-container">
-
+                col-lg-3 col-lg-offset-0
+                col-md-3 col-md-offset-0
+                col-sm-12
+                col-xs-12
+                sidebar-container
+            ">
                 <!-- Featured Tags -->
                 
                 <section>
                     <!-- no hr -->
                     <h5><a href="/tags/">FEATURED TAGS</a></h5>
                     <div class="tags">
-                       
+                        
+                            
+                        
                     </div>
                 </section>
                 
 
+                <!-- Short About -->
+                <section class="visible-md visible-lg">
+                    <hr><h5><a href="/about/">ABOUT ME</a></h5>
+                    <div class="short-about">
+
+                        
+                            <img src="//img/avatar.jpg">
+                        
+
+                        
+                            <p>我要成为魔法师!</p>
+                        
+
+                        <!-- SNS Link -->
+                        <ul class="list-inline">
+                            
+                            
+                                <li>
+                                    <a target="_blank" href="https://twitter.com/Demonbane_x">
+                                        <span class="fa-stack fa-lg">
+                                            <i class="fa fa-circle fa-stack-2x"></i>
+                                            <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                                        </span>
+                                    </a>
+                                </li>
+                            
+                            
+                                <li>
+                                    <a target="_blank" href="https://www.zhihu.com/people/Demonbane">
+                                        <span class="fa-stack fa-lg">
+                                            <i class="fa fa-circle fa-stack-2x"></i>
+                                            <i class="fa  fa-stack-1x fa-inverse">知</i>
+                                        </span>
+                                    </a>
+                                </li>
+                            
+
+                            
+                                <li>
+                                    <a target="_blank" href="http://weibo.com/Demonbane">
+                                        <span class="fa-stack fa-lg">
+                                            <i class="fa fa-circle fa-stack-2x"></i>
+                                            <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+                                        </span>
+                                    </a>
+                                </li>
+                            
+
+                            
+                                <li>
+                                    <a target="_blank" href="https://www.facebook.com/demonbane.cn">
+                                        <span class="fa-stack fa-lg">
+                                            <i class="fa fa-circle fa-stack-2x"></i>
+                                            <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+                                        </span>
+                                    </a>
+                                </li>
+                            
+
+                            
+                                <li>
+                                    <a target="_blank" href="https://github.com/KylenXu">
+                                        <span class="fa-stack fa-lg">
+                                            <i class="fa fa-circle fa-stack-2x"></i>
+                                            <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                                        </span>
+                                    </a>
+                                </li>
+                            
+                            
+                            
+                            
+                                <li>
+                                    <a target="_blank" href="https://www.linkedin.com/in/kaijun-chen-42089354">
+                                        <span class="fa-stack fa-lg">
+                                            <i class="fa fa-circle fa-stack-2x"></i>
+                                            <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+                                        </span>
+                                    </a>
+                                </li>
+                            
+                        </ul>
+                    </div>
+                </section>
+                
                 <!-- Friends Blog -->
                 
                 <hr>
@@ -307,66 +356,9 @@
                 </ul>
                 
             </div>
-
-        </div>
+        
     </div>
-</article>
-
-
-
-
-<!-- disqus 公共JS代码 start (一个网页只需插入一次) -->
-<script type="text/javascript">
-    /* * * CONFIGURATION VARIABLES * * */
-    var disqus_shortname = "hexo-theme-huxblog";
-    var disqus_identifier = "http://yoursite.com/2019/06/03/使用github-hexo搭建个人blog/";
-    var disqus_url = "http://yoursite.com/2019/06/03/使用github-hexo搭建个人blog/";
-
-    (function() {
-        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-    })();
-</script>
-<!-- disqus 公共JS代码 end -->
-
-
-
-
-<!-- async load function -->
-<script>
-    function async(u, c) {
-      var d = document, t = 'script',
-          o = d.createElement(t),
-          s = d.getElementsByTagName(t)[0];
-      o.src = u;
-      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
-      s.parentNode.insertBefore(o, s);
-    }
-</script>
-<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
-<script>
-    async("https://cdn.bootcss.com/anchor-js/1.1.1/anchor.min.js",function(){
-        anchors.options = {
-          visible: 'always',
-          placement: 'right',
-          icon: '#'
-        };
-        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
-    })
-</script>
-<style>
-    /* place left on bigger screen */
-    @media all and (min-width: 800px) {
-        .anchorjs-link{
-            position: absolute;
-            left: -0.75em;
-            font-size: 1.1em;
-            margin-top : -0.1em;
-        }
-    }
-</style>
-
+</div>
 
 
     <!-- Footer -->

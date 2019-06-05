@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content>
+    <meta name="keyword" content>
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>
+        
+          Alfred workflow小白入门 - undefined
+        
+    </title>
+
+    <link rel="canonical" href="http://yoursite.com/2019/06/05/workflow小白入门/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/hux-blog.min.css">
+
+    <!-- Pygments Highlight CSS -->
+    <link rel="stylesheet" href="/css/highlight.css">
+
+    <!-- Custom Fonts -->
+    <!-- <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="https://cdn.staticfile.org/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+
+    <!-- Hux Delete, sad but pending in China
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Hexo</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+
+                    
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+    <!-- Main Content -->
+    
+<!-- Image to hack wechat -->
+<!-- <img src="http://yoursite.com/img/icon_wechat.png" width="0" height="0"> -->
+<!-- <img src="{{ site.baseurl }}/{% if page.header-img %}{{ page.header-img }}{% else %}{{ site.header-img }}{% endif %}" width="0" height="0"> -->
+
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        background-image: url('/undefined')
+    }
+</style>
+<header class="intro-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                          <a class="tag" href="/tags/#Alfred workflow" title="Alfred workflow">Alfred workflow</a>
+                        
+                    </div>
+                    <h1>Alfred workflow小白入门</h1>
+                    <h2 class="subheading"></h2>
+                    <span class="meta">
+                        Posted by John Doe on
+                        2019-06-05
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+    <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+                <p>关键字：<code>Alfred</code> <code>workflow</code></p>
+<h3 id="Alfred是什么"><a href="#Alfred是什么" class="headerlink" title="Alfred是什么"></a>Alfred是什么</h3><p>Alfred是一款提效神器，可通过热键、关键字、文本扩展等快速搜索Mac和网络；并且可以自定义操作。</p>
+<p>Alfred的基础能力差不多是SpotLight（聚焦搜索）的一个加强版，可以快速搜索和使用Mac上的资源。对应到实际的操作包括：应用搜索、文件搜索、文本内容搜索、通讯录搜索、使用计算器、使用词典等等等</p>
+<p>直接听起来好像没什么了不起，但只要使用过，就会感受到Alfred带来的效率提升。以下我只列举一些我用到的</p>
+<ul>
+<li><p>应用搜索<br>快速打开使用应用<br><img src="https://i.loli.net/2019/06/04/5cf6332da1a3a80990.png" alt="alfred-001.png"></p>
+</li>
+<li><p>文件或文件夹搜索<br>直接通过文件名称查找文件或者文件夹<br><img src="https://i.loli.net/2019/06/04/5cf6360d11e9327441.png" alt="alfred-002.png"></p>
+</li>
+<li><p>文本内容搜索<br>使用<code>in</code>命令 + <code>待搜索的文本</code><br>某一天突然想找一个很久之前文件，不记得放在哪儿了，就模糊的记得文件里有个字段<code>promisee</code>，于是<br><img src="https://i.loli.net/2019/06/04/5cf6352dbbb3351988.png" alt="alfred-003.png"></p>
+</li>
+<li><p>直接使用计算器(基本不用)<br>我还是喜欢用手机或者直接打开<code>计算器.app</code>直接点<br><img src="https://i.loli.net/2019/06/05/5cf723a8d6c7c58052.png" alt="alfred-004.png"></p>
+</li>
+</ul>
+<p>Alfred的基础能力对比Spotlight对我而言没有什么特别的，我使用比较多的只有上面提到的一些功能。不过Alfred强大之处在于自定义流程操作，也就是下面的workflow。</p>
+<h3 id="workflow"><a href="#workflow" class="headerlink" title="workflow"></a>workflow</h3><p>workflow是什么？字面上看工作流，很多行业内都有工作流的概念，workflow也不是什么难以理解的东西。说个笑话，把大象放进冰箱分为几步？第一步：打开冰箱门；第二步：把大象放进冰箱；第三步：关上冰箱门。workflow就是类似这样一个把大象放进冰箱的过程。对于大多数使用者来说，并不会真的自己去开发一个自己的workflow，多数情况会直接使用别人已经开发好的workflow；就像我们不用关心怎么把大象放进冰箱，我们只需要按照流程走，达到我们想要的目的就好了。</p>
+<p>我们可以把一件我们要完成的work分为几步，比如：使用google搜索Alfred。那正常的操作流程应该是：1.打开chrome浏览器，找到google输入框；2.在输入框内输入Alfred；3.回车搜索。可以看出，其实只要我们有一个目标，若是一个简单易达到的目标，我们很容易确定达到这个目标的每一个步骤。这一个个步骤就组成我们的workflow。而这种行为上的workflow可以映射成Alfred的workflow。</p>
+<p>所以workflow白话就是设定好步骤、流程一步步达到我们的目标。</p>
+<p>有workflow的地方一定就有流程图，流程图可以说是workflow最形象化的表现，看举个具体的例子<br><img src="https://i.loli.net/2019/06/05/5cf723a8e1bd537958.png" alt="alfred-005.png"></p>
+<p>这是一个查询本机局域网IP和公网IP的workflow，它只有两步，第一步：输入关键字IP执行script脚本，具体脚本的编写这里不介绍，这段脚本获取了本机局域网IP和公网IP然后输出到Alfred界面；第二步当用户点击展示的选项后的时候会把Ip复制到剪切板。可以看出此workflow核心功能的实现在于第一个脚本单元，简单理解其内容就是API + code，这里不做介绍。</p>
+<p>在了解了workflow的概念之后，多数人的期望提供优质的Alfred workflow的collection；少数人可能会有开发自己特有的workflow的想法，这就需要了解Alfred具体提供的能力，这里提供一个链接：<a href="http://louiszhai.github.io/2018/05/31/alfred/" target="_blank" rel="noopener">Alfred神器使用手册</a>，可能会对你有帮助。以下的内容只针对大多数人</p>
+<h3 id="workflow的使用"><a href="#workflow的使用" class="headerlink" title="workflow的使用"></a>workflow的使用</h3><h4 id="workflow资源获取和使用"><a href="#workflow资源获取和使用" class="headerlink" title="workflow资源获取和使用"></a>workflow资源获取和使用</h4><p>第三方开发的Alfred workflow在<a href="https://github.com/" target="_blank" rel="noopener">Github</a>和<a href="http://alfredworkflow.com/" target="_blank" rel="noopener">http://alfredworkflow.com/</a>这两个网站上找就足够了，在GitHub上可以搜索关键字<code>alfred workflow</code><br><img src="https://i.loli.net/2019/06/05/5cf723a90d44041299.png" alt="alfred-006.png"><br><a href="https://github.com/zenorocha/alfred-workflows" target="_blank" rel="noopener">https://github.com/zenorocha/alfred-workflows</a>就是一个不错的Alfred workflow collection</p>
+<p>后者是一个专门收集Alfred workflow的网站</p>
+<p>无论通过什么样的途径获取到Alfred workflow，能够被Alfred解析添加的workflow的后缀都是<code>.alfredworkflow</code><br><img src="https://i.loli.net/2019/06/05/5cf7636a4f31e44559.png" alt="alfred-007.png"></p>
+<p>类似这种文件直接双击可确定可添加到Alfred。添加之后可在Alfred Perferences Workflows界面查看添加的workflow<br><img src="https://i.loli.net/2019/06/05/5cf7636e095e417834.png" alt="alfred-008.png"><br>已添加的workflow可导出，有编程基础的可查看代码逻辑。</p>
+<h3 id="workflow推荐"><a href="#workflow推荐" class="headerlink" title="workflow推荐"></a>workflow推荐</h3><ul>
+<li><p><a href="https://github.com/deanishe/alfred-fixum" target="_blank" rel="noopener">Fixum</a><br>检测其他 workflow 是否有可更新版本，以及处理兼容性问题，只是其他 workflow 的 “医生”<br><img src="https://i.loli.net/2019/06/05/5cf76365c6f1069857.png" alt="alfred-009.png"></p>
+</li>
+<li><p><a href="https://github.com/xudaolong/CodeVar" target="_blank" rel="noopener">CodeVar</a><br>这个超赞，生成可用的代码变量，主要用来定义变量名称，再也不用拼音啦～对于英文能力有限，取名捉鸡的同学是个不错的选择<br><img src="https://i.loli.net/2019/06/05/5cf76366e291270855.png" alt="alfred-010.png"></p>
+</li>
+<li><p><a href="https://github.com/zenorocha/alfred-workflows/tree/master/ip-address" target="_blank" rel="noopener">ip 查询</a><br>显示本机局域网和公网IP<br>需要的时候就会觉得这个功能超赞<br><img src="https://i.loli.net/2019/06/05/5cf7637a95e2a29217.png" alt="alfred-012.png">  </p>
+</li>
+<li><p><a href="https://github.com/JoelQ/alfred-http" target="_blank" rel="noopener">http status code</a><br>快速查询Http状态码含义<br><img src="https://i.loli.net/2019/06/05/5cf763804841679002.png" alt="alfred-011.png"></p>
+</li>
+<li><p><a href="https://github.com/willfarrell/alfred-caniuse-workflow" target="_blank" rel="noopener">can i use</a></p>
+<blockquote>
+<p>Alfred App Workflow for caniuse.com<br><img src="https://i.loli.net/2019/06/05/5cf7637bac57d77339.png" alt="alfred-013.png">  </p>
+</blockquote>
+</li>
+<li><p><a href="http://www.packal.org/workflow/colors" target="_blank" rel="noopener">colors颜色转换</a><br>颜色格式转换<br>我可能用的不多<br><img src="https://i.loli.net/2019/06/05/5cf76381722a518329.png" alt="alfred-014.png"></p>
+</li>
+<li><p><a href="https://github.com/carlosgaldino/alfred-emoji-workflow" target="_blank" rel="noopener">emoji</a><br>搜索Basecamp、github、gitlab上使用的emoji<br>对我用处不大<br><img src="https://i.loli.net/2019/06/05/5cf7637f3230378745.png" alt="alfred-015.png"></p>
+</li>
+<li><p><a href="https://github.com/willfarrell/alfred-encode-decode-workflow" target="_blank" rel="noopener">encode</a><br>编/解码字符串<br>对jser来说可以快速查询一些特殊编码倒是个不错的功能<br><img src="https://i.loli.net/2019/06/05/5cf7637997e1d29817.png" alt="alfred-016.png"></p>
+</li>
+<li><p><a href="https://www.alfredforum.com/topic/5959-an-alfred-workflow-to-generate-fake-data/" target="_blank" rel="noopener">Faker</a><br>生成虚假数据，如姓名、电子邮件、信用卡号等。<br><img src="https://i.loli.net/2019/06/05/5cf76378809da15326.png" alt="alfred-017.png"></p>
+</li>
+<li><p><a href="https://github.com/gharlan/alfred-github-workflow" target="_blank" rel="noopener">Github</a><br>快速打开github仓库，需要登录<br><img src="https://i.loli.net/2019/06/05/5cf7637e0d0f746948.png" alt="alfred-018.png"></p>
+</li>
+<li><p><a href="https://github.com/ngreenstein/alfred-process-killer" target="_blank" rel="noopener">process-killer</a><br>快速找到进程并使用命令<code>kill -9</code>杀死它们<br>多数能kill，使用sudo命令启动的程序杀不掉<br><img src="https://i.loli.net/2019/06/05/5cf7638288e5673776.png" alt="alfred-019.png"></p>
+</li>
+<li><p><a href="https://github.com/willfarrell/alfred-pkgman-workflow" target="_blank" rel="noopener">npm包管理器</a><br>快速使用各种包管理器，触发器：apt-get，apm，bower，brew，chef，cocoa，composer，docker，gems，gradle，grunt，gulp，hex，maven，npm，pear，puppet，pypi，raspbian，rpm，yo<br>我常用的：brew，npm<br>超好用，不用打开网站再搜索（网址还常常记不住）<br><img src="https://i.loli.net/2019/06/05/5cf76383a7d8540891.png" alt="alfred-020.png"></p>
+</li>
+<li><p><a href="https://github.com/xhinking/Alfred" target="_blank" rel="noopener">StackOverflow 问题搜索</a><br>直接在stackoverflow上搜索问题<br>超好用<br><img src="https://i.loli.net/2019/06/05/5cf76397601d638791.png" alt="alfred-021.png"></p>
+</li>
+</ul>
+<h3 id="Aflred为什么能提效？"><a href="#Aflred为什么能提效？" class="headerlink" title="Aflred为什么能提效？"></a>Aflred为什么能提效？</h3><p>稍加思考，大家应该都能想到，界面化的流程操作几乎对所有人都是友好的。再想一想刚刚使用google搜索Alfred的例子，对懂的人而言，我只是需要使用google搜索引擎输入搜索关键字，在浏览器中打开我的目的就达到了。在这个流程中，界面化的操作要求我们首先要寻找浏览器、打开浏览器、找到google输入框，然后才能使用google搜索引擎输入关键字搜索。这个流程其实效率并不高，因为我们看似熟练的操作我们的大脑需要接收很多不必要的信息。这倒不是界面化的操作不好，恰恰相反，界面化的操作是个天才的idea，是它让很多我这种愚钝的人更容易进入计算机和互联网的世界。只是当我们进步了，有了一定的基础之后，我们可以选择一种更好、更快的方式。</p>
+
+
+                <hr>
+
+                
+
+                <ul class="pager">
+                    
+                    
+                        <li class="next">
+                            <a href="/2019/06/03/使用github-hexo搭建个人blog/" data-toggle="tooltip" data-placement="top" title="使用github+hexo搭建个人blog">Next Post &rarr;</a>
+                        </li>
+                    
+                </ul>
+
+                
+
+                
+
+            </div>
+    <!-- Side Catalog Container -->
+        
+
+    <!-- Sidebar Container -->
+
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+
+                <!-- Friends Blog -->
+                
+            </div>
+
+        </div>
+    </div>
+</article>
+
+
+
+
+
+
+
+
+
+    <!-- Footer -->
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                
+                
+                
+
+                
+
+                
+
+                
+
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; Hexo 2019 
+                    <br>
+                    Theme by <a href="http://huangxuan.me">Hux</a> 
+                    <span style="display: inline-block; margin: 0 5px;">
+                        <i class="fa fa-heart"></i>
+                    </span> 
+                    Ported by <a href="http://blog.kaijun.rocks">Kaijun</a> | 
+                    <iframe style="margin-left: 2px; margin-bottom:-5px;" frameborder="0" scrolling="0" width="91px" height="20px" src="https://ghbtns.com/github-btn.html?user=kaijun&repo=hexo-theme-huxblog&type=star&count=true">
+                    </iframe>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/hux-blog.min.js"></script>
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- 
+     Because of the native support for backtick-style fenced code blocks 
+     right within the Markdown is landed in Github Pages, 
+     From V1.6, There is no need for Highlight.js, 
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0  
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/    
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("http://yoursite.com/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("https://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+
+
+
+<!-- Baidu Tongji -->
+
+
+<!-- Side Catalog -->
+
+
+
+
+
+<!-- Image to hack wechat -->
+<img src="http://yoursite.com/img/icon_wechat.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+</body>
+
+</html>

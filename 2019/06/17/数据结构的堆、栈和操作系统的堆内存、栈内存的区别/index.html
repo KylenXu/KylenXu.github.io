@@ -14,11 +14,11 @@
     <script async defer src="https://buttons.github.io/buttons.js"></script>
     <title>
         
-          Alfred workflow小白入门 - Kylen的博客 | Kylen Blog
+          数据结构的堆、栈和操作系统的堆内存、栈内存的区别 - Kylen的博客 | Kylen Blog
         
     </title>
 
-    <link rel="canonical" href="http://yoursite.com/2019/06/05/workflow小白入门/">
+    <link rel="canonical" href="http://yoursite.com/2019/06/17/数据结构的堆、栈和操作系统的堆内存、栈内存的区别/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -86,16 +86,16 @@
                     <div class="post-heading">
                         <div class="tags">
                             
-                              <a class="tag" href="/tags/#Alfred" title="Alfred">Alfred</a>
+                              <a class="tag" href="/tags/#stack heap" title="stack heap">stack heap</a>
                             
-                              <a class="tag" href="/tags/#workflow" title="workflow">workflow</a>
+                              <a class="tag" href="/tags/#堆内存 栈内存" title="堆内存 栈内存">堆内存 栈内存</a>
                             
                         </div>
-                        <h1>Alfred workflow小白入门</h1>
+                        <h1>数据结构的堆、栈和操作系统的堆内存、栈内存的区别</h1>
                         <h2 class="subheading"></h2>
                         <span class="meta">
                             Posted by Kylen on
-                            2019-06-05
+                            2019-06-17
                         </span>
                     </div>
                 
@@ -212,62 +212,38 @@
                 col-md-10 col-md-offset-1
                 post-container">
 
-                <h3 id="Alfred是什么"><a href="#Alfred是什么" class="headerlink" title="Alfred是什么"></a>Alfred是什么</h3><p>Alfred是一款提效神器，可通过热键、关键字、文本扩展等快速搜索Mac和网络；并且可以自定义操作。</p>
-<p>Alfred的基础能力差不多是SpotLight（聚焦搜索）的一个加强版，可以快速搜索和使用Mac上的资源。对应到实际的操作包括：应用搜索、文件搜索、文本内容搜索、通讯录搜索、使用计算器、使用词典等等等</p>
-<p>直接听起来好像没什么了不起，但只要使用过，就会感受到Alfred带来的效率提升。以下我只列举一些我用到的</p>
-<ul>
-<li><p>应用搜索<br>快速打开使用应用<br><img src="https://i.loli.net/2019/06/04/5cf6332da1a3a80990.png" alt="alfred-001.png"></p>
-</li>
-<li><p>文件或文件夹搜索<br>直接通过文件名称查找文件或者文件夹<br><img src="https://i.loli.net/2019/06/04/5cf6360d11e9327441.png" alt="alfred-002.png"></p>
-</li>
-<li><p>文本内容搜索<br>使用<code>in</code>命令 + <code>待搜索的文本</code><br>某一天突然想找一个很久之前文件，不记得放在哪儿了，就模糊的记得文件里有个字段<code>promisee</code>，于是<br><img src="https://i.loli.net/2019/06/04/5cf6352dbbb3351988.png" alt="alfred-003.png"></p>
-</li>
-<li><p>直接使用计算器(基本不用)<br>我还是喜欢用手机或者直接打开<code>计算器.app</code>直接点<br><img src="https://i.loli.net/2019/06/05/5cf723a8d6c7c58052.png" alt="alfred-004.png"></p>
-</li>
-</ul>
-<p>Alfred的基础能力对比Spotlight对我而言没有什么特别的，我使用比较多的只有上面提到的一些功能。不过Alfred强大之处在于自定义流程操作，也就是下面的workflow。</p>
-<h3 id="workflow"><a href="#workflow" class="headerlink" title="workflow"></a>workflow</h3><p>workflow是什么？字面上看工作流，很多行业内都有工作流的概念，workflow也不是什么难以理解的东西。说个笑话，把大象放进冰箱分为几步？第一步：打开冰箱门；第二步：把大象放进冰箱；第三步：关上冰箱门。workflow就是类似这样一个把大象放进冰箱的过程。对于大多数使用者来说，并不会真的自己去开发一个自己的workflow，多数情况会直接使用别人已经开发好的workflow；就像我们不用关心怎么把大象放进冰箱，我们只需要按照流程走，达到我们想要的目的就好了。</p>
-<p>我们可以把一件我们要完成的work分为几步，比如：使用google搜索Alfred。那正常的操作流程应该是：1.打开chrome浏览器，找到google输入框；2.在输入框内输入Alfred；3.回车搜索。可以看出，其实只要我们有一个目标，若是一个简单易达到的目标，我们很容易确定达到这个目标的每一个步骤。这一个个步骤就组成我们的workflow。而这种行为上的workflow可以映射成Alfred的workflow。</p>
-<p>所以workflow白话就是设定好步骤、流程一步步达到我们的目标。</p>
-<p>有workflow的地方一定就有流程图，流程图可以说是workflow最形象化的表现，看举个具体的例子<br><img src="https://i.loli.net/2019/06/05/5cf723a8e1bd537958.png" alt="alfred-005.png"></p>
-<p>这是一个查询本机局域网IP和公网IP的workflow，它只有两步，第一步：输入关键字IP执行script脚本，具体脚本的编写这里不介绍，这段脚本获取了本机局域网IP和公网IP然后输出到Alfred界面；第二步当用户点击展示的选项后的时候会把Ip复制到剪切板。可以看出此workflow核心功能的实现在于第一个脚本单元，简单理解其内容就是API + code，这里不做介绍。</p>
-<p>在了解了workflow的概念之后，多数人的期望提供优质的Alfred workflow的collection；少数人可能会有开发自己特有的workflow的想法，这就需要了解Alfred具体提供的能力，这里提供一个链接：<a href="http://louiszhai.github.io/2018/05/31/alfred/" target="_blank" rel="noopener">Alfred神器使用手册</a>，可能会对你有帮助。以下的内容只针对大多数人</p>
-<h3 id="workflow的使用"><a href="#workflow的使用" class="headerlink" title="workflow的使用"></a>workflow的使用</h3><h4 id="workflow资源获取和使用"><a href="#workflow资源获取和使用" class="headerlink" title="workflow资源获取和使用"></a>workflow资源获取和使用</h4><p>第三方开发的Alfred workflow在<a href="https://github.com/" target="_blank" rel="noopener">Github</a>和<a href="http://alfredworkflow.com/" target="_blank" rel="noopener">http://alfredworkflow.com/</a>这两个网站上找就足够了，在GitHub上可以搜索关键字<code>alfred workflow</code><br><img src="https://i.loli.net/2019/06/05/5cf723a90d44041299.png" alt="alfred-006.png"><br><a href="https://github.com/zenorocha/alfred-workflows" target="_blank" rel="noopener">https://github.com/zenorocha/alfred-workflows</a>就是一个不错的Alfred workflow collection</p>
-<p>后者是一个专门收集Alfred workflow的网站</p>
-<p>无论通过什么样的途径获取到Alfred workflow，能够被Alfred解析添加的workflow的后缀都是<code>.alfredworkflow</code><br><img src="https://i.loli.net/2019/06/05/5cf7636a4f31e44559.png" alt="alfred-007.png"></p>
-<p>类似这种文件直接双击可确定可添加到Alfred。添加之后可在Alfred Perferences Workflows界面查看添加的workflow<br><img src="https://i.loli.net/2019/06/05/5cf7636e095e417834.png" alt="alfred-008.png"><br>已添加的workflow可导出，有编程基础的可查看代码逻辑。</p>
-<h3 id="workflow推荐"><a href="#workflow推荐" class="headerlink" title="workflow推荐"></a>workflow推荐</h3><ul>
-<li><p><a href="https://github.com/deanishe/alfred-fixum" target="_blank" rel="noopener">Fixum</a><br>检测其他 workflow 是否有可更新版本，以及处理兼容性问题，只是其他 workflow 的 “医生”<br><img src="https://i.loli.net/2019/06/05/5cf76365c6f1069857.png" alt="alfred-009.png"></p>
-</li>
-<li><p><a href="https://github.com/xudaolong/CodeVar" target="_blank" rel="noopener">CodeVar</a><br>这个超赞，生成可用的代码变量，主要用来定义变量名称，再也不用拼音啦～对于英文能力有限，取名捉鸡的同学是个不错的选择<br><img src="https://i.loli.net/2019/06/05/5cf76366e291270855.png" alt="alfred-010.png"></p>
-</li>
-<li><p><a href="https://github.com/zenorocha/alfred-workflows/tree/master/ip-address" target="_blank" rel="noopener">ip 查询</a><br>显示本机局域网和公网IP<br>需要的时候就会觉得这个功能超赞<br><img src="https://i.loli.net/2019/06/05/5cf7637a95e2a29217.png" alt="alfred-012.png">  </p>
-</li>
-<li><p><a href="https://github.com/JoelQ/alfred-http" target="_blank" rel="noopener">http status code</a><br>快速查询Http状态码含义<br><img src="https://i.loli.net/2019/06/05/5cf763804841679002.png" alt="alfred-011.png"></p>
-</li>
-<li><p><a href="https://github.com/willfarrell/alfred-caniuse-workflow" target="_blank" rel="noopener">can i use</a></p>
-<blockquote>
-<p>Alfred App Workflow for caniuse.com<br><img src="https://i.loli.net/2019/06/05/5cf7637bac57d77339.png" alt="alfred-013.png">  </p>
-</blockquote>
-</li>
-<li><p><a href="http://www.packal.org/workflow/colors" target="_blank" rel="noopener">colors颜色转换</a><br>颜色格式转换<br>我可能用的不多<br><img src="https://i.loli.net/2019/06/05/5cf76381722a518329.png" alt="alfred-014.png"></p>
-</li>
-<li><p><a href="https://github.com/carlosgaldino/alfred-emoji-workflow" target="_blank" rel="noopener">emoji</a><br>搜索Basecamp、github、gitlab上使用的emoji<br>对我用处不大<br><img src="https://i.loli.net/2019/06/05/5cf7637f3230378745.png" alt="alfred-015.png"></p>
-</li>
-<li><p><a href="https://github.com/willfarrell/alfred-encode-decode-workflow" target="_blank" rel="noopener">encode</a><br>编/解码字符串<br>对jser来说可以快速查询一些特殊编码倒是个不错的功能<br><img src="https://i.loli.net/2019/06/05/5cf7637997e1d29817.png" alt="alfred-016.png"></p>
-</li>
-<li><p><a href="https://www.alfredforum.com/topic/5959-an-alfred-workflow-to-generate-fake-data/" target="_blank" rel="noopener">Faker</a><br>生成虚假数据，如姓名、电子邮件、信用卡号等。<br><img src="https://i.loli.net/2019/06/05/5cf76378809da15326.png" alt="alfred-017.png"></p>
-</li>
-<li><p><a href="https://github.com/gharlan/alfred-github-workflow" target="_blank" rel="noopener">Github</a><br>快速打开github仓库，需要登录<br><img src="https://i.loli.net/2019/06/05/5cf7637e0d0f746948.png" alt="alfred-018.png"></p>
-</li>
-<li><p><a href="https://github.com/ngreenstein/alfred-process-killer" target="_blank" rel="noopener">process-killer</a><br>快速找到进程并使用命令<code>kill -9</code>杀死它们<br>多数能kill，使用sudo命令启动的程序杀不掉<br><img src="https://i.loli.net/2019/06/05/5cf7638288e5673776.png" alt="alfred-019.png"></p>
-</li>
-<li><p><a href="https://github.com/willfarrell/alfred-pkgman-workflow" target="_blank" rel="noopener">npm包管理器</a><br>快速使用各种包管理器，触发器：apt-get，apm，bower，brew，chef，cocoa，composer，docker，gems，gradle，grunt，gulp，hex，maven，npm，pear，puppet，pypi，raspbian，rpm，yo<br>我常用的：brew，npm<br>超好用，不用打开网站再搜索（网址还常常记不住）<br><img src="https://i.loli.net/2019/06/05/5cf76383a7d8540891.png" alt="alfred-020.png"></p>
-</li>
-<li><p><a href="https://github.com/xhinking/Alfred" target="_blank" rel="noopener">StackOverflow 问题搜索</a><br>直接在stackoverflow上搜索问题<br>超好用<br><img src="https://i.loli.net/2019/06/05/5cf76397601d638791.png" alt="alfred-021.png"></p>
-</li>
-</ul>
-<h3 id="Aflred为什么能提效？"><a href="#Aflred为什么能提效？" class="headerlink" title="Aflred为什么能提效？"></a>Aflred为什么能提效？</h3><p>稍加思考，大家应该都能想到，界面化的流程操作几乎对所有人都是友好的。再想一想刚刚使用google搜索Alfred的例子，对懂的人而言，我只是需要使用google搜索引擎输入搜索关键字，在浏览器中打开我的目的就达到了。在这个流程中，界面化的操作要求我们首先要寻找浏览器、打开浏览器、找到google输入框，然后才能使用google搜索引擎输入关键字搜索。这个流程其实效率并不高，因为我们看似熟练的操作我们的大脑需要接收很多不必要的信息。这倒不是界面化的操作不好，恰恰相反，界面化的操作是个天才的idea，是它让很多我这种愚钝的人更容易进入计算机和互联网的世界。只是当我们进步了，有了一定的基础之后，我们可以选择一种更好、更快的方式。</p>
+                <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>喜欢瞎琢磨的人应该都过这个疑问。数据存在堆中、栈中。。数据结构中也有堆栈这种数据结构，这两者却不是一个意思。栈内存和数据结构栈有关系，堆内存和数据结构堆却毫无瓜葛。一脸懵逼。</p>
+<p>做为一名前端工程师，我估摸着产生这种疑惑最大的问题在于不是很理解内存空间的概念。我们平时所说的堆内存、栈内存其实我们并没有对它有一个明确的定义，然后随着对堆、栈这种数据结构有有了一定的认识之后一对比就发现问题了。当然有些人可能和我的顺序相反。总之，随着对系统和程序理解的加深，会明显感觉到这两者的差异。</p>
+<h3 id="数据结构堆和栈"><a href="#数据结构堆和栈" class="headerlink" title="数据结构堆和栈"></a>数据结构堆和栈</h3><p>学过数据结构和算法的同学都知道：<strong>数据结构是一组数据的存储结构，而算法是操作数据的一组方法</strong>。</p>
+<p>堆和栈的数据结构，是一种数据存储的方式，是一种设计。各种编程语言、数据库以及我们平日的coding都可以有它具体的实现。</p>
+<h4 id="栈"><a href="#栈" class="headerlink" title="栈"></a>栈</h4><p>栈的结构比较好理解，一种线性结构，限制：只允许一端出入。所以栈的特点是<strong>LIFO(Last In First Out)后进先出</strong>。比较容易的记忆方式：羽毛球盒子、手枪弹夹。如下图所示：<br><img src="https://i.loli.net/2019/06/17/5d0753662443541861.png" alt="stack-heap-004.png"></p>
+<h4 id="堆"><a href="#堆" class="headerlink" title="堆"></a>堆</h4><p>堆在数据结构中是一种特殊的完全二叉树，所以是一种树状结构。它的存取数据的方式类似于图书馆和书的关系，图书馆里的书按照一定规则分类，我们可以把图书馆想象成一颗庞大的树，树上的每个节点都是一本书。我们只要通过书名确定书的具体类别，就可以找到书的位置。</p>
+<p>后面准备总结一下数据结构相关的知识点。这里只做简单介绍</p>
+<hr>
+<h3 id="操作系统的内存"><a href="#操作系统的内存" class="headerlink" title="操作系统的内存"></a>操作系统的内存</h3><h4 id="物理内存和虚拟内存"><a href="#物理内存和虚拟内存" class="headerlink" title="物理内存和虚拟内存"></a>物理内存和虚拟内存</h4><p>我们都知道计算机存储的物理介质有硬盘和内存，这两者都是物理的，是计算机中的重要部件，拆开电脑能真真切切摸到的东西。计算机可以连接物理存储进行读写。</p>
+<p>在早些年的操作系统中，<strong>程序直接访问和操作的都是物理内存</strong>。这种形式无法保证系统的安全和稳定，破坏性高；而且很难同时运行多个程序，类比一下JS的单线程，可想而知，同时使用一套存储，即使是最简单的同时运行多个程序这种情况也会变得难以实现。</p>
+<p>虚拟内存是现代操作系统普遍使用的一种技术，基本思想是：通过对主存进行抽象，为每个进程提供独立的逻辑空间。</p>
+<p>程序运行时会创建进程，进程有自己的内存，往往称为<strong>进程地址空间</strong>。进程的内存空间只是虚拟内存，而程序运行时需要实实在在的内存，即物理内存（RAM）。在<strong>必要的时候</strong>，操作系统会将程序运行中申请的内存（虚拟内存）映射到RAM，让进程能够使用物理内存。</p>
+<h4 id="程序运行中的内存"><a href="#程序运行中的内存" class="headerlink" title="程序运行中的内存"></a>程序运行中的内存</h4><p>为了了解系统运行程序的过程，可以了解下CPU的结构：</p>
+<p><img src="https://i.loli.net/2019/06/13/5d020abc83a1355501.jpg" alt="stack-heap-001.jpg"></p>
+<p>程序被加载到内存中，这个过程往往不是一次性全量加载，而是一段一段的。</p>
+<p>程序运行时会创建进程，进程有自己的虚拟内存空间，而虚拟内存空间一般分为两部分，应用程序使用的内存空间(process virtual memory)和系统内核程序(kernel virtual memory)使用的内存空间。同时程序运行时可能会产生很多线程。</p>
+<p>无论是进程还是线程，本质都是CPU的工作时间段的描述。CPU要运行，环境必须先准备好，内存要ready。所以进程和线程都需要内存空间。</p>
+<p><strong>堆（heap）和栈（stack）是两种内在的管理形式</strong>。它们的主要区别是stack按次序排放，大小明确；heap结构则不固定，是一种可动态分配和释放的内存。单从这一点看，stack的寻址速度要比heap快，heap的灵活性则比较高。一般来说，每个线程分配一个stack，每个进程分配一个heap。</p>
+<p>程序运行中的内存也因此就有了堆内存和栈内存。基本存放规则是：局部的，占用空间确定的数据，一般都放在stack中，反之就放在heap中。</p>
+<h3 id="不同语言程序中的堆内存和栈内存"><a href="#不同语言程序中的堆内存和栈内存" class="headerlink" title="不同语言程序中的堆内存和栈内存"></a>不同语言程序中的堆内存和栈内存</h3><h4 id="C、C"><a href="#C、C" class="headerlink" title="C、C++"></a>C、C++</h4><p>以C++语言为例，我们有一个经典main.cpp文件：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> a = <span class="number">0</span>; <span class="comment">/* 全局初始化区 */</span>   </span><br><span class="line"><span class="keyword">char</span> *p1; <span class="comment">/* 全局未初始化区  */</span></span><br><span class="line">main() </span><br><span class="line">&#123; </span><br><span class="line"><span class="keyword">int</span> b; <span class="comment">/* 栈 */</span> </span><br><span class="line"><span class="keyword">char</span> s[] = <span class="string">"abc"</span>; 栈 </span><br><span class="line"><span class="keyword">char</span> *p2; 栈 </span><br><span class="line"><span class="keyword">char</span> *p3 = <span class="string">"123456"</span>; <span class="comment">/* 123456在常量区，p3在栈上。 */</span></span><br><span class="line"><span class="keyword">static</span> <span class="keyword">int</span> c =<span class="number">0</span>； <span class="comment">/* 全局（静态）初始化区 */</span></span><br><span class="line">p1 = (<span class="keyword">char</span> *)<span class="built_in">malloc</span>(<span class="number">10</span>); </span><br><span class="line">p2 = (<span class="keyword">char</span> *)<span class="built_in">malloc</span>(<span class="number">20</span>); </span><br><span class="line"><span class="comment">/* 分配得来得10和20字节的区域就在堆区。 */</span></span><br><span class="line"><span class="built_in">strcpy</span>(p1, <span class="string">"123456"</span>); <span class="comment">/* 123456放在常量区，编译器可能会将它与p3所指向的"123456"优化成一个地方。  */</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>C/C++是高级语言，这种亲近人的高级语言计算机是读不懂的。需要编译成二进制语言。经过预处理器、编译器、汇编器、链接器，C/C++程序（main.cpp）变成了可执行的二进制程序存储在硬盘中，当程序被执行时会被加载到内存中，由系统运行。</p>
+<p>C/C++这种是直接编译成二进制文件由系统直接运行，所以可以直接对应到操作系统的堆内存和栈内存。在C/C++语言中，堆和栈的申请方式是不一样的，例如<code>int b; char *p2;</code>系统会自动分配栈内存空间；例如使用<code>malloc</code>函数或是使用<code>new</code>操作符这些需要自己申请的一般都是分配堆内存。</p>
+<p>可以看到C/C++程序在开发过程中堆栈的区分十分明确，因为直接对应操作系统的堆内存和栈内存。</p>
+<h4 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h4><p>Java程序是运行在jvm上的，jvm本身就是个C/C++程序。jvm的堆栈和C/C++使用的本机堆栈相同。Java程序运行在jvm上，如何管理和分配内存都是jvm的事，开发java程序只需按照Java的规范。</p>
+<h4 id="Javascript"><a href="#Javascript" class="headerlink" title="Javascript"></a>Javascript</h4><p>JS的堆栈？JS有堆栈？其实单纯写JS本身不需要关心这个问题。当然弄清楚更好。</p>
+<p>因为JS脚本语言的特性，通常运行在浏览器中，所以执行引擎比较多，多数使用C/C++实现，也有使用java实现的。最流行的Chrome浏览器的V8就是使用C++实现的。</p>
+<p>所以某种意义上Javascript和Java就有点类似了，它们都是运行在一个程序上面，且这个程序都是C/C++写的。</p>
+<p>V8使用类似于JVM和大多数其他语言的堆。</p>
+<h3 id="数据结构堆栈和系统的堆栈内存"><a href="#数据结构堆栈和系统的堆栈内存" class="headerlink" title="数据结构堆栈和系统的堆栈内存"></a>数据结构堆栈和系统的堆栈内存</h3><p>这样一看其实是没有关系，那为什么又说数据结构的栈和系统的栈内存有关系呢？主要是栈内存本身就是一种栈结构，符合栈的定义。而堆就没有什么关系了。</p>
+<h3 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h3><p><a href="https://yangbo5207.github.io/wutongluo/ji-chu-jin-jie-xi-lie/yi-3001-nei-cun-kong-jian-xiang-jie.html" target="_blank" rel="noopener">内存空间详解</a><br><a href="https://zhuanlan.zhihu.com/p/37479652" target="_blank" rel="noopener">深入理解计算机系统（二）：Hello World 是如何运行的</a><br><a href="https://www.jianshu.com/p/2b11639905ec" target="_blank" rel="noopener">操作系统与内存管理</a><br><a href="https://blog.csdn.net/biggbang/article/details/24463089" target="_blank" rel="noopener">虚拟内存布局、内存的分工、堆与栈</a><br><a href="http://www.ruanyifeng.com/blog/2013/11/stack.html" target="_blank" rel="noopener">Stack的三种含义</a><br><a href="https://www.zhihu.com/question/25532384" target="_blank" rel="noopener">线程和进程的区别是什么？</a><br><a href="https://www.zhihu.com/question/29833675" target="_blank" rel="noopener">Java虚拟机的堆、栈、堆栈如何去理解？</a><br><a href="https://www.zhihu.com/question/42231657" target="_blank" rel="noopener">Javascript中堆栈到底是怎样划分的？</a></p>
 
                 
 
@@ -275,13 +251,9 @@
                 <!-- Pager -->
                 <ul class="pager">
                     
-                        <li class="previous">
-                            <a href="/2019/06/17/数据结构的堆、栈和操作系统的堆内存、栈内存的区别/" data-toggle="tooltip" data-placement="top" title="数据结构的堆、栈和操作系统的堆内存、栈内存的区别">&larr; Previous Post</a>
-                        </li>
-                    
                     
                         <li class="next">
-                            <a href="/2019/06/03/使用github-hexo搭建个人blog/" data-toggle="tooltip" data-placement="top" title="使用github+hexo搭建个人blog">Next Post &rarr;</a>
+                            <a href="/2019/06/05/workflow小白入门/" data-toggle="tooltip" data-placement="top" title="Alfred workflow小白入门">Next Post &rarr;</a>
                         </li>
                     
                 </ul>
@@ -311,7 +283,7 @@
         <div id="toc" class="toc-article">
         <strong class="toc-title">Contents</strong>
         
-          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#Alfred是什么"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">Alfred是什么</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#workflow"><span class="toc-nav-number">2.</span> <span class="toc-nav-text">workflow</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#workflow的使用"><span class="toc-nav-number">3.</span> <span class="toc-nav-text">workflow的使用</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#workflow资源获取和使用"><span class="toc-nav-number">3.1.</span> <span class="toc-nav-text">workflow资源获取和使用</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#workflow推荐"><span class="toc-nav-number">4.</span> <span class="toc-nav-text">workflow推荐</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#Aflred为什么能提效？"><span class="toc-nav-number">5.</span> <span class="toc-nav-text">Aflred为什么能提效？</span></a></li></ol>
+          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#前言"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">前言</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#数据结构堆和栈"><span class="toc-nav-number">2.</span> <span class="toc-nav-text">数据结构堆和栈</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#栈"><span class="toc-nav-number">2.1.</span> <span class="toc-nav-text">栈</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#堆"><span class="toc-nav-number">2.2.</span> <span class="toc-nav-text">堆</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#操作系统的内存"><span class="toc-nav-number">3.</span> <span class="toc-nav-text">操作系统的内存</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#物理内存和虚拟内存"><span class="toc-nav-number">3.1.</span> <span class="toc-nav-text">物理内存和虚拟内存</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#程序运行中的内存"><span class="toc-nav-number">3.2.</span> <span class="toc-nav-text">程序运行中的内存</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#不同语言程序中的堆内存和栈内存"><span class="toc-nav-number">4.</span> <span class="toc-nav-text">不同语言程序中的堆内存和栈内存</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#C、C"><span class="toc-nav-number">4.1.</span> <span class="toc-nav-text">C、C++</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#Java"><span class="toc-nav-number">4.2.</span> <span class="toc-nav-text">Java</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#Javascript"><span class="toc-nav-number">4.3.</span> <span class="toc-nav-text">Javascript</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#数据结构堆栈和系统的堆栈内存"><span class="toc-nav-number">5.</span> <span class="toc-nav-text">数据结构堆栈和系统的堆栈内存</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#参考链接"><span class="toc-nav-number">6.</span> <span class="toc-nav-text">参考链接</span></a></li></ol>
         
         </div>
       </aside>
@@ -331,9 +303,9 @@
                     <h5><a href="/tags/">FEATURED TAGS</a></h5>
                     <div class="tags">
                        
-                          <a class="tag" href="/tags/#Alfred" title="Alfred">Alfred</a>
+                          <a class="tag" href="/tags/#stack heap" title="stack heap">stack heap</a>
                         
-                          <a class="tag" href="/tags/#workflow" title="workflow">workflow</a>
+                          <a class="tag" href="/tags/#堆内存 栈内存" title="堆内存 栈内存">堆内存 栈内存</a>
                         
                     </div>
                 </section>
@@ -372,8 +344,8 @@
 <script type="text/javascript">
     /* * * CONFIGURATION VARIABLES * * */
     var disqus_shortname = "hexo-theme-huxblog";
-    var disqus_identifier = "http://yoursite.com/2019/06/05/workflow小白入门/";
-    var disqus_url = "http://yoursite.com/2019/06/05/workflow小白入门/";
+    var disqus_identifier = "http://yoursite.com/2019/06/17/数据结构的堆、栈和操作系统的堆内存、栈内存的区别/";
+    var disqus_url = "http://yoursite.com/2019/06/17/数据结构的堆、栈和操作系统的堆内存、栈内存的区别/";
 
     (function() {
         var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;

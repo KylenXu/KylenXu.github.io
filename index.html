@@ -10,7 +10,8 @@
     <meta name="description" content>
     <meta name="keyword" content>
     <link rel="shortcut icon" href="/img/favicon.ico">
-
+    <!-- Place this tag in your head or just before your close body tag. -->
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
     <title>
         
           Kylen的博客 | Kylen Blog
@@ -22,11 +23,19 @@
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
 
-    <!-- Custom CSS -->
-    <link rel="stylesheet" href="/css/hux-blog.min.css">
-
+    <!-- Custom CSS --> 
+    <link rel="stylesheet" href="/css/beantech.min.css">
+    
     <!-- Pygments Highlight CSS -->
     <link rel="stylesheet" href="/css/highlight.css">
+
+    <link rel="stylesheet" href="/css/widget.css">
+
+    <link rel="stylesheet" href="/css/rocket.css">
+
+    <link rel="stylesheet" href="/css/signature.css">
+
+    <link rel="stylesheet" href="/css/toc.css">
 
     <!-- Custom Fonts -->
     <!-- <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
@@ -55,7 +64,40 @@
 
 <!-- hack iOS CSS :active style -->
 <body ontouchstart="">
+	<!-- Modified by Yu-Hsuan Yen -->
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        
+            background-image: url('/img/home-bg.jpg') 
+            /*config*/
+        
+    }
+    
+</style>
 
+<header class="intro-header">
+    <!-- Signature -->
+    <div id="signature">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                
+                    <div class="site-heading">
+                        <h1>Kylen Blog</h1>
+                        <!--<hr class="small">-->
+                        <span class="subheading">热爱生活吧！</span>
+                    </div>
+                
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+	
     <!-- Navigation -->
 <nav class="navbar navbar-default navbar-custom navbar-fixed-top">
     <div class="container-fluid">
@@ -97,14 +139,14 @@
 
                         
                         <li>
-                            <a href="/tags/">Tags</a>
+                            <a href="/archives/">Archives</a>
                         </li>
                         
                     
 
                         
                         <li>
-                            <a href="/archives/">Archives</a>
+                            <a href="/tags/">Tags</a>
                         </li>
                         
                     
@@ -147,24 +189,7 @@
 
 
     <!-- Main Content -->
-    <!-- Page Header -->
-<header class="intro-header" style="background-image: url('/img/home-bg.jpg')">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 ">
-                <div class="site-heading">
-                    <h1>Kylen Blog</h1>
-                    <!--<hr class="small">-->
-                    <span class="subheading">热爱生活吧！</span>
-                </div>
-            </div>
-        </div>
-    </div>
-</header>
-
-
-
-<!-- Main Content -->
+    <!-- Main Content -->
 <div class="container">
     <div class="row">
         
@@ -184,6 +209,37 @@
 
 <div class="post-preview">
 
+    <a href="/2019/06/17/数据结构的堆、栈和操作系统的堆内存、栈内存的区别/">
+        <h2 class="post-title">
+            数据结构的堆、栈和操作系统的堆内存、栈内存的区别
+        </h2>
+        <h3 class="post-subtitle">
+            
+        </h3>
+        <div class="post-content-preview">
+            前言喜欢瞎琢磨的人应该都过这个疑问。数据存在堆中、栈中。。数据结构中也有堆栈这种数据结构，这两者却不是一个意思。栈内存和数据结构栈有关系，堆内存和数据结构堆却毫无瓜葛。一脸懵逼。
+做为一名前端工程师，我估摸着产生这种疑惑最大的问题在于不是很理解内存空间的概念。我们平时所说的堆内存、栈内存其实我们并没有对它有一个明确的定义，然后随着对堆、栈这种数据结构有有了一定的认识之后一对比就发现问题了。当......
+        </div>
+    </a>
+    
+        <p class="post-meta" style="margin: 10px 0;">
+            Posted by Kylen on
+            2019-06-17
+        </p>
+        <div class="tags">
+            
+              <a href="/tags/#stack heap" title="stack heap">stack heap</a>
+            
+              <a href="/tags/#堆内存 栈内存" title="堆内存 栈内存">堆内存 栈内存</a>
+            
+        </div>
+    
+
+</div>
+<hr>
+
+<div class="post-preview">
+
     <a href="/2019/06/05/workflow小白入门/">
         <h2 class="post-title">
             Alfred workflow小白入门
@@ -197,10 +253,19 @@ Alfred的基础能力差不多是SpotLight（聚焦搜索）的一个加强版�
 直接听起来好像没什么了不起，但只要使用过，就会感受到Alfred带来的......
         </div>
     </a>
-    <p class="post-meta">
-        Posted by Kylen Xu on
-        2019-06-05
-    </p>
+    
+        <p class="post-meta" style="margin: 10px 0;">
+            Posted by Kylen on
+            2019-06-05
+        </p>
+        <div class="tags">
+            
+              <a href="/tags/#Alfred" title="Alfred">Alfred</a>
+            
+              <a href="/tags/#workflow" title="workflow">workflow</a>
+            
+        </div>
+    
 
 </div>
 <hr>
@@ -215,38 +280,27 @@ Alfred的基础能力差不多是SpotLight（聚焦搜索）的一个加强版�
             
         </h3>
         <div class="post-content-preview">
-            基本思路Github page + hexo前者提供静态站点托管服务，后者快速构建blog。平时写blog的流程：码字 =》本地构建 =》部署到github
+            基本思路Github page + hexo前者提供静态站点托管服务，后者快速构建blog。平时写blog的流程：码字 –&gt; 本地构建 –&gt; 部署到github
 GitHub pageGithub是一个代码托管平台和开发者社区，开发者可以在Github上创建自己的开源项目并与其他开发者协作开发。
 
-GitHub Pages是一种静态站点托管服务，旨在直接从GitHub存储库托管您的个人，组织或项......
+GitHub Pages是一种静态站点托管服务，旨在直接从GitHub存储库托管您......
         </div>
     </a>
-    <p class="post-meta">
-        Posted by Kylen on
-        2019-06-03
-    </p>
-
-</div>
-<hr>
-
-<div class="post-preview">
-
-    <a href="/2019/05/30/hello-world/">
-        <h2 class="post-title">
-            Hello World
-        </h2>
-        <h3 class="post-subtitle">
+    
+        <p class="post-meta" style="margin: 10px 0;">
+            Posted by Kylen on
+            2019-06-03
+        </p>
+        <div class="tags">
             
-        </h3>
-        <div class="post-content-preview">
-            Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub.
-Qu......
+              <a href="/tags/#github" title="github">github</a>
+            
+              <a href="/tags/#github page" title="github page">github page</a>
+            
+              <a href="/tags/#blog" title="blog">blog</a>
+            
         </div>
-    </a>
-    <p class="post-meta">
-        Posted by Kylen Xu on
-        2019-05-30
-    </p>
+    
 
 </div>
 <hr>
@@ -264,144 +318,150 @@ Qu......
 
                 <!-- 如果开启评论功能 -->
                 
-
             </div>
-    <!-- Sidebar Container -->
-            <div class="
-                col-lg-3 col-lg-offset-0
-                col-md-3 col-md-offset-0
-                col-sm-12
-                col-xs-12
-                sidebar-container
-            ">
-                <!-- Featured Tags -->
-                
-                <section>
-                    <!-- no hr -->
-                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
-                    <div class="tags">
-                        
-                            
-                        
-                            
-                        
-                            
-                        
-                            
-                        
-                            
-                        
-                    </div>
-                </section>
-                
 
-                <!-- Short About -->
-                <section class="visible-md visible-lg">
-                    <hr><h5><a href="/about/">ABOUT ME</a></h5>
-                    <div class="short-about">
+          <!-- Sidebar Container -->
+<div class="
+    col-lg-3 col-lg-offset-0
+    col-md-3 col-md-offset-0
+    col-sm-12
+    col-xs-12
+    sidebar-container
+">
+    
+        <!-- Featured Tags -->
+<!-- 标签对应的文章数量达到要求才显示 -->
 
-                        
-                            <img src="//img/avatar.jpg">
-                        
+<section>
+    <!-- no hr -->
+    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+    <div class="tags">
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+    </div>
+</section>
 
-                        
-                            <p>我要成为魔法师!</p>
-                        
+        <hr>
+        <!-- 
+          <hr>
+         -->
+    
+        <!-- Short About -->
+<section class="visible-md visible-lg">
+    <h5><a href="/about/">ABOUT ME</a></h5>
+    <div class="short-about">
 
-                        <!-- SNS Link -->
-                        <ul class="list-inline">
-                            
-                            
-                                <li>
-                                    <a target="_blank" href="https://twitter.com/Demonbane_x">
-                                        <span class="fa-stack fa-lg">
-                                            <i class="fa fa-circle fa-stack-2x"></i>
-                                            <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
-                                        </span>
-                                    </a>
-                                </li>
-                            
-                            
-                                <li>
-                                    <a target="_blank" href="https://www.zhihu.com/people/Demonbane">
-                                        <span class="fa-stack fa-lg">
-                                            <i class="fa fa-circle fa-stack-2x"></i>
-                                            <i class="fa  fa-stack-1x fa-inverse">知</i>
-                                        </span>
-                                    </a>
-                                </li>
-                            
+        
+            <img id="avatar_pic" src="/img/avatar.jpg">
+        
 
-                            
-                                <li>
-                                    <a target="_blank" href="http://weibo.com/Demonbane">
-                                        <span class="fa-stack fa-lg">
-                                            <i class="fa fa-circle fa-stack-2x"></i>
-                                            <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
-                                        </span>
-                                    </a>
-                                </li>
-                            
+        
+            <p>生命的意义到底是什么？</p>
+        
 
-                            
-                                <li>
-                                    <a target="_blank" href="https://www.facebook.com/demonbane.cn">
-                                        <span class="fa-stack fa-lg">
-                                            <i class="fa fa-circle fa-stack-2x"></i>
-                                            <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
-                                        </span>
-                                    </a>
-                                </li>
-                            
+        <!-- SNS Link -->
+        <ul class="list-inline">
+            
+            
+            
 
-                            
-                                <li>
-                                    <a target="_blank" href="https://github.com/KylenXu">
-                                        <span class="fa-stack fa-lg">
-                                            <i class="fa fa-circle fa-stack-2x"></i>
-                                            <i class="fa fa-github fa-stack-1x fa-inverse"></i>
-                                        </span>
-                                    </a>
-                                </li>
-                            
-                            
-                            
-                            
-                                <li>
-                                    <a target="_blank" href="https://www.linkedin.com/in/kaijun-chen-42089354">
-                                        <span class="fa-stack fa-lg">
-                                            <i class="fa fa-circle fa-stack-2x"></i>
-                                            <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
-                                        </span>
-                                    </a>
-                                </li>
-                            
-                        </ul>
-                    </div>
-                </section>
-                
-                <!-- Friends Blog -->
-                
-                <hr>
-                <h5>FRIENDS</h5>
-                <ul class="list-inline">
+            
 
-                    
-                        <li><a href="http://blog.kaijun.rocks" target="_blank">Kaijun&#39;s Blog</a></li>
-                    
-                        <li><a href="http://huangxuan.me" target="_blank">Hux Blog</a></li>
-                    
-                        <li><a href="#" target="_blank">Foo</a></li>
-                    
-                        <li><a href="#" target="_blank">Bar</a></li>
-                    
-                        <li><a href="#" target="_blank">Example Friends</a></li>
-                    
-                        <li><a href="#" target="_blank">It helps SEO</a></li>
-                    
-                </ul>
-                
-            </div>
+            
+
+            
+                <li>
+                    <a target="_blank" href="https://github.com/KylenXu">
+                        <span class="fa-stack fa-lg">
+                            <i class="fa fa-circle fa-stack-2x"></i>
+                            <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                        </span>
+                    </a>
+                </li>
+            
+            
+            
+            
+        </ul>
+    </div>
+</section>
+        <hr>
+        <!--  -->
+    
+        
+  <h5>RECENT POSTS</h5>
+  <div class="widget">
+    <ul>
+      
+        <li>
+          <a href="/2019/06/17/数据结构的堆、栈和操作系统的堆内存、栈内存的区别/">数据结构的堆、栈和操作系统的堆内存、栈内存的区别</a>
+        </li>
+      
+        <li>
+          <a href="/2019/06/05/workflow小白入门/">Alfred workflow小白入门</a>
+        </li>
+      
+        <li>
+          <a href="/2019/06/03/使用github-hexo搭建个人blog/">使用github+hexo搭建个人blog</a>
+        </li>
+      
+    </ul>
+  </div>
+
+        <hr>
+        <!--  -->
+    
+        <!-- Friends Blog -->
+
+<h5>FRIENDS</h5>
+<ul class="list-inline">
+
+    
+        <li><a href="http://blog.kaijun.rocks" target="_blank">Kaijun&#39;s Blog</a></li>
+    
+        <li><a href="http://huangxuan.me" target="_blank">Hux Blog</a></li>
+    
+        <li><a href="#" target="_blank">Foo</a></li>
+    
+        <li><a href="#" target="_blank">Bar</a></li>
+    
+        <li><a href="#" target="_blank">Example Friends</a></li>
+    
+        <li><a href="#" target="_blank">It helps SEO</a></li>
+    
+</ul>
+
+        <hr>
+        <!--  -->
+    
+        
+    <h5>ARCHIVES</h5>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">June 2019</a></li></ul>
+    </div>
+
+        <hr>
+        <!--  -->
+    
+</div>
+
         
     </div>
 </div>
@@ -416,46 +476,10 @@ Qu......
                 <ul class="list-inline text-center">
                 
                 
-                    <li>
-                        <a target="_blank" href="https://twitter.com/Demonbane_x">
-                            <span class="fa-stack fa-lg">
-                                <i class="fa fa-circle fa-stack-2x"></i>
-                                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
-                            </span>
-                        </a>
-                    </li>
-                
-                
-                    <li>
-                        <a target="_blank" href="https://www.zhihu.com/people/Demonbane">
-                            <span class="fa-stack fa-lg">
-                                <i class="fa fa-circle fa-stack-2x"></i>
-                                <i class="fa  fa-stack-1x fa-inverse">知</i>
-                            </span>
-                        </a>
-                    </li>
                 
 
                 
-                    <li>
-                        <a target="_blank" href="http://weibo.com/Demonbane">
-                            <span class="fa-stack fa-lg">
-                                <i class="fa fa-circle fa-stack-2x"></i>
-                                <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
-                            </span>
-                        </a>
-                    </li>
-                
 
-                
-                    <li>
-                        <a target="_blank" href="https://www.facebook.com/demonbane.cn">
-                            <span class="fa-stack fa-lg">
-                                <i class="fa fa-circle fa-stack-2x"></i>
-                                <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
-                            </span>
-                        </a>
-                    </li>
                 
 
                 
@@ -470,26 +494,17 @@ Qu......
                 
 
                 
-                    <li>
-                        <a target="_blank" href="https://www.linkedin.com/in/kaijun-chen-42089354">
-                            <span class="fa-stack fa-lg">
-                                <i class="fa fa-circle fa-stack-2x"></i>
-                                <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
-                            </span>
-                        </a>
-                    </li>
-                
 
                 </ul>
                 <p class="copyright text-muted">
-                    Copyright &copy; Kylen Blog 2019 
+                    Copyright &copy; Kylen Xu 2019 
                     <br>
                     Theme by <a href="http://huangxuan.me">Hux</a> 
                     <span style="display: inline-block; margin: 0 5px;">
                         <i class="fa fa-heart"></i>
                     </span> 
-                    Ported by <a href="http://blog.kaijun.rocks">Kaijun</a> | 
-                    <iframe style="margin-left: 2px; margin-bottom:-5px;" frameborder="0" scrolling="0" width="91px" height="20px" src="https://ghbtns.com/github-btn.html?user=kaijun&repo=hexo-theme-huxblog&type=star&count=true">
+                    re-Ported by <a href="http://beantech.org">BeanTech</a> | 
+                    <iframe style="margin-left: 2px; margin-bottom:-5px;" frameborder="0" scrolling="0" width="91px" height="20px" src="https://ghbtns.com/github-btn.html?user=YenYuHsuan&repo=hexo-theme-beantech&type=star&count=true">
                     </iframe>
                 </p>
             </div>
@@ -599,12 +614,13 @@ Qu......
 </script>
 
 
-<!-- Side Catalog -->
 
 
 
 
-
+	<a id="rocket" href="#top" class=""></a>
+	<script type="text/javascript" src="/js/totop.js?v=1.0.0" async=""></script>
+    <script type="text/javascript" src="/js/toc.js?v=1.0.0" async=""></script>
 <!-- Image to hack wechat -->
 <img src="http://yoursite.com/img/icon_wechat.png" width="0" height="0" />
 <!-- Migrate from head to bottom, no longer block render and still work -->

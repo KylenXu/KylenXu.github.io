@@ -85,8 +85,36 @@
                 
                     <div class="site-heading">
                         <h1>Kylen Blog</h1>
-                        <!--<hr class="small">-->
-                        <span class="subheading">热爱生活吧！</span>
+                        <!-- <hr class="small"> -->
+                        <!-- <span class="subheading">热爱生活吧！</span> -->
+
+                        <!-- <span class="subheading" id="jinrishici-sentence">正在加载今日诗词....</span>
+                        <script src="https://sdk.jinrishici.com/v2/browser/jinrishici.js" charset="utf-8"></script> -->
+                        <div style="height: 60px">
+                          <p id="hitokoto" style="margin-bottom: 0;"></p>
+                          <p id="hitokoto_from" style="margin: 0; text-align: right; font-style: italic;"></p>
+                        </div>
+                        
+                        <!-- 以下写法，选取一种即可 -->
+                        
+                        <!-- 现代写法，推荐 -->
+                        <!-- 兼容低版本浏览器 (包括 IE)，可移除 -->
+                        <script src="https://cdn.jsdelivr.net/npm/bluebird@3/js/browser/bluebird.min.js"></script>
+                        <script src="https://cdn.jsdelivr.net/npm/whatwg-fetch@2.0.3/fetch.min.js"></script>
+                        <!--End-->
+                        <script>
+                          fetch('https://v1.hitokoto.cn')
+                            .then(function (res){
+                              return res.json();
+                            })
+                            .then(function (data) {
+                              document.getElementById('hitokoto').innerText = data.hitokoto; 
+                              document.getElementById('hitokoto_from').innerText = '---- ' + data.from;
+                            })
+                            .catch(function (err) {
+                              console.error(err);
+                            })
+                        </script>
                     </div>
                 
 
@@ -227,6 +255,36 @@
                   <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
                   </li> -->
                  <li>
+                    06-19
+                    <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+                    <a href="/2019/06/19/随机语句API/" style="color: #0085a1">
+                        <span>
+                            图片和文字的随机API
+                        </span>
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </li>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <li>
+                    06-19
+                    <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+                    <a href="/2019/06/19/使用七牛云搭建个人图片服务器/" style="color: #0085a1">
+                        <span>
+                            使用七牛云搭建个人图片服务器
+                        </span>
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </li>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <li>
                     06-17
                     <i class="fa fa-angle-double-right" aria-hidden="true"></i>
                     <a href="/2019/06/17/数据结构的堆、栈和操作系统的堆内存、栈内存的区别/" style="color: #0085a1">
@@ -306,6 +364,10 @@
             
         
             
+            <a href="/tags/#blog" title="blog" rel="3">blog</a>
+            
+        
+            
         
             
         
@@ -333,7 +395,7 @@
         
 
         
-            <p>生命的意义到底是什么？</p>
+            <p>不知道做什么？那就尽情热爱生活吧！</p>
         
 
         <!-- SNS Link -->
@@ -369,6 +431,14 @@
   <h5>RECENT POSTS</h5>
   <div class="widget">
     <ul>
+      
+        <li>
+          <a href="/2019/06/19/随机语句API/">图片和文字的随机API</a>
+        </li>
+      
+        <li>
+          <a href="/2019/06/19/使用七牛云搭建个人图片服务器/">使用七牛云搭建个人图片服务器</a>
+        </li>
       
         <li>
           <a href="/2019/06/17/数据结构的堆、栈和操作系统的堆内存、栈内存的区别/">数据结构的堆、栈和操作系统的堆内存、栈内存的区别</a>
@@ -582,7 +652,7 @@
 	<script type="text/javascript" src="/js/totop.js?v=1.0.0" async=""></script>
     <script type="text/javascript" src="/js/toc.js?v=1.0.0" async=""></script>
 <!-- Image to hack wechat -->
-<img src="http://yoursite.com/img/icon_wechat.png" width="0" height="0" />
+<!-- <img src="http://yoursite.com/img/icon_wechat.png" width="0" height="0" /> -->
 <!-- Migrate from head to bottom, no longer block render and still work -->
 
 </body>

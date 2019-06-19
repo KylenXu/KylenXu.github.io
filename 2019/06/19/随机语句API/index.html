@@ -14,11 +14,11 @@
     <script async defer src="https://buttons.github.io/buttons.js"></script>
     <title>
         
-          使用github+hexo搭建个人blog - Kylen的博客 | Kylen Blog
+          图片和文字的随机API - Kylen的博客 | Kylen Blog
         
     </title>
 
-    <link rel="canonical" href="http://yoursite.com/2019/06/03/使用github-hexo搭建个人blog/">
+    <link rel="canonical" href="http://yoursite.com/2019/06/19/随机语句API/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -86,18 +86,18 @@
                     <div class="post-heading">
                         <div class="tags">
                             
+                              <a class="tag" href="/tags/#Saying" title="Saying">Saying</a>
+                            
+                              <a class="tag" href="/tags/#Quote" title="Quote">Quote</a>
+                            
                               <a class="tag" href="/tags/#blog" title="blog">blog</a>
                             
-                              <a class="tag" href="/tags/#github" title="github">github</a>
-                            
-                              <a class="tag" href="/tags/#github page" title="github page">github page</a>
-                            
                         </div>
-                        <h1>使用github+hexo搭建个人blog</h1>
+                        <h1>图片和文字的随机API</h1>
                         <h2 class="subheading"></h2>
                         <span class="meta">
                             Posted by Kylen on
-                            2019-06-03
+                            2019-06-19
                         </span>
                     </div>
                 
@@ -214,50 +214,33 @@
                 col-md-10 col-md-offset-1
                 post-container">
 
-                <h3 id="基本思路"><a href="#基本思路" class="headerlink" title="基本思路"></a>基本思路</h3><p>Github page + hexo前者提供静态站点托管服务，后者快速构建blog。平时写blog的流程：码字 –&gt; 本地构建 –&gt; 部署到github</p>
-<h3 id="GitHub-page"><a href="#GitHub-page" class="headerlink" title="GitHub page"></a>GitHub page</h3><p>Github是一个代码托管平台和开发者社区，开发者可以在Github上创建自己的开源项目并与其他开发者协作开发。</p>
-<blockquote>
-<p>GitHub Pages是一种静态站点托管服务，旨在直接从GitHub存储库托管您的个人，组织或项目页面。</p>
-</blockquote>
-<p>所以我们可以把blog直接托管在Github上。但同时也要清楚Github Page本身不是为blog站点这种形式的内容服务的，它主要面向个人、组织、项目的一些介绍和使用。对此，我们要心知肚明。</p>
-<p>具体的操作步骤</p>
-<ol>
-<li><p>创建一个仓库<br><img src="https://i.loli.net/2019/06/18/5d08bdbe04bbe41491.png" alt="创建仓库"><br>这里仓库名称一定要规范<code>[github名称].github.io</code>，这涉及到hexo在部署的时候一些静态资源的路径问题，不按此规范会出现css、js等资源找不到，页面渲染失败的情况。<br>可以勾选<code>README</code>文件，这样初始项目就包含一个<code>README</code>文件而不是空的</p>
+                <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>blog中需要使用一些随机的图片和句子，于是在网络上找了一些，把一些感觉挺有价值的整理放到这里。</p>
+<h3 id="随机文字类别的API："><a href="#随机文字类别的API：" class="headerlink" title="随机文字类别的API："></a>随机文字类别的API：</h3><ul>
+<li><p><a href="https://hitokoto.cn/" target="_blank" rel="noopener">一言</a><br>一言指一句话，提供一句话服务，包含动画、漫画、游戏、小说等七个分类，这个应该是相当有名了。<br><img src="https://i.loli.net/2019/06/19/5d09d28044f7d13022.png" alt="Saying 2019-06-19 上午11.02.38.png"></p>
 </li>
-<li><p>进入当前项目的配置页面<br>普通项目设置Github page时需要配置Github page的source，我们选择master分支<br><img src="https://i.loli.net/2019/06/18/5d08bdbf7ba0f66580.png" alt="配置Github page"><br>配置成功之后，可以看到page页面的url：<code>https://kylenxu.github.io/myblog/</code>打开已经可以看到页面<br>我们可以回到配置页面设置blog的主题，配置主题之后会创建一次提交<br>选择主题之后会发现blog库中已经新增一个配置文件<code>_config.yml</code>，配置信息很简单，只有一条：<code>theme: jekyll-theme-cayman</code>，Github page会根据这个配置信息使用Jekyll构建静态文件然后部署。<br>若是按照步骤一设置项目名称，可以发现这里不需要再配置直接可以查看Github page页面</p>
+<li><p><a href="https://www.jinrishici.com/" target="_blank" rel="noopener">今日诗词</a><br>根据时间、地点、天气、事件智能推荐，好像很腻害。每次返回一句诗词<br><img src="https://i.loli.net/2019/06/19/5d09d27de9a5a59451.png" alt="Saying 2019-06-19 上午10.50.50.png"></p>
 </li>
-</ol>
-<p>除了Github page。我们还需要一个blog的框架。</p>
-<h3 id="hexo"><a href="#hexo" class="headerlink" title="hexo"></a>hexo</h3><blockquote>
-<p>Hexo 是一个快速、简洁且高效的博客框架。Hexo 使用 Markdown（或其他渲染引擎）解析文章，在几秒内，即可利用靓丽的主题生成静态网页。</p>
-</blockquote>
-<p>类似hexo的博客框架比如：Jekyll、Octopress等。<br>hexo和Jekyll主要的差别：Github page本身使用Jekyll根据工程文件构建静态文件，hexo则是我们在本地直接生成静态文件之后再部署。更多博客框架的区别可以自行搜索。</p>
-<p>hexo具体使用步骤（hexo相关的设计和介绍在<a href="https://hexo.io/zh-cn/docs/" target="_blank" rel="noopener">hexo官网</a>有详细的介绍，以下只是选取的一部分）：</p>
-<ol>
-<li><p>安装前提<br>Hexo要求安装<a href="http://nodejs.org/" target="_blank" rel="noopener">Node.js</a>(版本要求6.9+)、<a href="https://git-scm.com/" target="_blank" rel="noopener">Git</a><br>可通过命令<code>which node</code> <code>which git</code>查看本地是否安装node和git<br>可通过命令<code>node --version</code> <code>git --version</code>查看本地node和git的版本</p>
+<li><p><a href="https://gushi.ci/" target="_blank" rel="noopener">古诗词·一言API</a><br>今日诗词的旧版<br><img src="https://i.loli.net/2019/06/19/5d09d27a56b5192770.png" alt="Saying 2019-06-19 上午10.54.06.png"></p>
 </li>
-<li><p>全局安装Hexo<br><code>npm install -g hexo-cli</code><br>安装完毕之后在命令行中可使用<code>hexo</code>命令</p>
+<li><p><a href="https://www.liutianyou.com/api/" target="_blank" rel="noopener">https://www.liutianyou.com/260.html</a></p>
 </li>
-<li><p>使用hexo命令初始化项目<br><code>hexo init &lt;folder&gt;</code> 初始化项目<br><code>cd &lt;folder&gt;</code> 进入项目文件夹<br><code>npm install</code> 安装依赖<br><code>cd [projectName]</code>之后可以看到项目基本的文件结构<br><code>hexo serve</code>本地启服务预览效果，默认url:<code>http://localhost:4000/</code></p>
+<li><p><a href="https://www.apiopen.top/femaleNameApi" target="_blank" rel="noopener">随机网名</a><br>看起来都好中二<br><img src="https://i.loli.net/2019/06/19/5d09ea05599a325212.png" alt="Saying 2019-06-19 下午2.36.12.png"></p>
 </li>
-<li><p>使用hexo创建一篇新的文章<br><code>hexo new [layout] &lt;titile&gt;</code><br>layout指定文章的布局，默认值为<code>post</code>可不填，在<code>/source</code>目录下会新建一个对应布局的文件。具体命令可查看<a href="https://hexo.io/zh-cn/docs/writing" target="_blank" rel="noopener">hexo官方文档写作</a></p>
+<li><p><a href="https://github.com/isecret/yuncun/blob/master/DOC.md" target="_blank" rel="noopener">乐评</a><br>随机获取网易云音乐热评<br><img src="https://i.loli.net/2019/06/19/5d09ea0d3f3a965378.png" alt="Saying 2019-06-19 下午2.40.38.png"></p>
 </li>
-</ol>
-<h3 id="hexo使用Github-page部署"><a href="#hexo使用Github-page部署" class="headerlink" title="hexo使用Github page部署"></a>hexo使用Github page部署</h3><p>其实到这里我们已经清楚看到使用hexo blog已经构建成功了，不过只能运行在本地。</p>
-<p>hexo和GitHub page的结合其实很简单，在了解了hexo的基本使用之后，我们知道平时我们的写作都会在hexo项目下。</p>
-<p>具体部署到Github page的步骤：<br>在此之前我们已经在Github新建了一个仓库作为blog库，blog库和普通的库没有任何区别，只是blog库的名称是按照特殊规则组织的。</p>
-<ol>
-<li>hexo部署<br>hexo有一套详细的部署规则，具体可查看<a href="https://hexo.io/zh-cn/docs/deployment" target="_blank" rel="noopener">hexo官方文档部署</a>，这里简单介绍下，部署到Github需要安装依赖<a href="https://github.com/hexojs/hexo-deployer-git" target="_blank" rel="noopener">hexo-deployer-git</a>，执行命令<code>npm install hexo-deployer-git --save</code>；修改配置文件，主要修改<code>repo</code>为Github上blog库地址；默认分支为<code>published</code>分支，我们没有此分支，修改为<code>master</code>分支；<code>message</code>可不填。<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">deploy:</span></span><br><span class="line"><span class="attr">  type:</span> <span class="string">git</span></span><br><span class="line"><span class="attr">  repo:</span> <span class="string">&lt;repository</span> <span class="string">url&gt;</span> <span class="comment">#https://bitbucket.org/JohnSmith/johnsmith.bitbucket.io</span></span><br><span class="line"><span class="attr">  branch:</span> <span class="string">[branch]</span> <span class="comment">#published</span></span><br><span class="line"><span class="attr">  message:</span> <span class="string">[message]</span></span><br></pre></td></tr></table></figure>
-
-
-
+</ul>
+<h3 id="随机图片"><a href="#随机图片" class="headerlink" title="随机图片"></a>随机图片</h3><p>图片太多了</p>
+<ul>
+<li><p><a href="https://uploadbeta.com/api/pictures/random/?key=BingEverydayWallpaperPicture" target="_blank" rel="noopener">BING 每日图纸</a><br><a href="https://uploadbeta.com/api/pictures/random/" target="_blank" rel="noopener">BING 随机图纸</a></p>
 </li>
-</ol>
-<ol start="2">
-<li>更新<br><code>hexo new [blogname]</code>创建空白blog<br><code>hexo s</code>本地预览<br><code>hexo g</code> 构建静态文件<br><code>hexo d</code> 部署<br>可写为<code>hexo g &amp;&amp; hexo d</code></li>
-</ol>
-<p>ps：过程中遇到的git和github用户名的问题可以自行搜索解决</p>
-<h3 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h3><p><a href="https://help.github.com/en/articles/what-is-github-pages" target="_blank" rel="noopener">Github page介绍说明</a><br><a href="https://hexo.io/zh-cn/docs/index.html" target="_blank" rel="noopener">hexo官方文档</a></p>
+<li><p><a href="https://source.unsplash.com/random/1920x1080" target="_blank" rel="noopener">Unsplash</a><br><a href="https://source.unsplash.com/random/1920x1080/daily" target="_blank" rel="noopener">Unsplash daily</a><br><a href="https://source.unsplash.com/" target="_blank" rel="noopener">Unsplash 官方网站</a></p>
+</li>
+<li><p><a href="http://lorempixel.com/" target="_blank" rel="noopener">http://lorempixel.com/</a></p>
+</li>
+<li><p><a href="https://picsum.photos/" target="_blank" rel="noopener">https://picsum.photos/</a></p>
+</li>
+</ul>
+<p>使用方式大同小异，都很简单，就不记录了。</p>
 
                 
 
@@ -265,10 +248,10 @@
                 <!-- Pager -->
                 <ul class="pager">
                     
-                        <li class="previous">
-                            <a href="/2019/06/05/workflow小白入门/" data-toggle="tooltip" data-placement="top" title="Alfred workflow小白入门">&larr; Previous Post</a>
-                        </li>
                     
+                        <li class="next">
+                            <a href="/2019/06/19/使用七牛云搭建个人图片服务器/" data-toggle="tooltip" data-placement="top" title="使用七牛云搭建个人图片服务器">Next Post &rarr;</a>
+                        </li>
                     
                 </ul>
 
@@ -293,7 +276,7 @@
         <div id="toc" class="toc-article">
         <strong class="toc-title">Contents</strong>
         
-          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#基本思路"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">基本思路</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#GitHub-page"><span class="toc-nav-number">2.</span> <span class="toc-nav-text">GitHub page</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#hexo"><span class="toc-nav-number">3.</span> <span class="toc-nav-text">hexo</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#hexo使用Github-page部署"><span class="toc-nav-number">4.</span> <span class="toc-nav-text">hexo使用Github page部署</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#参考链接"><span class="toc-nav-number">5.</span> <span class="toc-nav-text">参考链接</span></a></li></ol>
+          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#前言"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">前言</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#随机文字类别的API："><span class="toc-nav-number">2.</span> <span class="toc-nav-text">随机文字类别的API：</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#随机图片"><span class="toc-nav-number">3.</span> <span class="toc-nav-text">随机图片</span></a></li></ol>
         
         </div>
       </aside>
@@ -313,11 +296,11 @@
                     <h5><a href="/tags/">FEATURED TAGS</a></h5>
                     <div class="tags">
                        
+                          <a class="tag" href="/tags/#Saying" title="Saying">Saying</a>
+                        
+                          <a class="tag" href="/tags/#Quote" title="Quote">Quote</a>
+                        
                           <a class="tag" href="/tags/#blog" title="blog">blog</a>
-                        
-                          <a class="tag" href="/tags/#github" title="github">github</a>
-                        
-                          <a class="tag" href="/tags/#github page" title="github page">github page</a>
                         
                     </div>
                 </section>

@@ -85,8 +85,36 @@
                 
                     <div class="site-heading">
                         <h1>Kylen Blog</h1>
-                        <!--<hr class="small">-->
-                        <span class="subheading">热爱生活吧！</span>
+                        <!-- <hr class="small"> -->
+                        <!-- <span class="subheading">热爱生活吧！</span> -->
+
+                        <!-- <span class="subheading" id="jinrishici-sentence">正在加载今日诗词....</span>
+                        <script src="https://sdk.jinrishici.com/v2/browser/jinrishici.js" charset="utf-8"></script> -->
+                        <div style="height: 60px">
+                          <p id="hitokoto" style="margin-bottom: 0;"></p>
+                          <p id="hitokoto_from" style="margin: 0; text-align: right; font-style: italic;"></p>
+                        </div>
+                        
+                        <!-- 以下写法，选取一种即可 -->
+                        
+                        <!-- 现代写法，推荐 -->
+                        <!-- 兼容低版本浏览器 (包括 IE)，可移除 -->
+                        <script src="https://cdn.jsdelivr.net/npm/bluebird@3/js/browser/bluebird.min.js"></script>
+                        <script src="https://cdn.jsdelivr.net/npm/whatwg-fetch@2.0.3/fetch.min.js"></script>
+                        <!--End-->
+                        <script>
+                          fetch('https://v1.hitokoto.cn')
+                            .then(function (res){
+                              return res.json();
+                            })
+                            .then(function (data) {
+                              document.getElementById('hitokoto').innerText = data.hitokoto; 
+                              document.getElementById('hitokoto_from').innerText = '---- ' + data.from;
+                            })
+                            .catch(function (err) {
+                              console.error(err);
+                            })
+                        </script>
                     </div>
                 
 
@@ -209,6 +237,76 @@
 
 <div class="post-preview">
 
+    <a href="/2019/06/19/随机语句API/">
+        <h2 class="post-title">
+            图片和文字的随机API
+        </h2>
+        <h3 class="post-subtitle">
+            
+        </h3>
+        <div class="post-content-preview">
+            前言blog中需要使用一些随机的图片和句子，于是在网络上找了一些，把一些感觉挺有价值的整理放到这里。
+随机文字类别的API：
+一言一言指一句话，提供一句话服务，包含动画、漫画、游戏、小说等七个分类，这个应该是相当有名了。
+
+今日诗词根据时间、地点、天气、事件智能推荐，好像很腻害。每次返回一句诗词
+
+古诗词·一言API今日诗词的旧版
+
+https://www.liutianyou.com/26......
+        </div>
+    </a>
+    
+        <p class="post-meta" style="margin: 10px 0;">
+            Posted by Kylen on
+            2019-06-19
+        </p>
+        <div class="tags">
+            
+              <a href="/tags/#Saying" title="Saying">Saying</a>
+            
+              <a href="/tags/#Quote" title="Quote">Quote</a>
+            
+              <a href="/tags/#blog" title="blog">blog</a>
+            
+        </div>
+    
+
+</div>
+<hr>
+
+<div class="post-preview">
+
+    <a href="/2019/06/19/使用七牛云搭建个人图片服务器/">
+        <h2 class="post-title">
+            使用七牛云搭建个人图片服务器
+        </h2>
+        <h3 class="post-subtitle">
+            
+        </h3>
+        <div class="post-content-preview">
+            前言写笔记、blog、文章教程中都可能会出现图片这种资源，图片本身可以直接存放在项目中，作为项目的静态资源，也可以统一存放在图片服务器上。图片的服务器的优势主要在于可扩展性和性能。图片服务器本身就分担了图片服务消耗的资源，再者可针对图片服务做优化，例如图片缓存等。对于我们使用者来说，使用图片服务器，可以专注于内容，而不用花费过多的精力在图片存储和管理上。这种提供图片存储和服务的图片服务器也叫......
+        </div>
+    </a>
+    
+        <p class="post-meta" style="margin: 10px 0;">
+            Posted by Kylen on
+            2019-06-19
+        </p>
+        <div class="tags">
+            
+              <a href="/tags/#blog" title="blog">blog</a>
+            
+              <a href="/tags/#图床" title="图床">图床</a>
+            
+        </div>
+    
+
+</div>
+<hr>
+
+<div class="post-preview">
+
     <a href="/2019/06/17/数据结构的堆、栈和操作系统的堆内存、栈内存的区别/">
         <h2 class="post-title">
             数据结构的堆、栈和操作系统的堆内存、栈内存的区别
@@ -293,11 +391,11 @@ GitHub Pages是一种静态站点托管服务，旨在直接从GitHub存储库�
         </p>
         <div class="tags">
             
+              <a href="/tags/#blog" title="blog">blog</a>
+            
               <a href="/tags/#github" title="github">github</a>
             
               <a href="/tags/#github page" title="github page">github page</a>
-            
-              <a href="/tags/#blog" title="blog">blog</a>
             
         </div>
     
@@ -346,6 +444,10 @@ GitHub Pages是一种静态站点托管服务，旨在直接从GitHub存储库�
             
         
             
+            <a href="/tags/#blog" title="blog" rel="3">blog</a>
+            
+        
+            
         
             
         
@@ -373,7 +475,7 @@ GitHub Pages是一种静态站点托管服务，旨在直接从GitHub存储库�
         
 
         
-            <p>生命的意义到底是什么？</p>
+            <p>不知道做什么？那就尽情热爱生活吧！</p>
         
 
         <!-- SNS Link -->
@@ -409,6 +511,14 @@ GitHub Pages是一种静态站点托管服务，旨在直接从GitHub存储库�
   <h5>RECENT POSTS</h5>
   <div class="widget">
     <ul>
+      
+        <li>
+          <a href="/2019/06/19/随机语句API/">图片和文字的随机API</a>
+        </li>
+      
+        <li>
+          <a href="/2019/06/19/使用七牛云搭建个人图片服务器/">使用七牛云搭建个人图片服务器</a>
+        </li>
       
         <li>
           <a href="/2019/06/17/数据结构的堆、栈和操作系统的堆内存、栈内存的区别/">数据结构的堆、栈和操作系统的堆内存、栈内存的区别</a>
@@ -622,7 +732,7 @@ GitHub Pages是一种静态站点托管服务，旨在直接从GitHub存储库�
 	<script type="text/javascript" src="/js/totop.js?v=1.0.0" async=""></script>
     <script type="text/javascript" src="/js/toc.js?v=1.0.0" async=""></script>
 <!-- Image to hack wechat -->
-<img src="http://yoursite.com/img/icon_wechat.png" width="0" height="0" />
+<!-- <img src="http://yoursite.com/img/icon_wechat.png" width="0" height="0" /> -->
 <!-- Migrate from head to bottom, no longer block render and still work -->
 
 </body>

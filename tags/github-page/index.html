@@ -160,6 +160,13 @@
 
                         
                         <li>
+                            <a href="/archives/">Archives</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
                             <a href="/about/">About</a>
                         </li>
                         
@@ -168,13 +175,6 @@
                         
                         <li>
                             <a href="/tags/">Tags</a>
-                        </li>
-                        
-                    
-
-                        
-                        <li>
-                            <a href="/archives/">Archives</a>
                         </li>
                         
                     
@@ -249,6 +249,36 @@
                     <span class="tag-text">2019</span>
                 </span>
                 <ul>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <li>
+                    07-10
+                    <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+                    <a href="/2019/07/10/JS运行机制-第一篇-什么是单线程？/" style="color: #0085a1">
+                        <span>
+                            JS运行机制-第一篇-什么是单线程？
+                        </span>
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </li>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <li>
+                    06-20
+                    <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+                    <a href="/2019/06/20/JS进阶系列-第零篇-引言/" style="color: #0085a1">
+                        <span>
+                            JS进阶系列-第零篇-引言
+                        </span>
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </li>
                 
                   <!-- <li class="listing-item">
                   <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
@@ -356,11 +386,11 @@
     <div class="tags">
         
             
-        
-            
-        
-            
             <a href="/tags/#blog" title="blog" rel="3">blog</a>
+            
+        
+            
+        
             
         
             
@@ -437,6 +467,14 @@
     <ul>
       
         <li>
+          <a href="/2019/07/10/JS运行机制-第一篇-什么是单线程？/">JS运行机制-第一篇-什么是单线程？</a>
+        </li>
+      
+        <li>
+          <a href="/2019/06/20/JS进阶系列-第零篇-引言/">JS进阶系列-第零篇-引言</a>
+        </li>
+      
+        <li>
           <a href="/2019/06/19/随机语句API/">图片和文字的随机API</a>
         </li>
       
@@ -446,14 +484,6 @@
       
         <li>
           <a href="/2019/06/17/数据结构的堆、栈和操作系统的堆内存、栈内存的区别/">数据结构的堆、栈和操作系统的堆内存、栈内存的区别</a>
-        </li>
-      
-        <li>
-          <a href="/2019/06/05/workflow小白入门/">Alfred workflow小白入门</a>
-        </li>
-      
-        <li>
-          <a href="/2019/06/03/使用github-hexo搭建个人blog/">使用github+hexo搭建个人blog</a>
         </li>
       
     </ul>
@@ -488,7 +518,7 @@
         
     <h5>ARCHIVES</h5>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">June 2019</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">July 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">June 2019</a></li></ul>
     </div>
 
         <hr>
@@ -585,21 +615,6 @@
     </script>
     <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
 -->
-
-
-<!-- jquery.tagcloud.js -->
-<script>
-    // only load tagcloud.js in tag.html
-    if($('#tag_cloud').length !== 0){
-        async("http://yoursite.com/js/jquery.tagcloud.js",function(){
-            $.fn.tagcloud.defaults = {
-                //size: {start: 1, end: 1, unit: 'em'},
-                color: {start: '#bbbbee', end: '#0085a1'},
-            };
-            $('#tag_cloud a').tagcloud();
-        })
-    }
-</script>
 
 <!--fastClick.js -->
 <script>

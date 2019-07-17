@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content>
+    <meta name="keyword" content>
+    <link rel="shortcut icon" href="/img/favicon.ico">
+    <!-- Place this tag in your head or just before your close body tag. -->
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+    <title>
+        
+          JS运行机制-第二篇-内存空间 - Kylen的博客 | Kylen Blog
+        
+    </title>
+
+    <link rel="canonical" href="http://yoursite.com/2019/07/17/JS运行机制-第二篇-内存空间/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS --> 
+    <link rel="stylesheet" href="/css/beantech.min.css">
+    
+    <!-- Pygments Highlight CSS -->
+    <link rel="stylesheet" href="/css/highlight.css">
+
+    <link rel="stylesheet" href="/css/widget.css">
+
+    <link rel="stylesheet" href="/css/rocket.css">
+
+    <link rel="stylesheet" href="/css/signature.css">
+
+    <link rel="stylesheet" href="/css/toc.css">
+
+    <!-- Custom Fonts -->
+    <!-- <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="https://cdn.staticfile.org/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+
+    <!-- Hux Delete, sad but pending in China
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+	<!-- Modified by Yu-Hsuan Yen -->
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        
+            /* background-image: url('') */
+            background-image: url('https://picsum.photos/1920/1080?random=1')
+            /*post*/
+        
+    }
+    
+</style>
+
+<header class="intro-header">
+    <!-- Signature -->
+    <div id="signature">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                
+                    <div class="post-heading">
+                        <div class="tags">
+                            
+                              <a class="tag" href="/tags/#JS运行机制" title="JS运行机制">JS运行机制</a>
+                            
+                              <a class="tag" href="/tags/#内存空间" title="内存空间">内存空间</a>
+                            
+                              <a class="tag" href="/tags/#标准类型 引用类型" title="标准类型 引用类型">标准类型 引用类型</a>
+                            
+                        </div>
+                        <h1>JS运行机制-第二篇-内存空间</h1>
+                        <h2 class="subheading"></h2>
+                        <span class="meta">
+                            Posted by Kylen on
+                            2019-07-17
+                        </span>
+                    </div>
+                
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+	
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Kylen Blog</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+
+                    
+
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/about/">About</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/archives/">Archives</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/tags/">Tags</a>
+                        </li>
+                        
+                    
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+    <!-- Main Content -->
+    <!-- Modify by Yu-Hsuan Yen -->
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+            <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+                <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>像C语言这样的底层语言一般都有底层的内存管理接口，像<code>malloc()</code>和<code>free()</code>。像JavaScript这样的语言在创建变量的时候自动完成了内存的分配，并且在不需要的时候自动释放。释放的过程称之为“垃圾回收”。这个“自动”就是混乱的根源，它让我们以为使用JavaScript code就不用关心内存管理。</p>
+<h3 id="JavaScript的内存空间"><a href="#JavaScript的内存空间" class="headerlink" title="JavaScript的内存空间"></a>JavaScript的内存空间</h3><p>我们coding的时候应该都想过一个问题，我们定义的变量都存储在何处？我们知道程序在运行的时候会创建进程，创建进程会分配资源。这里的资源就包括内存。</p>
+<p>一说到内存，就会想到栈内存和堆内存，对于栈内存和堆内存的理解可以看<a href="/2019/06/17/数据结构的堆、栈和操作系统的堆内存、栈内存的区别/" title="数据结构的堆、栈和操作系统的堆内存、栈内存的区别">数据结构的堆、栈和操作系统的堆内存、栈内存的区别</a></p>
+<p>局部的、占用空间确定的数据一般都放在stack中，反之就放在heap中。对应的JavaScript的变量，基本类型：string、number、boolean、null（不要在意它的type是object）、undefined、symbol存储在栈区；复杂数据类型（引用类型）：object，像array、function在JavaScript中也都是object，一般都是存储在堆区。</p>
+<p>在区分了栈区和堆区之后，我们就能更轻易的理解基本类型的数据和引用类型的数据的区别。</p>
+<p>举个例子：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a1 = <span class="number">0</span>;   <span class="comment">// 变量对象</span></span><br><span class="line"><span class="keyword">var</span> a2 = <span class="string">'this is string'</span>; <span class="comment">// 变量对象</span></span><br><span class="line"><span class="keyword">var</span> a3 = <span class="literal">null</span>; <span class="comment">// 变量对象</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> b = &#123; <span class="attr">m</span>: <span class="number">20</span> &#125;; <span class="comment">// 变量b存在于变量对象中，&#123;m: 20&#125; 作为对象存在于堆内存中</span></span><br><span class="line"><span class="keyword">var</span> c = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>]; <span class="comment">// 变量c存在于变量对象中，[1, 2, 3] 作为对象存在于堆内存中</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="https://i.loli.net/2019/07/17/5d2eddf0e394185369.png" alt="js-advanced 2019-07-16 下午5.31.59.png"></p>
+<p>变量对象中的基本数据类型的数据都是直接以栈的形式存储，而引用类型的数据本体存储在堆区，栈区只存储地址的引用（或者说指针）。这也就很容易解释JS中一个常见现象</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// demo02.js</span></span><br><span class="line"><span class="keyword">var</span> m = &#123; <span class="attr">a</span>: <span class="number">10</span>, <span class="attr">b</span>: <span class="number">20</span> &#125;</span><br><span class="line"><span class="keyword">var</span> n = m;</span><br><span class="line">n.a = <span class="number">15</span>;</span><br><span class="line"><span class="built_in">console</span>.log(m.a); <span class="comment">// 15</span></span><br></pre></td></tr></table></figure>
+
+<p>再来一个复杂点的，稍微注意下连等号和两个赋值操作的区别，得到引用在赋值操作之前，得到引用从左到右，赋值操作从右到左</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a = &#123;<span class="attr">n</span> : <span class="number">1</span>&#125;;</span><br><span class="line"><span class="keyword">var</span> b = a;</span><br><span class="line"><span class="comment">// a.x = a = &#123;n: 2&#125;;</span></span><br><span class="line">b.x = a = &#123;<span class="attr">n</span>: <span class="number">2</span>&#125;</span><br><span class="line">a.x <span class="comment">// undefined</span></span><br><span class="line">b.x <span class="comment">// &#123;n: 2&#125;</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="https://i.loli.net/2019/07/17/5d2eddef8401d92917.png" alt="js-advanced 2019-07-17 上午11.27.59.png"></p>
+<p>JavaScript的解释器一般是C/C++开发的“应用”，所以JavaScript程序可是说是挂在这种“应用“上的脚本程序。JavaScript解释器如何分配资源必定是个很复杂的过程，我们也不必纠结。我们只需要知道程序依托于系统，资源分配最终一定会落到系统的堆内存和栈内存上，所以我们可以从系统堆栈内存的角度去理解JavaScript的内存分配。</p>
+<h3 id="内存管理"><a href="#内存管理" class="headerlink" title="内存管理"></a>内存管理</h3><p>前面说到JavaScript的内存是自动的，内存的生命周期一般为：<br>1.分配你所需要的内存，<br>2.使用你分配的内存（读、写），<br>3.释放内存<br>这里的自动主要包括自动分配和自动回收（释放），所以在使用JavaScirpt coding时只会有看到“使用内存”。这也是忽略内存管理的主要原因。</p>
+<h4 id="自动分配"><a href="#自动分配" class="headerlink" title="自动分配"></a>自动分配</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> n = <span class="number">123</span>; <span class="comment">// 给数值变量分配内存</span></span><br><span class="line"><span class="keyword">var</span> s = <span class="string">"azerty"</span>; <span class="comment">// 给字符串分配内存</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> o = &#123;</span><br><span class="line">  a: <span class="number">1</span>,</span><br><span class="line">  b: <span class="literal">null</span></span><br><span class="line">&#125;; <span class="comment">// 给对象及其包含的值分配内存</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 给数组及其包含的值分配内存（就像对象一样）</span></span><br><span class="line"><span class="keyword">var</span> a = [<span class="number">1</span>, <span class="literal">null</span>, <span class="string">"abra"</span>]; </span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">f</span>(<span class="params">a</span>)</span>&#123;</span><br><span class="line">  <span class="keyword">return</span> a + <span class="number">2</span>;</span><br><span class="line">&#125; <span class="comment">// 给函数（可调用的对象）分配内存</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 函数表达式也能分配一个对象</span></span><br><span class="line">someElement.addEventListener(<span class="string">'click'</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">  someElement.style.backgroundColor = <span class="string">'blue'</span>;</span><br><span class="line">&#125;, <span class="literal">false</span>);</span><br></pre></td></tr></table></figure>
+
+<h4 id="自动回收"><a href="#自动回收" class="headerlink" title="自动回收"></a>自动回收</h4><p>JavaScript的自动回收指在内存不再需要的时候释放，如何确定内存不再需要却是一个难题。所以自动回收是一个不断查找内存是否还被需要的机制。自动回收不是全能的，它是一个近似的过程，它不能确定某个内存一定不被需要了，所以只能解决一般问题。</p>
+<p>垃圾回收机制隔一段时间检查一下那些不被需要了就将其释放。</p>
+<p>这里主要介绍一下垃圾回收的算法，也就是检查变量不被需要的算法。</p>
+<p>引用计数垃圾收集<br>最初级的垃圾回收算法，此算法把“对象是否不再需要”简化定义为“对象有没有其他对象引用到它”。如果没有引用指向该对象（零引用），对象将被垃圾回收机制回收。</p>
+<p>示例：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> o = &#123; </span><br><span class="line">  a: &#123;</span><br><span class="line">    b:<span class="number">2</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;; </span><br><span class="line"><span class="comment">// 两个对象被创建，一个作为另一个的属性被引用，另一个被分配给变量o</span></span><br><span class="line"><span class="comment">// 很显然，没有一个可以被垃圾收集</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> o2 = o; <span class="comment">// o2变量是第二个对“这个对象”的引用</span></span><br><span class="line"></span><br><span class="line">o = <span class="number">1</span>;      <span class="comment">// 现在，“这个对象”的原始引用o被o2替换了</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> oa = o2.a; <span class="comment">// 引用“这个对象”的a属性</span></span><br><span class="line"><span class="comment">// 现在，“这个对象”有两个引用了，一个是o2，一个是oa</span></span><br><span class="line"></span><br><span class="line">o2 = <span class="string">"yo"</span>; <span class="comment">// 最初的对象现在已经是零引用了</span></span><br><span class="line">           <span class="comment">// 他可以被垃圾回收了</span></span><br><span class="line">           <span class="comment">// 然而它的属性a的对象还在被oa引用，所以还不能回收</span></span><br><span class="line"></span><br><span class="line">oa = <span class="literal">null</span>; <span class="comment">// a属性的那个对象现在也是零引用了</span></span><br><span class="line">           <span class="comment">// 它可以被垃圾回收了</span></span><br></pre></td></tr></table></figure>
+
+<p>限制：无法处理循环引用</p>
+<p>标记清除法</p>
+<blockquote>
+<p>这个算法把“对象是否不再需要”简化定义为“对象是否可以获得”。</p>
+</blockquote>
+<blockquote>
+<p>个算法假定设置一个叫做根（root）的对象（在Javascript里，根是全局对象）。垃圾回收器将定期从根开始，找所有从根开始引用的对象，然后找这些对象引用的对象……从根开始，垃圾回收器将找到所有可以获得的对象和收集所有不能获得的对象。</p>
+</blockquote>
+<p>对于JavaScript来说，在局部作用域中，函数调用完毕，局部变量就没有必要存在了。</p>
+<p>从2012年起，所有现代浏览器都使用了标记-清除垃圾回收算法。所有对JavaScript垃圾回收算法的改进都是基于标记-清除算法的改进，并没有改进标记-清除算法本身和它对“对象是否不再需要”的简化定义。</p>
+<h3 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h3><p><a href="https://yangbo5207.github.io/wutongluo/ji-chu-jin-jie-xi-lie/yi-3001-nei-cun-kong-jian-xiang-jie.html" target="_blank" rel="noopener">内存空间详解</a><br><a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Memory_Management" target="_blank" rel="noopener">内存管理</a></p>
+
+                
+
+                <hr>
+                <!-- Pager -->
+                <ul class="pager">
+                    
+                        <li class="previous">
+                            <a href="/2019/07/17/JS运行机制-第三篇-面向对象/" data-toggle="tooltip" data-placement="top" title="JS运行机制-第三篇-面向对象">&larr; Previous Post</a>
+                        </li>
+                    
+                    
+                        <li class="next">
+                            <a href="/2019/07/10/JS运行机制-第一篇-什么是单线程？/" data-toggle="tooltip" data-placement="top" title="JS运行机制-第一篇-什么是单线程？">Next Post &rarr;</a>
+                        </li>
+                    
+                </ul>
+
+                <!-- duoshuo Share start -->
+                
+                <!-- 多说 Share end-->
+
+                <!-- 多说评论框 start -->
+                
+                <!-- 多说评论框 end -->
+
+                <!-- disqus comment start -->
+                
+                <!-- disqus comment end -->
+            </div>
+            
+            <!-- Tabe of Content -->
+            <!-- Table of Contents -->
+
+    
+      <aside id="sidebar">
+        <div id="toc" class="toc-article">
+        <strong class="toc-title">Contents</strong>
+        
+          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#前言"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">前言</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#JavaScript的内存空间"><span class="toc-nav-number">2.</span> <span class="toc-nav-text">JavaScript的内存空间</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#内存管理"><span class="toc-nav-number">3.</span> <span class="toc-nav-text">内存管理</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#自动分配"><span class="toc-nav-number">3.1.</span> <span class="toc-nav-text">自动分配</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#自动回收"><span class="toc-nav-number">3.2.</span> <span class="toc-nav-text">自动回收</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#参考链接"><span class="toc-nav-number">4.</span> <span class="toc-nav-text">参考链接</span></a></li></ol>
+        
+        </div>
+      </aside>
+    
+
+                
+            <!-- Sidebar Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                       
+                          <a class="tag" href="/tags/#JS运行机制" title="JS运行机制">JS运行机制</a>
+                        
+                          <a class="tag" href="/tags/#内存空间" title="内存空间">内存空间</a>
+                        
+                          <a class="tag" href="/tags/#标准类型 引用类型" title="标准类型 引用类型">标准类型 引用类型</a>
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+                <hr>
+                <h5>FRIENDS</h5>
+                <ul class="list-inline">
+
+                    
+                        <li><a href="http://blog.kaijun.rocks" target="_blank">Kaijun&#39;s Blog</a></li>
+                    
+                        <li><a href="http://huangxuan.me" target="_blank">Hux Blog</a></li>
+                    
+                        <li><a href="#" target="_blank">Foo</a></li>
+                    
+                        <li><a href="#" target="_blank">Bar</a></li>
+                    
+                        <li><a href="#" target="_blank">Example Friends</a></li>
+                    
+                        <li><a href="#" target="_blank">It helps SEO</a></li>
+                    
+                </ul>
+                
+            </div>
+        </div>
+    </div>
+</article>
+
+
+
+
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("https://cdn.bootcss.com/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'hover',
+          placement: 'left',
+          icon: 'ℬ'
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
+
+
+    <!-- Footer -->
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                
+                
+                
+
+                
+
+                
+
+                
+                    <li>
+                        <a target="_blank" href="https://github.com/KylenXu">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; Kylen Xu 2019 
+                    <br>
+                    Theme by <a href="http://huangxuan.me">Hux</a> 
+                    <span style="display: inline-block; margin: 0 5px;">
+                        <i class="fa fa-heart"></i>
+                    </span> 
+                    re-Ported by <a href="http://beantech.org">BeanTech</a> | 
+                    <iframe style="margin-left: 2px; margin-bottom:-5px;" frameborder="0" scrolling="0" width="91px" height="20px" src="https://ghbtns.com/github-btn.html?user=YenYuHsuan&repo=hexo-theme-beantech&type=star&count=true">
+                    </iframe>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/hux-blog.min.js"></script>
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- 
+     Because of the native support for backtick-style fenced code blocks 
+     right within the Markdown is landed in Github Pages, 
+     From V1.6, There is no need for Highlight.js, 
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0  
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/    
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+<!--fastClick.js -->
+<script>
+    async("https://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+
+<script>
+    // dynamic User by Hux
+    var _gaId = 'UA-49627206-1';
+    var _gaDomain = 'huangxuan.me';
+
+    // Originial
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', _gaId, _gaDomain);
+    ga('send', 'pageview');
+</script>
+
+
+
+
+<!-- Baidu Tongji -->
+
+<script>
+    // dynamic User by Hux
+    var _baId = '4cc1f2d8f3067386cc5cdb626a202900';
+
+    // Originial
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?" + _baId;
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+
+
+
+
+
+	<a id="rocket" href="#top" class=""></a>
+	<script type="text/javascript" src="/js/totop.js?v=1.0.0" async=""></script>
+    <script type="text/javascript" src="/js/toc.js?v=1.0.0" async=""></script>
+<!-- Image to hack wechat -->
+<!-- <img src="http://yoursite.com/img/icon_wechat.png" width="0" height="0" /> -->
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+</body>
+
+</html>

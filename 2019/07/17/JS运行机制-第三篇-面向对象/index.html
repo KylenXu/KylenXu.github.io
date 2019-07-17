@@ -14,11 +14,11 @@
     <script async defer src="https://buttons.github.io/buttons.js"></script>
     <title>
         
-          JS运行机制-第一篇-什么是单线程？ - Kylen的博客 | Kylen Blog
+          JS运行机制-第三篇-面向对象 - Kylen的博客 | Kylen Blog
         
     </title>
 
-    <link rel="canonical" href="http://yoursite.com/2019/07/10/JS运行机制-第一篇-什么是单线程？/">
+    <link rel="canonical" href="http://yoursite.com/2019/07/17/JS运行机制-第三篇-面向对象/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -87,22 +87,12 @@
                     <div class="post-heading">
                         <div class="tags">
                             
-                              <a class="tag" href="/tags/#JS运行机制" title="JS运行机制">JS运行机制</a>
-                            
-                              <a class="tag" href="/tags/#进程和线程" title="进程和线程">进程和线程</a>
-                            
-                              <a class="tag" href="/tags/#并发 并行" title="并发 并行">并发 并行</a>
-                            
-                              <a class="tag" href="/tags/#同步 异步" title="同步 异步">同步 异步</a>
-                            
-                              <a class="tag" href="/tags/#阻塞 非阻塞" title="阻塞 非阻塞">阻塞 非阻塞</a>
-                            
                         </div>
-                        <h1>JS运行机制-第一篇-什么是单线程？</h1>
+                        <h1>JS运行机制-第三篇-面向对象</h1>
                         <h2 class="subheading"></h2>
                         <span class="meta">
                             Posted by Kylen on
-                            2019-07-10
+                            2019-07-17
                         </span>
                     </div>
                 
@@ -219,40 +209,66 @@
                 col-md-10 col-md-offset-1
                 post-container">
 
-                <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>程序的问题，从语言本身到具体执行，很容易牵扯到计算机、操作系统的问题，再深挖就容易牵扯到物理和数学问题，再挖就只能用祭出量子力学了。</p>
-<p>我们不得不承认透过编程可以一窥世界本质。而计算机无疑是世界上最伟大的发明之一。</p>
-<p>这里就简单的挖一下单线程。</p>
-<h3 id="同步、异步-阻塞、非阻塞-并行、并发"><a href="#同步、异步-阻塞、非阻塞-并行、并发" class="headerlink" title="同步、异步 阻塞、非阻塞 并行、并发"></a>同步、异步 阻塞、非阻塞 并行、并发</h3><p>同步和异步关心的是<strong>消息通信机制</strong><br>同步：发出一个调用时，没有得到结果，该调用就不返回<br>异步：发出一个调用，直接返回调用，等到有了结果在通知调用者，或者直接使用回调函数</p>
-<p>阻塞和非阻塞关心的是<strong>程序在等待调用结果时的状态</strong></p>
-<p>一个生动描述同步、异步、阻塞、非阻塞的例子：</p>
-<p>老张爱喝茶，废话不说，煮开水。出场人物：老张，水壶两把（普通水壶，简称水壶；会响的水壶，简称响水壶）。1 老张把水壶放到火上，立等水开。（同步阻塞）老张觉得自己有点傻2 老张把水壶放到火上，去客厅看电视，时不时去厨房看看水开没有。（同步非阻塞）老张还是觉得自己有点傻，于是变高端了，买了把会响笛的那种水壶。水开之后，能大声发出嘀<del>~</del>的噪音。3 老张把响水壶放到火上，立等水开。（异步阻塞）老张觉得这样傻等意义不大4 老张把响水壶放到火上，去客厅看电视，水壶响之前不再去看它了，响了再去拿壶。（异步非阻塞）老张觉得自己聪明了。</p>
-<p>并行：逻辑上的同时发生，多个程序在单个CPU上执行，同一时刻，只有一个任务执行。<br>并发：物理上的同时发生，多个程序在多个CPU上执行，同一时刻，多个任务执行，彼此之间互不干扰。</p>
-<h3 id="进程和线程"><a href="#进程和线程" class="headerlink" title="进程和线程"></a>进程和线程</h3><p>关键概念：<strong>进程是资源分配的最小单位，线程是CPU调度的最小单位</strong></p>
-<p>我们知道一个人在同一时刻只能干一件事，你不能在吃饭的同时喝水，因为你只有一张嘴。我们知道计算机的运行离不开CPU，计算机的运行过程其实就是CPU调度资源计算使用的过程。也就是说我们在计算机上执行任意任务都需要CPU参与，那CPU忙的过来吗？</p>
-<p>现代计算机CPU基本都是多核的，多核可以简单理解为每个核心可以单独处理任务。也就是说干活的人多了，以前一个人干，现在多个人干。但计算机中同时运行任务数量远比多核CPU的核心要多。以前的单核CPU和现在的多核CPU是如何处理多任务的呢？</p>
-<p>我们必须要知道一个事实：CPU很快，快到什么地步，就像一个后宫真的有三千佳丽，依然毫无压力的皇上。当多个任务要执行时，操作系统会让这些任务交替执行，基于什么规则我们不需关心。每个任务的执行时间很短，没错，因为CPU很快，假设任务1执行0.01秒，切换到任务2，任务2执行0.01秒，切换到任务3…这样反复执行下去，从使用者的角度看，所有任务就像是在同时执行。单核CPU就是这样处理多任务的，对于多核CPU，操作系统会把很多任务轮流调度到每个核心上。</p>
-<p>对于操作系统来说，一个任务就是一个进程，比如打开浏览器就是启动一个浏览器进程，打开一个记事本就是启动了一个记事本进程，打开一个Word就启动一个Word进程。但是进程的颗粒度太大，一个进程也可能同时干多件事，比如Word，你可以同时进行打字、拼写检查、打印等事情。一个进程内部可以有多个子任务，这些颗粒度更小的任务我们就称为线程。从表象上我们是这样区分的。</p>
-<p>从CPU的角度，执行任务的过程是：加载程序A的上下文，开始执行A，保存A的上下文，调入下一个要执行的程序B的上下文，然后开始执行B，保存B的执行上下文…在这个过程中，<strong>A进程 = CPU执行程序A的时间 = CPU加载程序A上下文 + CPU执行 + CPU保存A上下文</strong>。我们说进程的颗粒度太大，一个进程也可能有多个任务，比如A进程实际分为a、b、c三个子任务，称为a、b、c三个线程，线程可以共享进程的上下文环境。相较于直接把A进程依照子任务直接拆分成3个进程这就是优势了。CPU执行线程a必须要先加载进程A的上下文环境，然后执行b或者c线程的时候切换的资源成本就更低。</p>
-<p>总结： </p>
-<ul>
-<li>单核CPU同一时刻只能干一件事</li>
-<li>CPU速度很快，任务很多</li>
-<li>操作系统让各个任务交替执行，CPU一个个临幸（这其实就是并发）</li>
-<li>一个程序至少有一个进程，创建进程会分配资源</li>
-<li>一个进程可能有多个子任务，一个子任务就是一个线程</li>
-<li>线程共享进程的资源。</li>
-<li>线程和进程本质都是CPU工作时间段的描述。</li>
-<li>进程是资源分配的最小单位，线程是CPU调度的最小单位</li>
+                <h3 id="面向对象"><a href="#面向对象" class="headerlink" title="面向对象"></a>面向对象</h3><h4 id="面向对象的概念"><a href="#面向对象的概念" class="headerlink" title="面向对象的概念"></a>面向对象的概念</h4><p>OOP（object-oriented programming）面向对象程序设计是一种程序开发的方式。常常与面向过程的程序设计方式比较。</p>
+<p>面向对象程序设计和传统的思想不同的是：传统的程序主张将程序看作一系列函数的集合，或者一系列对电脑下达的指令。面向对象的程序设计中每一个对象都应该能够接收数据、处理数据并且能够将数据传达给其他对象，因此它们都可以被看作是一个小型的“机器”，即对象。</p>
+<p>面向对象的程序开发方式的描述性更强，是人们可以更简单的理解、设计并维护程序，特别适合在大型项目中应用。当然，也有一部分反对者在某些领域对此予以否认。</p>
+<h4 id="面向对象的设计"><a href="#面向对象的设计" class="headerlink" title="面向对象的设计"></a>面向对象的设计</h4><p>面向对象的编程语言通常使用<code>继承</code>其他<code>类</code>达到代码重用和扩展的性的特性。这里提到了<code>继承</code>和<code>类</code>的概念。继承后面再说，</p>
+<p>对象指的是<code>类</code>的实例，它将对象做为程序的基本单元，将程序和数据封装其中，以提高软件的重用性、灵活性和扩展性。</p>
+<p>类（Class）定义了一件事物的抽象特点。类的定义包含了数据的形式以及对数据的操作。对象则是类的实例。</p>
+<!--更多有关对象和类的内容 链接到JS基础系列-类Class-->
+
+<h4 id="面向对象的三大基本特征"><a href="#面向对象的三大基本特征" class="headerlink" title="面向对象的三大基本特征"></a>面向对象的三大基本特征</h4><ul>
+<li><p>封装性<br>隐藏对象的属性和实现细节。类中定义的属性和方法，通过类实例化而来的对象不必关系类中定义的属性和方法的细节。封装的目的是安全和简化编程</p>
+</li>
+<li><p>继承<br>在某种情况下，一个类会有“子类”。子类比原本的类（称为父类）要更加具体化。例如，“狗”这个类可能会有它的子类“牧羊犬”和“吉娃娃犬”。子类会继承父类的属性和行为，并且也可包含它们自己的。</p>
+</li>
+<li><p>多态<br>多态（Polymorphism）是指由继承而产生的相关的不同的类，其对象对同一消息会做出不同的响应。例如，狗和鸡都有“叫()”这一方法，但是调用狗的“叫()”，狗会吠叫；调用鸡的“叫()”，鸡则会啼叫。</p>
+</li>
 </ul>
-<p>真正的并行执行多任务只能在多核CPU上执行。单核CPU只能做到并发，当然我们在开发程序时若是写多任务不需要关心系统是单核还是双核，因为无论CPU能并发所以一定可以做到支持多任务。多任务实现的方案也就是：</p>
-<ul>
-<li>多进程，每个进程只有一个线程</li>
-<li>一个进程，多个线程</li>
-<li>多进程+多线程</li>
-</ul>
-<p>都知道JS是单线程语言，这也就意味着一个JS程序运行时只会有一个主线程，同一时间只能做一件事。做为浏览器脚本语言从用户的角度出发设计成单线程语言是很合理的事，因为同一时刻，用户的操作是唯一的。JS作者布兰登·艾奇(Brendan Eich)初始就是这么设计的。</p>
-<p>不过也正是因为单线程，某一时刻只能执行一个任务，若是遇到耗时的任务就容易阻塞。所以JS常提及的就有异步和回调的问题以及JS事件循环的问题。</p>
-<h3 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h3><p><a href="https://www.zhihu.com/question/19732473" target="_blank" rel="noopener">怎样理解阻塞非阻塞与同步异步的区别？</a><br><a href="https://www.liaoxuefeng.com/wiki/1016959663602400/1017627212385376" target="_blank" rel="noopener">廖雪峰 Python教程 进程和线程</a><br><a href="https://www.zhihu.com/question/25532384" target="_blank" rel="noopener">线程和进程的区别是什么？</a><br><a href="https://blog.chromium.org/2008/09/multi-process-architecture.html" target="_blank" rel="noopener">多进程架构</a><br><a href="https://github.com/JChehe/blog/blob/master/posts/%E5%85%B3%E4%BA%8EJavaScript%E5%8D%95%E7%BA%BF%E7%A8%8B%E7%9A%84%E4%B8%80%E4%BA%9B%E4%BA%8B.md" target="_blank" rel="noopener">关于JavaScript单线程的一些事</a></p>
+<h3 id="JS的面向对象"><a href="#JS的面向对象" class="headerlink" title="JS的面向对象"></a>JS的面向对象</h3><p>关于JS是否是面向对象的语言这一点倒是有点争议，JS本身是基本符合面向对象的三大基本特征的。与Java面向不同之处在于JS是基于原型的面向对象，而Java是基于类的面向对象。</p>
+<p>关于JS是否是基于对象的语言的争议，可以参考<a href="https://www.zhihu.com/question/34568340" target="_blank" rel="noopener">贺师俊的回答</a>，<strong>基于对象</strong>是指有对象的结构但是没有继承和多态的语言（比如VB），所以JS并不是基于对象的语言。</p>
+<h4 id="基于类和基于原型的区别"><a href="#基于类和基于原型的区别" class="headerlink" title="基于类和基于原型的区别"></a>基于类和基于原型的区别</h4><p>基于类的面向对象的语言，比如Java和C++，是构建在两个不同实体的感念之上的，即：类和实例。</p>
+<p>所以上面有关面向对象的介绍其实都是在说基于类的面向对象。JS的面向对象则与此不同。</p>
+<p>在JS中，所有的对象都是实例，ES6之前使用构造函数，ES新增Class语法糖，注意这里的Class并不和Java中的类对等，JS的底层依旧是基于原型。严格来说，在JS中，没有“类”。</p>
+<p>差异总结</p>
+<table>
+<thead>
+<tr>
+<th>基于类的（Java）</th>
+<th align="center">基于原型的（JavaScript）</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>类和实例是不同的事物。</td>
+<td align="center">类和实例是不同的事物。</td>
+</tr>
+<tr>
+<td>通过类定义来定义类；通过构造器方法来实例化类。</td>
+<td align="center">通过构造器函数来定义和创建一组对象。</td>
+</tr>
+<tr>
+<td>通过 new 操作符创建单个对象。</td>
+<td align="center">相同</td>
+</tr>
+<tr>
+<td>通过类定义来定义现存类的子类，从而构建对象的层级结构。</td>
+<td align="center">指定一个对象作为原型并且与构造函数一起构建对象的层级结构</td>
+</tr>
+<tr>
+<td>遵循类链继承属性</td>
+<td align="center">遵循原型链继承属性</td>
+</tr>
+<tr>
+<td>类定义指定类的所有实例的所有属性。无法在运行时动态添加属性。</td>
+<td align="center">构造器函数或原型指定初始的属性集。允许动态地向单个的对象或者整个对象集中添加或移除属性。</td>
+</tr>
+</tbody></table>
+<h4 id="JS基于原型的继承"><a href="#JS基于原型的继承" class="headerlink" title="JS基于原型的继承"></a>JS基于原型的继承</h4><p><strong>实例化的对象的<code>__proto__</code>属性执行构造函数的原型<code>prototype</code></strong></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> Foo = <span class="keyword">new</span> <span class="built_in">Function</span>()</span><br><span class="line"><span class="keyword">const</span> o = <span class="keyword">new</span> <span class="built_in">Object</span>()</span><br><span class="line"><span class="keyword">const</span> f1 = <span class="keyword">new</span> Foo()</span><br><span class="line"><span class="comment">// f1.__proto__ o.__proto__</span></span><br><span class="line"><span class="comment">// Foo.prototype Foo.__proto__</span></span><br><span class="line"><span class="comment">// Object.prototype Object.__proto__</span></span><br><span class="line"><span class="comment">// Function.prototype Function.__proto__</span></span><br><span class="line"><span class="comment">// 之间的关系</span></span><br></pre></td></tr></table></figure>
+
+<p>用下图展示应该更清晰<br><img src="https://i.loli.net/2019/07/17/5d2eddf02edd367591.jpg" alt="js-advanced 2019-07-17 下午4.16.59.jpg"></p>
+<p>注意<code>Function</code>本身也是函数，所以<code>Function.__proto__ === Function.prototype</code>为<code>true</code>，即Function的构造函数就是Function本身。<code>null</code>是原型链的终点。</p>
+<h3 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h3><p><a href="https://zh.wikipedia.org/wiki/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1" target="_blank" rel="noopener">wiki/面向对象程序设计</a><br><a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Guide/Details_of_the_Object_Model" target="_blank" rel="noopener">对象模型的细节</a><br><a href="https://yangbo5207.github.io/wutongluo/ji-chu-jin-jie-xi-lie/jiu-3001-mian-xiang-dui-xiang.html" target="_blank" rel="noopener">九、面向对象</a></p>
 
                 
 
@@ -260,13 +276,9 @@
                 <!-- Pager -->
                 <ul class="pager">
                     
-                        <li class="previous">
-                            <a href="/2019/07/17/JS运行机制-第二篇-内存空间/" data-toggle="tooltip" data-placement="top" title="JS运行机制-第二篇-内存空间">&larr; Previous Post</a>
-                        </li>
-                    
                     
                         <li class="next">
-                            <a href="/2019/06/20/JS进阶系列-第零篇-引言/" data-toggle="tooltip" data-placement="top" title="JS进阶系列-第零篇-引言">Next Post &rarr;</a>
+                            <a href="/2019/07/17/JS运行机制-第二篇-内存空间/" data-toggle="tooltip" data-placement="top" title="JS运行机制-第二篇-内存空间">Next Post &rarr;</a>
                         </li>
                     
                 </ul>
@@ -292,7 +304,7 @@
         <div id="toc" class="toc-article">
         <strong class="toc-title">Contents</strong>
         
-          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#前言"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">前言</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#同步、异步-阻塞、非阻塞-并行、并发"><span class="toc-nav-number">2.</span> <span class="toc-nav-text">同步、异步 阻塞、非阻塞 并行、并发</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#进程和线程"><span class="toc-nav-number">3.</span> <span class="toc-nav-text">进程和线程</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#参考链接"><span class="toc-nav-number">4.</span> <span class="toc-nav-text">参考链接</span></a></li></ol>
+          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#面向对象"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">面向对象</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#面向对象的概念"><span class="toc-nav-number">1.1.</span> <span class="toc-nav-text">面向对象的概念</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#面向对象的设计"><span class="toc-nav-number">1.2.</span> <span class="toc-nav-text">面向对象的设计</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#面向对象的三大基本特征"><span class="toc-nav-number">1.3.</span> <span class="toc-nav-text">面向对象的三大基本特征</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#JS的面向对象"><span class="toc-nav-number">2.</span> <span class="toc-nav-text">JS的面向对象</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#基于类和基于原型的区别"><span class="toc-nav-number">2.1.</span> <span class="toc-nav-text">基于类和基于原型的区别</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#JS基于原型的继承"><span class="toc-nav-number">2.2.</span> <span class="toc-nav-text">JS基于原型的继承</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#参考链接"><span class="toc-nav-number">3.</span> <span class="toc-nav-text">参考链接</span></a></li></ol>
         
         </div>
       </aside>
@@ -312,16 +324,6 @@
                     <h5><a href="/tags/">FEATURED TAGS</a></h5>
                     <div class="tags">
                        
-                          <a class="tag" href="/tags/#JS运行机制" title="JS运行机制">JS运行机制</a>
-                        
-                          <a class="tag" href="/tags/#进程和线程" title="进程和线程">进程和线程</a>
-                        
-                          <a class="tag" href="/tags/#并发 并行" title="并发 并行">并发 并行</a>
-                        
-                          <a class="tag" href="/tags/#同步 异步" title="同步 异步">同步 异步</a>
-                        
-                          <a class="tag" href="/tags/#阻塞 非阻塞" title="阻塞 非阻塞">阻塞 非阻塞</a>
-                        
                     </div>
                 </section>
                 

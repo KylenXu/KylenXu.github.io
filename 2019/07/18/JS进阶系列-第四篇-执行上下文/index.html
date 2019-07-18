@@ -14,11 +14,11 @@
     <script async defer src="https://buttons.github.io/buttons.js"></script>
     <title>
         
-          JS进阶系列-第三篇-面向对象 - Kylen的博客 | Kylen Blog
+          JS进阶系列-第四篇-执行上下文 - Kylen的博客 | Kylen Blog
         
     </title>
 
-    <link rel="canonical" href="http://yoursite.com/2019/07/17/JS进阶系列-第三篇-面向对象/">
+    <link rel="canonical" href="http://yoursite.com/2019/07/18/JS进阶系列-第四篇-执行上下文/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -89,18 +89,16 @@
                             
                               <a class="tag" href="/tags/#JS进阶系列" title="JS进阶系列">JS进阶系列</a>
                             
-                              <a class="tag" href="/tags/#面向对象" title="面向对象">面向对象</a>
+                              <a class="tag" href="/tags/#执行上下文" title="执行上下文">执行上下文</a>
                             
-                              <a class="tag" href="/tags/#基于对象" title="基于对象">基于对象</a>
-                            
-                              <a class="tag" href="/tags/#基于类" title="基于类">基于类</a>
+                              <a class="tag" href="/tags/#函数调用栈" title="函数调用栈">函数调用栈</a>
                             
                         </div>
-                        <h1>JS进阶系列-第三篇-面向对象</h1>
+                        <h1>JS进阶系列-第四篇-执行上下文</h1>
                         <h2 class="subheading"></h2>
                         <span class="meta">
                             Posted by Kylen on
-                            2019-07-17
+                            2019-07-18
                         </span>
                     </div>
                 
@@ -217,65 +215,27 @@
                 col-md-10 col-md-offset-1
                 post-container">
 
-                <h3 id="面向对象"><a href="#面向对象" class="headerlink" title="面向对象"></a>面向对象</h3><h4 id="面向对象的概念"><a href="#面向对象的概念" class="headerlink" title="面向对象的概念"></a>面向对象的概念</h4><p>OOP（object-oriented programming）面向对象程序设计是一种程序开发的方式。常常与面向过程的程序设计方式比较。</p>
-<p>面向对象程序设计和传统的思想不同的是：传统的程序主张将程序看作一系列函数的集合，或者一系列对电脑下达的指令。面向对象的程序设计中每一个对象都应该能够接收数据、处理数据并且能够将数据传达给其他对象，因此它们都可以被看作是一个小型的“机器”，即对象。</p>
-<p>面向对象的程序开发方式的描述性更强，是人们可以更简单的理解、设计并维护程序，特别适合在大型项目中应用。当然，也有一部分反对者在某些领域对此予以否认。</p>
-<h4 id="面向对象的设计"><a href="#面向对象的设计" class="headerlink" title="面向对象的设计"></a>面向对象的设计</h4><p>面向对象的编程语言通常使用<code>继承</code>其他<code>类</code>达到代码重用和扩展的性的特性。这里提到了<code>继承</code>和<code>类</code>的概念。继承后面再说，</p>
-<p>对象指的是<code>类</code>的实例，它将对象做为程序的基本单元，将程序和数据封装其中，以提高软件的重用性、灵活性和扩展性。</p>
-<p>类（Class）定义了一件事物的抽象特点。类的定义包含了数据的形式以及对数据的操作。对象则是类的实例。</p>
-<h4 id="面向对象的三大基本特征"><a href="#面向对象的三大基本特征" class="headerlink" title="面向对象的三大基本特征"></a>面向对象的三大基本特征</h4><ul>
-<li><p>封装性<br>隐藏对象的属性和实现细节。类中定义的属性和方法，通过类实例化而来的对象不必关系类中定义的属性和方法的细节。封装的目的是安全和简化编程</p>
+                <h3 id="JS的执行顺序"><a href="#JS的执行顺序" class="headerlink" title="JS的执行顺序"></a>JS的执行顺序</h3><p>如果要问到JavaScript代码的执行顺序，想必每个JavaScript的开发者第一印象都是<strong>顺序执行</strong>。</p>
+<p>但是真正代码运行时又会有一些怪异的状况出现，比如：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">foo();  <span class="comment">// foo</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'foo'</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>然后我们被告知JavaScript有一个变量声明提升的概念，函数就会声明提升。这么一看JavaScript好像就不是那么的顺序执行了。Javascript引擎拿到代码之后到底是怎么执行的？</p>
+<h3 id="执行上下文"><a href="#执行上下文" class="headerlink" title="执行上下文"></a>执行上下文</h3><p>执行上下文是当前JavaScript代码被解析和执行时所在环境的抽象概念。控制器进入到可执行代码，就会创建一个执行上下文。</p>
+<p>执行上下文总共有三种类型</p>
+<ul>
+<li><p>全局执行上下文：只有一个，浏览器中的全局对象就是 window 对象，this 指向这个全局对象。</p>
 </li>
-<li><p>继承<br>在某种情况下，一个类会有“子类”。子类比原本的类（称为父类）要更加具体化。例如，“狗”这个类可能会有它的子类“牧羊犬”和“吉娃娃犬”。子类会继承父类的属性和行为，并且也可包含它们自己的。</p>
+<li><p>函数执行上下文：存在无数个，只有在函数被调用的时候才会被创建，每次调用函数都会创建一个新的执行上下文。</p>
 </li>
-<li><p>多态<br>多态（Polymorphism）是指由继承而产生的相关的不同的类，其对象对同一消息会做出不同的响应。例如，狗和鸡都有“叫()”这一方法，但是调用狗的“叫()”，狗会吠叫；调用鸡的“叫()”，鸡则会啼叫。</p>
+<li><p>Eval 函数执行上下文： 指的是运行在 eval 函数中的代码，很少用而且不建议使用，可直接忽略。</p>
 </li>
 </ul>
-<h3 id="JS的面向对象"><a href="#JS的面向对象" class="headerlink" title="JS的面向对象"></a>JS的面向对象</h3><p>关于JS是否是面向对象的语言这一点倒是有点争议，JS本身是基本符合面向对象的三大基本特征的。与Java面向不同之处在于JS是基于原型的面向对象，而Java是基于类的面向对象。</p>
-<p>关于JS是否是基于对象的语言的争议，可以参考<a href="https://www.zhihu.com/question/34568340" target="_blank" rel="noopener">贺师俊的回答</a>，<strong>基于对象</strong>是指有对象的结构但是没有继承和多态的语言（比如VB），所以JS并不是基于对象的语言。</p>
-<h4 id="基于类和基于原型的区别"><a href="#基于类和基于原型的区别" class="headerlink" title="基于类和基于原型的区别"></a>基于类和基于原型的区别</h4><p>基于类的面向对象的语言，比如Java和C++，是构建在两个不同实体的感念之上的，即：类和实例。</p>
-<p>所以上面有关面向对象的介绍其实都是在说基于类的面向对象。JS的面向对象则与此不同。</p>
-<p>在JS中，所有的对象都是实例，ES6之前使用构造函数，ES新增Class语法糖，注意这里的Class并不和Java中的类对等，JS的底层依旧是基于原型。严格来说，在JS中，没有“类”。</p>
-<p>差异总结</p>
-<table>
-<thead>
-<tr>
-<th>基于类的（Java）</th>
-<th align="center">基于原型的（JavaScript）</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>类和实例是不同的事物。</td>
-<td align="center">类和实例是不同的事物。</td>
-</tr>
-<tr>
-<td>通过类定义来定义类；通过构造器方法来实例化类。</td>
-<td align="center">通过构造器函数来定义和创建一组对象。</td>
-</tr>
-<tr>
-<td>通过 new 操作符创建单个对象。</td>
-<td align="center">相同</td>
-</tr>
-<tr>
-<td>通过类定义来定义现存类的子类，从而构建对象的层级结构。</td>
-<td align="center">指定一个对象作为原型并且与构造函数一起构建对象的层级结构</td>
-</tr>
-<tr>
-<td>遵循类链继承属性</td>
-<td align="center">遵循原型链继承属性</td>
-</tr>
-<tr>
-<td>类定义指定类的所有实例的所有属性。无法在运行时动态添加属性。</td>
-<td align="center">构造器函数或原型指定初始的属性集。允许动态地向单个的对象或者整个对象集中添加或移除属性。</td>
-</tr>
-</tbody></table>
-<h4 id="JS基于原型的继承"><a href="#JS基于原型的继承" class="headerlink" title="JS基于原型的继承"></a>JS基于原型的继承</h4><p>当谈到继承时，JavaScript 只有一种结构：对象。每个实例对象（ object ）都有一个私有属性（称之为 <strong>proto</strong> ）指向它的构造函数的原型对象（prototype ）。该原型对象也有一个自己的原型对象( <strong>proto</strong> ) ，层层向上直到一个对象的原型对象为 null。根据定义，null 没有原型，并作为这个原型链中的最后一个环节。</p>
-<p>几乎所有 JavaScript 中的对象都是位于原型链顶端的 Object 的实例。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> Foo = <span class="keyword">new</span> <span class="built_in">Function</span>()</span><br><span class="line"><span class="keyword">const</span> o = <span class="keyword">new</span> <span class="built_in">Object</span>()</span><br><span class="line"><span class="keyword">const</span> f1 = <span class="keyword">new</span> Foo()</span><br><span class="line"><span class="comment">// f1.__proto__ o.__proto__</span></span><br><span class="line"><span class="comment">// Foo.prototype Foo.__proto__</span></span><br><span class="line"><span class="comment">// Object.prototype Object.__proto__</span></span><br><span class="line"><span class="comment">// Function.prototype Function.__proto__</span></span><br><span class="line"><span class="comment">// 之间的关系</span></span><br></pre></td></tr></table></figure>
+<p>也就是说，Javascript代码在执行时，首先会创建一个全局上下文，当执行一个函数时会创建一个函数上下文，eval我们不考虑。这些上下文以栈的形式组织，也叫<strong>执行栈</strong>，不了解栈这种数据结构的，可以去看<a href="/2019/06/17/数据结构的堆、栈和操作系统的堆内存、栈内存的区别/" title="数据结构的堆、栈和操作系统的堆内存、栈内存的区别">数据结构的堆、栈和操作系统的堆内存、栈内存的区别</a></p>
+<p>举个例子，下面这段代码：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> color = <span class="string">'blue'</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">changeColor</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> anotherColor = <span class="string">'red'</span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">swapColors</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">var</span> tempColor = anotherColor;</span><br><span class="line">        anotherColor = color;</span><br><span class="line">        color = tempColor;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    swapColors();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">changeColor();</span><br></pre></td></tr></table></figure>
 
-<p>用下图展示应该更清晰<br><img src="https://i.loli.net/2019/07/17/5d2eddf02edd367591.jpg" alt="js-advanced 2019-07-17 下午4.16.59.jpg"></p>
-<p>注意<code>Function</code>本身也是函数，所以<code>Function.__proto__ === Function.prototype</code>为<code>true</code>，即Function的构造函数就是Function本身。<code>null</code>是原型链的终点。</p>
-<h3 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h3><p><a href="https://zh.wikipedia.org/wiki/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1" target="_blank" rel="noopener">wiki/面向对象程序设计</a><br><a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Guide/Details_of_the_Object_Model" target="_blank" rel="noopener">对象模型的细节</a><br><a href="https://yangbo5207.github.io/wutongluo/ji-chu-jin-jie-xi-lie/jiu-3001-mian-xiang-dui-xiang.html" target="_blank" rel="noopener">九、面向对象</a></p>
+<p>执行栈的状态变化<br><img src="https://i.loli.net/2019/07/18/5d2fe4064f65622374.png" alt="js-advanced 2019-07-17 下午5.37.59.png"></p>
+<h3 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h3><p><a href="https://yangbo5207.github.io/wutongluo/ji-chu-jin-jie-xi-lie/er-3001-zhi-xing-shang-xia-wen.html" target="_blank" rel="noopener">二、执行上下文</a><br><a href="https://github.com/mqyqingfeng/Blog/issues/4" target="_blank" rel="noopener">JavaScript深入之执行上下文栈</a></p>
 
                 
 
@@ -284,12 +244,12 @@
                 <ul class="pager">
                     
                         <li class="previous">
-                            <a href="/2019/07/18/JS进阶系列-第四篇-执行上下文/" data-toggle="tooltip" data-placement="top" title="JS进阶系列-第四篇-执行上下文">&larr; Previous Post</a>
+                            <a href="/2019/07/18/JS进阶系列-第五篇-变量对象/" data-toggle="tooltip" data-placement="top" title="JS进阶系列-第五篇-变量对象">&larr; Previous Post</a>
                         </li>
                     
                     
                         <li class="next">
-                            <a href="/2019/07/17/JS进阶系列-第二篇-内存空间/" data-toggle="tooltip" data-placement="top" title="JS进阶系列-第二篇-内存空间">Next Post &rarr;</a>
+                            <a href="/2019/07/17/JS进阶系列-第三篇-面向对象/" data-toggle="tooltip" data-placement="top" title="JS进阶系列-第三篇-面向对象">Next Post &rarr;</a>
                         </li>
                     
                 </ul>
@@ -315,7 +275,7 @@
         <div id="toc" class="toc-article">
         <strong class="toc-title">Contents</strong>
         
-          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#面向对象"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">面向对象</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#面向对象的概念"><span class="toc-nav-number">1.1.</span> <span class="toc-nav-text">面向对象的概念</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#面向对象的设计"><span class="toc-nav-number">1.2.</span> <span class="toc-nav-text">面向对象的设计</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#面向对象的三大基本特征"><span class="toc-nav-number">1.3.</span> <span class="toc-nav-text">面向对象的三大基本特征</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#JS的面向对象"><span class="toc-nav-number">2.</span> <span class="toc-nav-text">JS的面向对象</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#基于类和基于原型的区别"><span class="toc-nav-number">2.1.</span> <span class="toc-nav-text">基于类和基于原型的区别</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#JS基于原型的继承"><span class="toc-nav-number">2.2.</span> <span class="toc-nav-text">JS基于原型的继承</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#参考链接"><span class="toc-nav-number">3.</span> <span class="toc-nav-text">参考链接</span></a></li></ol>
+          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#JS的执行顺序"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">JS的执行顺序</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#执行上下文"><span class="toc-nav-number">2.</span> <span class="toc-nav-text">执行上下文</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#参考链接"><span class="toc-nav-number">3.</span> <span class="toc-nav-text">参考链接</span></a></li></ol>
         
         </div>
       </aside>
@@ -337,11 +297,9 @@
                        
                           <a class="tag" href="/tags/#JS进阶系列" title="JS进阶系列">JS进阶系列</a>
                         
-                          <a class="tag" href="/tags/#面向对象" title="面向对象">面向对象</a>
+                          <a class="tag" href="/tags/#执行上下文" title="执行上下文">执行上下文</a>
                         
-                          <a class="tag" href="/tags/#基于对象" title="基于对象">基于对象</a>
-                        
-                          <a class="tag" href="/tags/#基于类" title="基于类">基于类</a>
+                          <a class="tag" href="/tags/#函数调用栈" title="函数调用栈">函数调用栈</a>
                         
                     </div>
                 </section>

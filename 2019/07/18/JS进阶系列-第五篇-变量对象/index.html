@@ -223,11 +223,15 @@
 <p><img src="https://i.loli.net/2019/07/18/5d2fe2961ec3557525.png" alt="js-advanced 2019-07-17 下午5.56.59.png"></p>
 <p>从这里我们就可以看出详细了解执行上下文极为重要，因为其中涉及到了变量对象，作用域链，this等很多人没有怎么弄明白，但是却极为重要的概念，它关系到我们能不能真正理解JavaScript。在后面的文章中我们会一一详细总结，这里我们先重点了解变量对象。</p>
 <h3 id="变量对象（Variable-Object）"><a href="#变量对象（Variable-Object）" class="headerlink" title="变量对象（Variable Object）"></a>变量对象（Variable Object）</h3><p>变量对象的生成规则如下：</p>
-<p>1.根据形参建立当前上下文的参数，如果是函数则是函数所有的形参；没有实参，属性值默认为undefined<br>2.当前执行上下文中的函数声明，在变量对象中以key-value的形式存在；如果变量对象上已存在相同名称的属性，则覆盖<br>3.当前执行上下文中的变量声明，由名称和对应值（undefined）组成一个变量对象的属性创建，若已存在相同名称的属性，则<strong>忽略</strong>，防止覆盖上面两步生成的属性。</p>
+<ol>
+<li>根据形参建立当前上下文的参数，如果是函数则是函数所有的形参；没有实参，属性值默认为undefined</li>
+<li>当前执行上下文中的函数声明，在变量对象中以key-value的形式存在；如果变量对象上已存在相同名称的属性，则覆盖</li>
+<li>当前执行上下文中的变量声明，由名称和对应值（undefined）组成一个变量对象的属性创建，若已存在相同名称的属性，则<strong>忽略</strong>，防止覆盖上面两步生成的属性。</li>
+</ol>
 <p>使用<code>let</code> <code>const</code>定义的变量会产生暂时性死区，即不允许变量定义之前使用变量。</p>
 <p>根据这个规则，理解变量提升就变得十分简单了。</p>
 <p>举个例子：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// demo01</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">test</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(a);</span><br><span class="line">    <span class="built_in">console</span>.log(foo());</span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> a = <span class="number">1</span>;</span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">2</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">test();</span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// demo01</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">test</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(a);</span><br><span class="line">  <span class="built_in">console</span>.log(foo());</span><br><span class="line"></span><br><span class="line">  <span class="keyword">var</span> a = <span class="number">1</span>;</span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="number">2</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">test();</span><br></pre></td></tr></table></figure>
 
 <p>当执行到<code>test()</code>时，函数test的执行上下文开始创建，以如下形式来表示：</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 创建阶段</span></span><br><span class="line">testEc = &#123;</span><br><span class="line">  VO: &#123;&#125;, <span class="comment">// 变量对象</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">VO = &#123;</span><br><span class="line">  <span class="built_in">arguments</span>: &#123;...&#125;, <span class="comment">// 用来表示函数的参数，并不代表真实情况</span></span><br><span class="line">  foo: &lt;foo reference&gt;, // 表示foo地址的引用</span><br><span class="line">  a: undefined</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -235,14 +239,17 @@
 <p>进入执行阶段，变量对象变成活动对象（activation object）。变量对象和活动对象是同一个对象，只是处于执行上下文不同的生命周期，只有位于执行栈顶部的执行上下文中的变量对<br>象才会变成活动对象。</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 执行阶段</span></span><br><span class="line">VO -&gt; AO</span><br><span class="line"></span><br><span class="line">AO = &#123;</span><br><span class="line">  <span class="built_in">arguments</span>: &#123;...&#125;,</span><br><span class="line">  foo: &lt;foo reference&gt;,</span><br><span class="line">  a: 1</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<h3 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h3><p><a href="https://yangbo5207.github.io/wutongluo/ji-chu-jin-jie-xi-lie/san-3001-bian-liang-dui-xiang.html" target="_blank" rel="noopener">三、变量对象</a></p>
-<p><a href="https://github.com/yygmind/blog/issues/13" target="_blank" rel="noopener">【进阶1-2期】JavaScript深入之执行上下文栈和变量对象</a></p>
+<h3 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h3><p><a href="https://yangbo5207.github.io/wutongluo/ji-chu-jin-jie-xi-lie/san-3001-bian-liang-dui-xiang.html" target="_blank" rel="noopener">三、变量对象</a><br><a href="https://github.com/yygmind/blog/issues/13" target="_blank" rel="noopener">【进阶1-2期】JavaScript深入之执行上下文栈和变量对象</a></p>
 
                 
 
                 <hr>
                 <!-- Pager -->
                 <ul class="pager">
+                    
+                        <li class="previous">
+                            <a href="/2019/07/19/JS进阶系列-第六篇-作用域链和闭包/" data-toggle="tooltip" data-placement="top" title="JS进阶系列-第六篇-作用域链和闭包">&larr; Previous Post</a>
+                        </li>
                     
                     
                         <li class="next">

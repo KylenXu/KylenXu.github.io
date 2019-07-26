@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content>
+    <meta name="keyword" content>
+    <link rel="shortcut icon" href="/img/favicon.ico">
+    <!-- Place this tag in your head or just before your close body tag. -->
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+    <title>
+        
+          JS进阶系列-第八篇-事件循环 - Kylen的博客 | Kylen Blog
+        
+    </title>
+
+    <link rel="canonical" href="http://yoursite.com/2019/07/26/JS进阶系列-第八篇-事件循环/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS --> 
+    <link rel="stylesheet" href="/css/beantech.min.css">
+    
+    <!-- Pygments Highlight CSS -->
+    <link rel="stylesheet" href="/css/highlight.css">
+
+    <link rel="stylesheet" href="/css/widget.css">
+
+    <link rel="stylesheet" href="/css/rocket.css">
+
+    <link rel="stylesheet" href="/css/signature.css">
+
+    <link rel="stylesheet" href="/css/toc.css">
+
+    <!-- Custom Fonts -->
+    <!-- <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="https://cdn.staticfile.org/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+
+    <!-- Hux Delete, sad but pending in China
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+	<!-- Modified by Yu-Hsuan Yen -->
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        
+            /* background-image: url('') */
+            background-image: url('https://picsum.photos/1920/1080?random=1')
+            /*post*/
+        
+    }
+    
+</style>
+
+<header class="intro-header">
+    <!-- Signature -->
+    <div id="signature">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                
+                    <div class="post-heading">
+                        <div class="tags">
+                            
+                              <a class="tag" href="/tags/#JS进阶系列" title="JS进阶系列">JS进阶系列</a>
+                            
+                              <a class="tag" href="/tags/#事件循环（event loop）" title="事件循环（event loop）">事件循环（event loop）</a>
+                            
+                              <a class="tag" href="/tags/#setTimeout setImmediate Promise process.nextTick" title="setTimeout setImmediate Promise process.nextTick">setTimeout setImmediate Promise process.nextTick</a>
+                            
+                        </div>
+                        <h1>JS进阶系列-第八篇-事件循环</h1>
+                        <h2 class="subheading"></h2>
+                        <span class="meta">
+                            Posted by Kylen on
+                            2019-07-26
+                        </span>
+                    </div>
+                
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+	
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Kylen Blog</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+
+                    
+
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/about/">About</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/archives/">Archives</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/tags/">Tags</a>
+                        </li>
+                        
+                    
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+    <!-- Main Content -->
+    <!-- Modify by Yu-Hsuan Yen -->
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+            <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+                <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>关于单线程的一些概念和详情可以看之前的文章。CPU可以并发来实现物理上的多个任务同时执行，其实单核CPU同一时刻只能做一件事，由系统协调各进程线程的有序执行。单线程的JS同样，同一时刻只能做一件事，由事件循环机制（event loop）决定任务的执行顺序。我们是写JS，无时无刻不再跟JS打交道，所以事件循环机制是一个必须掌握的知识点。</p>
+<h3 id="浏览器中的JS"><a href="#浏览器中的JS" class="headerlink" title="浏览器中的JS"></a>浏览器中的JS</h3><p>我们说JS是单线程的，其实只是说JS引擎线程，有关浏览器的多进程和JS单线程可以看这篇文章<a href="https://juejin.im/post/5a6547d0f265da3e283a1df7#heading-2" target="_blank" rel="noopener">从浏览器多进程到JS单线程，JS运行机制最全面的一次梳理</a>。</p>
+<p>也就是说浏览器中的单个tab页其实包含的线程有</p>
+<ul>
+<li>GUI渲染线程</li>
+<li>JS引擎线程<ul>
+<li>也称为JS内核，负责处理Javascript脚本程序。（例如V8引擎）</li>
+<li>JS引擎一直等待着任务队列中任务的到来，然后加以处理</li>
+</ul>
+</li>
+<li>事件触发线程<ul>
+<li>归属浏览器而不是JS引擎，用来控制事件循环。</li>
+<li>事件触发，如点击事件，将对应的事件的任务添加到任务队列中</li>
+<li><code>setTimeout</code>之类的定时触发任务也受事件触发线程管控</li>
+</ul>
+</li>
+<li>定时触发器线程<ul>
+<li><code>setTimeout</code> <code>setInterval</code>所在线程</li>
+<li>专门用来计数，计时完毕添加到任务队列</li>
+</ul>
+</li>
+<li>异步http请求线程。<br>如下图所示：<br><img src="https://i.loli.net/2019/07/23/5d366bd662fef75346.png" alt="js-advanced 2019-07-22 下午5.42.53.png"></li>
+</ul>
+<p>JS引擎线程和GUI渲染线程互斥，所以如果JS计算任务过重，会导致页面渲染阻塞。</p>
+<p>关于web worker，创建worker是，JS引擎向浏览器申请一个子线程，子线程不能操作DOM，不能进行IO操作，完全受主线程控制。这些子线程没有一个线程完整的功能，所以JS依然可以说是单线程。</p>
+<h3 id="Event-Loop"><a href="#Event-Loop" class="headerlink" title="Event Loop"></a>Event Loop</h3><p>在此之前我们已经知道了执行上下文、执行栈、变量对象、作用域链的概念，如果还不明白可以看之前的文章<a href="/2019/07/18/JS进阶系列-第四篇-执行上下文/" title="JS进阶系列-第四篇-执行上下文">JS进阶系列-第四篇-执行上下文</a>。</p>
+<p>我们知道JS引擎每遇到一段可执行代码都会创建一个执行上下文，执行上下文以栈的形式组织就是执行栈。但是JS除了同步任务之外，还有异步任务和事件回调函数。遇到这些时，JS的执行栈如何变化呢？</p>
+<p>首先我们排列一下JS中的异步任务：<code>setTimeout</code> <code>setInterval</code> <code>setImmediate</code> <code>Promise</code>，还有像node中的<code>process.nextTick</code> <code>I/O</code>，以及我们不怎么用的<code>MutationObserver</code><br>监听各个事件（比如<code>onclick</code> <code>onLoad</code>）以及设置相应的回调函数，这些回调函数什么时候进入执行栈？</p>
+<p>在了解了JS执行栈的前提下，来看一张图：<br><img src="https://i.loli.net/2019/07/23/5d367d81d2a0623023.png" alt="js-advanced 2019-07-23 上午11.22.03.png"></p>
+<p>JS引擎主要负责解析JS代码，在图中主要负责执行栈的部分，同时一直等待任务队列里的任务入栈。执行栈中的JS执行完毕之后，GUI线程渲染DOM。在这个过程中可以看出任务队列十分关键。任务队列中的任务从何而来呢？同步的任务随代码的运行直接进入执行栈，由JS引擎线程执行。而上面提到的异步任务和事件回调函数则会被其他线程添加到任务队列中。估计也都能猜到了，没错定制触发器线程负责<code>setTimeout</code> <code>setInterval</code>的时间计数，计时完毕将任务添加到任务队列；当事件触发时，事件触发线程将对应的回调函数添加到任务队列。事件循环其实就是不断检查任务队列并把其中的任务依次添加到执行栈中的机制。</p>
+<p>可以想象，任务队列中的任务种类很多，从大类型上来看，主要分两种，也就是我们常说的宏任务（Macro task）和微任务(Micro task)，现在也叫task和job，宏任务队列每种类型都有自己的队列，微任务队列只有一个队列(这个还是先保留意见吧，不同类型的微任务是有优先级的，比如process.nextTick和Promise在同一个事件循环中并不是按先后顺序执行的)。在浏览器环境和node环境中具体的任务有一定的差异，所以分开来解释：</p>
+<h4 id="浏览器环境"><a href="#浏览器环境" class="headerlink" title="浏览器环境"></a>浏览器环境</h4><p>task：<code>主代码块</code> <code>setTimeout</code> <code>setInterval</code><br>job：<code>Promise</code> <code>MutationObserver</code> <code>Object.observe(已废弃)</code></p>
+<p>在浏览器环境中，事件循环的顺序是：</p>
+<ul>
+<li>从最外层的script（主代码块）开始第一次循环，全局上下文进入执行栈，随着代码的执行，一部分任务进入宏任务队列，一部分任务进入微任务队列。</li>
+<li>当第一次执行到最后（执行栈中只剩下全局上下文）时，微任务队列依次进入执行栈，直至微任务队列清空，此时完成一次循环。</li>
+<li>下一次循环从宏任务队列开始，依据各种宏任务的优先级规则选取一个宏任务进入执行栈，宏任务执行中遇到宏任务依据规则进入对应的宏任务队列，微任务进入微任务队列。当前宏任务执行完毕之后，微任务队列依次进入执行栈，直至微任务队列清空，此时此次循环。</li>
+<li>继续循环上一步<br>这是浏览器的规则，node环境的规则和浏览器的规则有一些不同之处，后面会提到。不同的浏览器和版本可能也有些不同。</li>
+</ul>
+<p>关于<code>Promise</code></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="string">'global1'</span>);</span><br><span class="line"><span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function"><span class="params">resolve</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'promise1'</span>);</span><br><span class="line">  resolve();</span><br><span class="line">&#125;).then(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'promise1_then1'</span>);</span><br><span class="line">&#125;).then(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'promise1_then2'</span>);</span><br><span class="line">&#125;).then(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'promise1_then3'</span>);</span><br><span class="line">&#125;);</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">'global2'</span>);</span><br><span class="line"><span class="comment">// 输出顺序：global1 promise1 global2 promise1_then1 promise1_then2 promise1_then3</span></span><br></pre></td></tr></table></figure>
+
+<p><code>Promise</code>的<code>then</code>方法中的任务会进入微任务队列，等待<code>resolve</code>之后再执行。</p>
+<p>关于<code>setTimeout</code>和<code>setInterval</code></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="string">'global1'</span>);</span><br><span class="line"><span class="keyword">const</span> tempInterval = setInterval(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'setInterval1'</span>);</span><br><span class="line">  clearInterval(tempInterval);</span><br><span class="line">&#125;, <span class="number">0</span>);</span><br><span class="line">setTimeout(<span class="function"><span class="params">()</span>=&gt;</span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'setTimeout1'</span>);</span><br><span class="line">&#125;, <span class="number">0</span>)</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">'global2'</span>);</span><br><span class="line"><span class="comment">// 输出顺序：global1 global2 setInterval1 setTimeout1</span></span><br></pre></td></tr></table></figure>
+
+<p><code>setTimeout</code>和<code>setInterval</code>是一个类型的宏任务，执行的时候进入同一个任务队列<br>注意：<code>setTimeout</code>有最小时间间隔，HTML5标准默认是4ms，但每个浏览器实现的最小间隔可能不一样。<br>前面我们说了<code>setTimeout</code> <code>setInterval</code>的计时是有定时触发器线程控制的。对于<code>setInterval</code>如果回调函数的时间过长（大于设定的间隔），就会出现定时触发器线程把下一个回调添加到了任务队列，而上一个任务还没有运行完毕，这时候就会无间隔的一个个运行。</p>
+<p>再整体看一个例子：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="string">'global1'</span>);</span><br><span class="line">setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'setTimeout1'</span>);</span><br><span class="line">  <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function"><span class="params">resolve</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'promise1'</span>);</span><br><span class="line">    resolve();</span><br><span class="line">  &#125;)</span><br><span class="line">    .then(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">      <span class="built_in">console</span>.log(<span class="string">'promise1_then1'</span>);</span><br><span class="line">    &#125;)</span><br><span class="line">    .then(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">      <span class="built_in">console</span>.log(<span class="string">'promise1_then2'</span>);</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;, <span class="number">0</span>);</span><br><span class="line"><span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function"><span class="params">resolve</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'promise2'</span>);</span><br><span class="line">  setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'setTimeout2'</span>);</span><br><span class="line">  &#125;, <span class="number">0</span>);</span><br><span class="line">  resolve();</span><br><span class="line">&#125;)</span><br><span class="line">  .then(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'promise2_then1'</span>);</span><br><span class="line">  &#125;)</span><br><span class="line">  .then(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'promise2_then2'</span>);</span><br><span class="line">  &#125;);</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">'global2'</span>);</span><br><span class="line"><span class="comment">// 执行顺序：global1 promise2 global2 promise2_then1 promise2_then2 setTimeout1 promise1 promise1_then1 promise1_then2 setTimeout2</span></span><br></pre></td></tr></table></figure>
+
+<p>按照事件循环的顺序，首先执行主代码段：</p>
+<ul>
+<li><p>输出global1</p>
+</li>
+<li><p>setTimeout1进入宏任务中的setTimeout队列</p>
+</li>
+<li><p>输出promise2，setTimeout2进入宏任务中的setTimeout队列</p>
+</li>
+<li><p>promise2_then1 和 promise2_then2进入微任务队列</p>
+</li>
+<li><p>输出global2<br>所以当执行完最后一行代码<code>console.log(&#39;global2&#39;);</code>时，执行栈中和任务队列的状态是：<br><img src alt="js-advanced 2019-07-24 下午6.10.08.png"></p>
+</li>
+<li><p>微任务依次进入执行栈执行，输出promise2_then1 promise2_then2。第一次循环结束</p>
+</li>
+<li><p>检查宏任务队列，setTimeout队列中setTimeout1进入执行栈</p>
+</li>
+<li><p>输出setTimeout1 promise1 ，promise1_then1 promise1_then1进入微任务队列</p>
+</li>
+<li><p>此时执行栈和任务队列的状态是：<br><img src alt="js-advanced 2019-07-24 下午6.16.23.png"></p>
+</li>
+<li><p>微任务依次进入执行栈执行，输出promise1_then1 promise1_then2，此次循环结束</p>
+</li>
+<li><p>检查宏任务队列，setTimeout队列中setTimeout2进入执行栈</p>
+</li>
+<li><p>输出setTimeout2</p>
+</li>
+<li><p>完毕</p>
+</li>
+</ul>
+<h4 id="node环境"><a href="#node环境" class="headerlink" title="node环境"></a>node环境</h4><p>task：<code>主代码块</code> <code>setTimeout</code> <code>setInterval</code> <code>setImmediate</code><br>job：<code>Promise</code> <code>process.nextTick</code></p>
+<p>node环境的事件循环的顺序和浏览器环境大体一致，不同的地方在于，同类型的宏任务会依次进入执行栈直至次宏任务队列被清空，然后再处理产生的微任务队列中的任务。</p>
+<p><code>process.nextTick</code>是node独有的，<code>setImmediate</code>node支持，IE浏览器也支持（这里不考虑）<br>看一个具体的例子</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="string">'global1'</span>);</span><br><span class="line">setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'timeout1'</span>);</span><br><span class="line">  process.nextTick(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'timeout1_nextTick'</span>);</span><br><span class="line">  &#125;);</span><br><span class="line">  <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function"><span class="keyword">function</span>(<span class="params">resolve</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'timeout1_promise'</span>);</span><br><span class="line">    resolve();</span><br><span class="line">  &#125;).then(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'timeout1_then'</span>);</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;);</span><br><span class="line">process.nextTick(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'global1_nextTick'</span>);</span><br><span class="line">&#125;);</span><br><span class="line"><span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function"><span class="keyword">function</span>(<span class="params">resolve</span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'global1_promise'</span>);</span><br><span class="line">  resolve();</span><br><span class="line">&#125;).then(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'global1_then'</span>);</span><br><span class="line">&#125;);</span><br><span class="line">setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'timeout2'</span>);</span><br><span class="line">  process.nextTick(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'timeout2_nextTick'</span>);</span><br><span class="line">  &#125;);</span><br><span class="line">  <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function"><span class="keyword">function</span>(<span class="params">resolve</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'timeout2_promise'</span>);</span><br><span class="line">    resolve();</span><br><span class="line">  &#125;).then(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'timeout2_then'</span>);</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;);</span><br><span class="line">process.nextTick(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'global2_nextTick'</span>);</span><br><span class="line">&#125;);</span><br><span class="line"><span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function"><span class="keyword">function</span>(<span class="params">resolve</span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'global2_promise'</span>);</span><br><span class="line">  resolve();</span><br><span class="line">&#125;).then(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'global2_then'</span>);</span><br><span class="line">&#125;);</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">'global2'</span>);</span><br></pre></td></tr></table></figure>
+
+<p>一眼看上去觉得很复杂，简单说下过程吧。同样的，首先执行主代码段：</p>
+<ul>
+<li>输出global1，setTimeout1进入宏任务队列，global1_nextTick进入微任务队列，输出 global1_promise， global1_then进入微任务队列，setTimeout2进入宏任务队列，global2_nextTick进入微任务队列，输出global2_promise，global2_then进入微任务队列，输出global2</li>
+<li>此时执行栈和任务队列的状态时，注意此时在图中<code>process.nextTick</code>和<code>Promise</code>队列是分开的，微任务队列最终只有一个，不过在整合阶段还是分开的，并不是按照事件循环中的顺序。最终会整合成一个队列<br><img src="https://i.loli.net/2019/07/25/5d3983b990ddf23266.png" alt="js-advanced 2019-07-25 下午6.25.46.png"></li>
+<li>执行微任务队列，process.nextTick优先级更高，所以依次进入执行栈依次输出global1_nextTick global2_nextTick global1_then global2_then，此次循环结束</li>
+<li>下一次寻汗开始，查找当前宏任务队列，setTimeout1 setTimeout2依次进入执行栈直至setTimeout队列清空</li>
+<li>输出timeout1，timeout1_nextTick进入微任务队列，输出timeout1_promise，timeout1_then进入微任务队列</li>
+<li>输出timeout2，timeout2_nextTick进入微任务队列，输出timeout2_promise，timeout2_then进入微任务队列</li>
+<li>此时执行栈和任务队列的状态是：<br><img src="https://i.loli.net/2019/07/25/5d398538432ad63219.png" alt="js-advanced 2019-07-25 下午6.32.13.png"></li>
+<li>执行微任务队列，输出timeout1_nextTick timeout2_nextTick timeout1_then timeout2_then</li>
+</ul>
+<p>所以整体的输出顺序是：global1 global1_promise global2_promise global2 global1_nextTick global2_nextTick global1_then global2_then timeout1 timeout1_promise timeout2 timeout2_promise timeout1_nextTick timeout2_nextTick timeout1_then timeout2_then</p>
+<p>关于<code>setTimeout</code>和<code>setImmediate</code></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'setTimeout'</span>);</span><br><span class="line">&#125;, <span class="number">0</span>);</span><br><span class="line">setImmediate(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'setImmediate'</span>);</span><br><span class="line">&#125;)</span><br><span class="line"><span class="comment">// 随缘输出，有可能输出 setTimeout setImmediate，也有可能输出setImmediate setTimeout</span></span><br></pre></td></tr></table></figure>
+
+<p>这里主要一个<code>Timer</code>的判定的不精确的造成的，在事件循环中，当进入下一次循环的时间可能过了1ms，也可能没过，这是由系统决定的，不一定。</p>
+<h3 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h3><p><a href="https://juejin.im/post/5a6547d0f265da3e283a1df7#heading-19" target="_blank" rel="noopener">从浏览器多进程到JS单线程，JS运行机制最全面的一次梳理</a><br><a href="https://yangbo5207.github.io/wutongluo/ji-chu-jin-jie-xi-lie/shi-er-3001-shi-jian-xun-huan-ji-zhi.html" target="_blank" rel="noopener">事件循环机制</a><br><a href="https://juejin.im/post/5afbc62151882542af04112d" target="_blank" rel="noopener">浏览器事件循环机制（event loop）</a><br><a href="https://zhuanlan.zhihu.com/p/33058983" target="_blank" rel="noopener">详解JavaScript中的Event Loop（事件循环）机制</a><br><a href="http://www.ruanyifeng.com/blog/2018/02/node-event-loop.html" target="_blank" rel="noopener">Node 定时器详解</a></p>
+
+                
+
+                <hr>
+                <!-- Pager -->
+                <ul class="pager">
+                    
+                    
+                        <li class="next">
+                            <a href="/2019/07/22/JS进阶系列-第七篇-this/" data-toggle="tooltip" data-placement="top" title="JS进阶系列-第七篇-this">Next Post &rarr;</a>
+                        </li>
+                    
+                </ul>
+
+                <!-- duoshuo Share start -->
+                
+                <!-- 多说 Share end-->
+
+                <!-- 多说评论框 start -->
+                
+                <!-- 多说评论框 end -->
+
+                <!-- disqus comment start -->
+                
+                <!-- disqus comment end -->
+            </div>
+            
+            <!-- Tabe of Content -->
+            <!-- Table of Contents -->
+
+    
+      <aside id="sidebar">
+        <div id="toc" class="toc-article">
+        <strong class="toc-title">Contents</strong>
+        
+          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#前言"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">前言</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#浏览器中的JS"><span class="toc-nav-number">2.</span> <span class="toc-nav-text">浏览器中的JS</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#Event-Loop"><span class="toc-nav-number">3.</span> <span class="toc-nav-text">Event Loop</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#浏览器环境"><span class="toc-nav-number">3.1.</span> <span class="toc-nav-text">浏览器环境</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#node环境"><span class="toc-nav-number">3.2.</span> <span class="toc-nav-text">node环境</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#参考链接"><span class="toc-nav-number">4.</span> <span class="toc-nav-text">参考链接</span></a></li></ol>
+        
+        </div>
+      </aside>
+    
+
+                
+            <!-- Sidebar Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                       
+                          <a class="tag" href="/tags/#JS进阶系列" title="JS进阶系列">JS进阶系列</a>
+                        
+                          <a class="tag" href="/tags/#事件循环（event loop）" title="事件循环（event loop）">事件循环（event loop）</a>
+                        
+                          <a class="tag" href="/tags/#setTimeout setImmediate Promise process.nextTick" title="setTimeout setImmediate Promise process.nextTick">setTimeout setImmediate Promise process.nextTick</a>
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+                <hr>
+                <h5>FRIENDS</h5>
+                <ul class="list-inline">
+
+                    
+                        <li><a href="http://blog.kaijun.rocks" target="_blank">Kaijun&#39;s Blog</a></li>
+                    
+                        <li><a href="http://huangxuan.me" target="_blank">Hux Blog</a></li>
+                    
+                        <li><a href="#" target="_blank">Foo</a></li>
+                    
+                        <li><a href="#" target="_blank">Bar</a></li>
+                    
+                        <li><a href="#" target="_blank">Example Friends</a></li>
+                    
+                        <li><a href="#" target="_blank">It helps SEO</a></li>
+                    
+                </ul>
+                
+            </div>
+        </div>
+    </div>
+</article>
+
+
+
+
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("https://cdn.bootcss.com/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'hover',
+          placement: 'left',
+          icon: 'ℬ'
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
+
+
+    <!-- Footer -->
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                
+                
+                
+
+                
+
+                
+
+                
+                    <li>
+                        <a target="_blank" href="https://github.com/KylenXu">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; Kylen Xu 2019 
+                    <br>
+                    Theme by <a href="http://huangxuan.me">Hux</a> 
+                    <span style="display: inline-block; margin: 0 5px;">
+                        <i class="fa fa-heart"></i>
+                    </span> 
+                    re-Ported by <a href="http://beantech.org">BeanTech</a> | 
+                    <iframe style="margin-left: 2px; margin-bottom:-5px;" frameborder="0" scrolling="0" width="91px" height="20px" src="https://ghbtns.com/github-btn.html?user=YenYuHsuan&repo=hexo-theme-beantech&type=star&count=true">
+                    </iframe>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/hux-blog.min.js"></script>
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- 
+     Because of the native support for backtick-style fenced code blocks 
+     right within the Markdown is landed in Github Pages, 
+     From V1.6, There is no need for Highlight.js, 
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0  
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/    
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+<!--fastClick.js -->
+<script>
+    async("https://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+
+<script>
+    // dynamic User by Hux
+    var _gaId = 'UA-49627206-1';
+    var _gaDomain = 'huangxuan.me';
+
+    // Originial
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', _gaId, _gaDomain);
+    ga('send', 'pageview');
+</script>
+
+
+
+
+<!-- Baidu Tongji -->
+
+<script>
+    // dynamic User by Hux
+    var _baId = '4cc1f2d8f3067386cc5cdb626a202900';
+
+    // Originial
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?" + _baId;
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+
+
+
+
+
+	<a id="rocket" href="#top" class=""></a>
+	<script type="text/javascript" src="/js/totop.js?v=1.0.0" async=""></script>
+    <script type="text/javascript" src="/js/toc.js?v=1.0.0" async=""></script>
+<!-- Image to hack wechat -->
+<!-- <img src="http://yoursite.com/img/icon_wechat.png" width="0" height="0" /> -->
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+</body>
+
+</html>

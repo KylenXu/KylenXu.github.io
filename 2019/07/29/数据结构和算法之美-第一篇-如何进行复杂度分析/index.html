@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content>
+    <meta name="keyword" content>
+    <link rel="shortcut icon" href="/img/favicon.ico">
+    <!-- Place this tag in your head or just before your close body tag. -->
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+    <title>
+        
+          数据结构和算法之美-第一篇-如何进行复杂度分析 - Kylen的博客 | Kylen Blog
+        
+    </title>
+
+    <link rel="canonical" href="http://yoursite.com/2019/07/29/数据结构和算法之美-第一篇-如何进行复杂度分析/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS --> 
+    <link rel="stylesheet" href="/css/beantech.min.css">
+    
+    <!-- Pygments Highlight CSS -->
+    <link rel="stylesheet" href="/css/highlight.css">
+
+    <link rel="stylesheet" href="/css/widget.css">
+
+    <link rel="stylesheet" href="/css/rocket.css">
+
+    <link rel="stylesheet" href="/css/signature.css">
+
+    <link rel="stylesheet" href="/css/toc.css">
+
+    <!-- Custom Fonts -->
+    <!-- <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="https://cdn.staticfile.org/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+
+    <!-- Hux Delete, sad but pending in China
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+	<!-- Modified by Yu-Hsuan Yen -->
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        
+            /* background-image: url('') */
+            background-image: url('https://picsum.photos/1920/1080?random=1')
+            /*post*/
+        
+    }
+    
+</style>
+
+<header class="intro-header">
+    <!-- Signature -->
+    <div id="signature">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                
+                    <div class="post-heading">
+                        <div class="tags">
+                            
+                              <a class="tag" href="/tags/#数据结构和算法" title="数据结构和算法">数据结构和算法</a>
+                            
+                              <a class="tag" href="/tags/#时间复杂度 空间复杂度" title="时间复杂度 空间复杂度">时间复杂度 空间复杂度</a>
+                            
+                              <a class="tag" href="/tags/#大O表示法" title="大O表示法">大O表示法</a>
+                            
+                        </div>
+                        <h1>数据结构和算法之美-第一篇-如何进行复杂度分析</h1>
+                        <h2 class="subheading"></h2>
+                        <span class="meta">
+                            Posted by Kylen on
+                            2019-07-29
+                        </span>
+                    </div>
+                
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+	
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Kylen Blog</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+
+                    
+
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/archives/">Archives</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/about/">About</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/tags/">Tags</a>
+                        </li>
+                        
+                    
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+    <!-- Main Content -->
+    <!-- Modify by Yu-Hsuan Yen -->
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+            <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+                <h3 id="什么是复杂度分析"><a href="#什么是复杂度分析" class="headerlink" title="什么是复杂度分析"></a>什么是复杂度分析</h3><p>我们知道，数据结构和算法本身解决的问题是“快”和“省”的问题，，即如何让代码运行的更快，如何让程序更省存储空间。我们实际场景中通常需要综合考量现有的存储空间最大化执行效率。我们经常说的空间换时间，时间换空间就是一种综合考量。</p>
+<p>“快”和“省”的问题也就是时间和空间的问题。所以复杂度分析就是分析代码的执行效率和占用存储空间的分析过程。具体也分为时间复杂度和空间度两个维度。</p>
+<p>复杂度分析很重要，只有会进行复杂度分析，才能继续进行后续数据结构和算法的学习，感受不同结构和算法的差异。</p>
+<h3 id="为什么要进行复杂度分析"><a href="#为什么要进行复杂度分析" class="headerlink" title="为什么要进行复杂度分析"></a>为什么要进行复杂度分析</h3><p>其实评判一段代码或程序好不好，最简单的方式就是跑一下，是骡子是马拉出来溜溜。这也是我平时开发常用的方式，普通常见的业务场景中不会出现重大性能问题，所以表象上给人的感觉就是还行、不慢。我想我就是在这种模式中避过了进步的机会。</p>
+<p>这种方式也叫做<em>事后统计法</em>，它的弊端主要有两点：</p>
+<ul>
+<li>测试的结果依赖环境<br>我日常使用Mac开发，程序在windows上运行效率明显没有在Mac上流畅。</li>
+<li>测试结果受数据规模影响较大<br>数据规模一大，程序运行时间明显变长。<br>受这些弊端影响，我们无法通过<em>事后统计法</em>来描述程序的执行效率和存储空间，因为不同环境、不同数据规模的结果是不一样的。</li>
+</ul>
+<p>事后统计法是一样方式，也是一种评判标准。但我们只能拿来参考一下。</p>
+<blockquote>
+<p>我们需要一个不用具体的测试数据来测试，就可以粗略地估计算法的执行效率的方法</p>
+</blockquote>
+<p>也就是说，我们写完代码之后，甚至是在想代码怎么写的时候就已经大致知道了这段代码的复杂度。</p>
+<h3 id="如何进行复杂度分析"><a href="#如何进行复杂度分析" class="headerlink" title="如何进行复杂度分析"></a>如何进行复杂度分析</h3><h4 id="大O复杂度表示法"><a href="#大O复杂度表示法" class="headerlink" title="大O复杂度表示法"></a>大O复杂度表示法</h4><p>使用<em>大O复杂度表示法</em>，其中<a href="https://zh.wikipedia.org/wiki/%E5%A4%A7O%E7%AC%A6%E5%8F%B7" target="_blank" rel="noopener">大O符号</a>是一个渐进符号，是用于描述函数渐进行为的数学符号。我们可以用它来表示复杂度。</p>
+<blockquote>
+<p>T(n) = O(f(n))</p>
+</blockquote>
+<p>在这个表达式中，T(n)表示代码执行的时间；n表示数据规模；f(n)表示代码执行的总次数，是一个函数；大O表示代码的执行时间和f(n)表达式成正比。</p>
+<p>举个栗子：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params">n</span>) </span>&#123;</span><br><span class="line"> <span class="keyword">let</span> sum = <span class="number">0</span>;</span><br><span class="line"> <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">1</span>; i &lt;= n; ++i) &#123;</span><br><span class="line">   sum = sum + i</span><br><span class="line"> &#125;</span><br><span class="line"> <span class="keyword">return</span> sum;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>从CPU的角度而言，这段代码每一行都执行这类似的操作：<strong>读数据-操作-写数据</strong>。我们假设每行代码执行时间都是一样的，为<em>unit_time（单元时间）</em>，当然真正执行的时候每行代码的执行时间谁也没法预料，我们只需要粗略估计。</p>
+<p>第2行代码执行了1次，第3、4行代码执行了n次，所以这段代码的执行时间为：(2n + 1) * unit_time，用大O复杂度表示法表示为：T(n) = O(2n + 1)</p>
+<p>所以大O表示法其实并不表示一段代码真正的执行时间，而是一种趋势，<strong>代码执行时间随着数据规模增长的变化趋势</strong>，所以也叫渐进时间复杂度，简称复杂度。与之对应的空间维度也就是渐进空间复杂度，简称空间复杂度。</p>
+<p>采用大O复杂度表示法的时候，比如在时间维度上，表示的是执行效率随数据规模增长的变化趋势。若是数据规模n增长到无穷大，有些东西我们就可以忽略掉了，<code>常量</code> <code>系数</code> <code>低阶</code>都是可以忽略的。上面那个例子也就变成了：T(n) = O(n)</p>
+<p>在练习阶段，我们可以细细的分析每行代码的时间复杂度，然后再忽略非关键的部分，等到熟练了，我们很容易就能抓住最耗时的代码段，并快速解析它的时间复杂度，基本是秒出。并不会花费我们过多的时间。</p>
+<h4 id="复杂度量级"><a href="#复杂度量级" class="headerlink" title="复杂度量级"></a>复杂度量级</h4><p>代码有千千万万种，复杂度量级并不多，下面的7种几乎包含了今后所有可能接触到的代码的复杂度量级。粗略的分为两类：<strong>多项式量级</strong>和<strong>非多项式量级</strong>，非多项式量级只有两个<strong>指数阶</strong>和<strong>阶乘阶</strong>，它们随着数据规模的增长时间复杂度成几何倍增长，若是写了“这种级别”的代码，可得好好思量一下了。<br><img src="https://i.loli.net/2019/07/29/5d3ea2fae54d056788.jpg" alt="data-structures-algorithm 2019-07-29 下午3.39.13.jpg"><br>是不是觉得很熟悉，这不就是我们高中数学课上学的各种函数嘛，包括它们随着n的增长的变化趋势<br><img src="https://i.loli.net/2019/07/29/5d3ea3ed720ef56840.jpg" alt="data-structures-algorithm 2019-07-29 下午3.44.13.jpg"></p>
+<p>我们着重讨论一下多项式量级的时间复杂度。</p>
+<ul>
+<li><p>O(1)<br>O(1)表示常量级时间复杂度，这种情况时间复杂度和数据规模n就没有关系了，通常一段代码中没有循环语句、没有递归，即使是成千上万行的代码，我们也只说它的时间复杂度是O(1)<br>举个栗子：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> a = <span class="number">1</span></span><br><span class="line"><span class="keyword">const</span> b = <span class="number">2</span></span><br><span class="line"><span class="keyword">let</span> c = <span class="number">3</span></span><br></pre></td></tr></table></figure>
+
+<p>虽然有三条语句，我们也只说时间复杂度是O(1)</p>
+</li>
+<li><p>O(logn) O(nlogn)<br>举个栗子：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> i = <span class="number">1</span></span><br><span class="line"><span class="keyword">while</span>(i &lt;= n)&#123;</span><br><span class="line">  i = i * <span class="number">2</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这种情况下，要经过多少次循环呢，简单思考一下，假设经过x次循环满足条件，不就是 2<sup>x</sup> &gt; n，求值可得 x = log<sub>2</sub>n，呵，简单的数学运算。根据规则我们忽略参数，所以时间复杂度就是O(logn)，O(nlogn)可想而知就是n（2n等等）次logn，可能就是while外层套一个for循环。</p>
+</li>
+<li><p>O(n)<br>这个基本不用说了，太常见了，看例子，for循环</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> s = <span class="number">0</span></span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">let</span> i=<span class="number">0</span>; i&lt;n; i++)&#123;</span><br><span class="line">  s += i</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>O(m + n) O(m * n)<br>有些情况数据规模可能不唯一，O(m * n)，这种其实也不难分析，特地留意一下即可</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params">m, n</span>)</span>&#123;</span><br><span class="line">  <span class="keyword">let</span> s1 = <span class="number">0</span></span><br><span class="line">  <span class="keyword">let</span> s2 = <span class="number">0</span></span><br><span class="line">  <span class="keyword">for</span>(<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; m; i++)&#123;</span><br><span class="line">    s1 += i</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">for</span>(<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; n; i++)&#123;</span><br><span class="line">    s2 += i</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> s1 + s2</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>时间复杂度为：O(m + n)</p>
+</li>
+</ul>
+<p>复杂度分析会贯穿整个数据结构和算法的学习体系，掌握它是重中之重，好在它本身也不是很难，多练几遍就会了。</p>
+<h4 id="空间复杂度"><a href="#空间复杂度" class="headerlink" title="空间复杂度"></a>空间复杂度</h4><p>前面一直在说时间复杂度，空间复杂度同样可以使用大O表示法表示。空间复杂度分析起来远比时间复杂度要简单。举个栗子：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params">n</span>)</span>&#123;</span><br><span class="line">  <span class="keyword">const</span> a = []</span><br><span class="line">  <span class="keyword">for</span>(<span class="keyword">let</span> i=<span class="number">0</span>; i &lt; n; i++)&#123;</span><br><span class="line">    a.push(i)</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> a</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><code>let i = 0;</code>空间复杂度为1，a最终存储空间为n，所以最终空间复杂度为O(n)。常见的空间复杂度：O(1) O(n) O(n<sup>2</sup>) ，掌握这些基本就够了。</p>
+
+                
+
+                <hr>
+                <!-- Pager -->
+                <ul class="pager">
+                    
+                    
+                        <li class="next">
+                            <a href="/2019/07/29/数据结构和算法之美-第零篇/" data-toggle="tooltip" data-placement="top" title="数据结构和算法之美-第零篇">Next Post &rarr;</a>
+                        </li>
+                    
+                </ul>
+
+                <!-- duoshuo Share start -->
+                
+                <!-- 多说 Share end-->
+
+                <!-- 多说评论框 start -->
+                
+                <!-- 多说评论框 end -->
+
+                <!-- disqus comment start -->
+                
+                <!-- disqus comment end -->
+            </div>
+            
+            <!-- Tabe of Content -->
+            <!-- Table of Contents -->
+
+    
+      <aside id="sidebar">
+        <div id="toc" class="toc-article">
+        <strong class="toc-title">Contents</strong>
+        
+          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#什么是复杂度分析"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">什么是复杂度分析</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#为什么要进行复杂度分析"><span class="toc-nav-number">2.</span> <span class="toc-nav-text">为什么要进行复杂度分析</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#如何进行复杂度分析"><span class="toc-nav-number">3.</span> <span class="toc-nav-text">如何进行复杂度分析</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#大O复杂度表示法"><span class="toc-nav-number">3.1.</span> <span class="toc-nav-text">大O复杂度表示法</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#复杂度量级"><span class="toc-nav-number">3.2.</span> <span class="toc-nav-text">复杂度量级</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#空间复杂度"><span class="toc-nav-number">3.3.</span> <span class="toc-nav-text">空间复杂度</span></a></li></ol></li></ol>
+        
+        </div>
+      </aside>
+    
+
+                
+            <!-- Sidebar Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                       
+                          <a class="tag" href="/tags/#数据结构和算法" title="数据结构和算法">数据结构和算法</a>
+                        
+                          <a class="tag" href="/tags/#时间复杂度 空间复杂度" title="时间复杂度 空间复杂度">时间复杂度 空间复杂度</a>
+                        
+                          <a class="tag" href="/tags/#大O表示法" title="大O表示法">大O表示法</a>
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+                <hr>
+                <h5>FRIENDS</h5>
+                <ul class="list-inline">
+
+                    
+                        <li><a href="http://blog.kaijun.rocks" target="_blank">Kaijun&#39;s Blog</a></li>
+                    
+                        <li><a href="http://huangxuan.me" target="_blank">Hux Blog</a></li>
+                    
+                        <li><a href="#" target="_blank">Foo</a></li>
+                    
+                        <li><a href="#" target="_blank">Bar</a></li>
+                    
+                        <li><a href="#" target="_blank">Example Friends</a></li>
+                    
+                        <li><a href="#" target="_blank">It helps SEO</a></li>
+                    
+                </ul>
+                
+            </div>
+        </div>
+    </div>
+</article>
+
+
+
+
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("https://cdn.bootcss.com/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'hover',
+          placement: 'left',
+          icon: 'ℬ'
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
+
+
+    <!-- Footer -->
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                
+                
+                
+
+                
+
+                
+
+                
+                    <li>
+                        <a target="_blank" href="https://github.com/KylenXu">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; Kylen Xu 2019 
+                    <br>
+                    Theme by <a href="http://huangxuan.me">Hux</a> 
+                    <span style="display: inline-block; margin: 0 5px;">
+                        <i class="fa fa-heart"></i>
+                    </span> 
+                    re-Ported by <a href="http://beantech.org">BeanTech</a> | 
+                    <iframe style="margin-left: 2px; margin-bottom:-5px;" frameborder="0" scrolling="0" width="91px" height="20px" src="https://ghbtns.com/github-btn.html?user=YenYuHsuan&repo=hexo-theme-beantech&type=star&count=true">
+                    </iframe>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/hux-blog.min.js"></script>
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- 
+     Because of the native support for backtick-style fenced code blocks 
+     right within the Markdown is landed in Github Pages, 
+     From V1.6, There is no need for Highlight.js, 
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0  
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/    
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+<!--fastClick.js -->
+<script>
+    async("https://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+
+<script>
+    // dynamic User by Hux
+    var _gaId = 'UA-49627206-1';
+    var _gaDomain = 'huangxuan.me';
+
+    // Originial
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', _gaId, _gaDomain);
+    ga('send', 'pageview');
+</script>
+
+
+
+
+<!-- Baidu Tongji -->
+
+<script>
+    // dynamic User by Hux
+    var _baId = '4cc1f2d8f3067386cc5cdb626a202900';
+
+    // Originial
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?" + _baId;
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+
+
+
+
+
+	<a id="rocket" href="#top" class=""></a>
+	<script type="text/javascript" src="/js/totop.js?v=1.0.0" async=""></script>
+    <script type="text/javascript" src="/js/toc.js?v=1.0.0" async=""></script>
+<!-- Image to hack wechat -->
+<!-- <img src="http://yoursite.com/img/icon_wechat.png" width="0" height="0" /> -->
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+</body>
+
+</html>

@@ -14,11 +14,11 @@
     <script async defer src="https://buttons.github.io/buttons.js"></script>
     <title>
         
-          使用github+hexo搭建个人blog - Kylen的博客 | Kylen Blog
+          数据结构和算法之美-第八篇-冒泡排序、插入排序、选择排序 - Kylen的博客 | Kylen Blog
         
     </title>
 
-    <link rel="canonical" href="http://yoursite.com/2019/06/03/使用github-hexo搭建个人blog/">
+    <link rel="canonical" href="http://yoursite.com/2019/08/06/数据结构和算法之美-第八篇-冒泡排序、插入排序、选择排序/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -87,18 +87,18 @@
                     <div class="post-heading">
                         <div class="tags">
                             
-                              <a class="tag" href="/tags/#github" title="github">github</a>
+                              <a class="tag" href="/tags/#数据结构和算法" title="数据结构和算法">数据结构和算法</a>
                             
-                              <a class="tag" href="/tags/#github page" title="github page">github page</a>
+                              <a class="tag" href="/tags/#排序" title="排序">排序</a>
                             
-                              <a class="tag" href="/tags/#blog" title="blog">blog</a>
+                              <a class="tag" href="/tags/#冒泡排序 插入排序 选择排序" title="冒泡排序 插入排序 选择排序">冒泡排序 插入排序 选择排序</a>
                             
                         </div>
-                        <h1>使用github+hexo搭建个人blog</h1>
+                        <h1>数据结构和算法之美-第八篇-冒泡排序、插入排序、选择排序</h1>
                         <h2 class="subheading"></h2>
                         <span class="meta">
                             Posted by Kylen on
-                            2019-06-03
+                            2019-08-06
                         </span>
                     </div>
                 
@@ -215,50 +215,71 @@
                 col-md-10 col-md-offset-1
                 post-container">
 
-                <h3 id="基本思路"><a href="#基本思路" class="headerlink" title="基本思路"></a>基本思路</h3><p>Github page + hexo前者提供静态站点托管服务，后者快速构建blog。平时写blog的流程：码字 –&gt; 本地构建 –&gt; 部署到github</p>
-<h3 id="GitHub-page"><a href="#GitHub-page" class="headerlink" title="GitHub page"></a>GitHub page</h3><p>Github是一个代码托管平台和开发者社区，开发者可以在Github上创建自己的开源项目并与其他开发者协作开发。</p>
-<blockquote>
-<p>GitHub Pages是一种静态站点托管服务，旨在直接从GitHub存储库托管您的个人，组织或项目页面。</p>
-</blockquote>
-<p>所以我们可以把blog直接托管在Github上。但同时也要清楚Github Page本身不是为blog站点这种形式的内容服务的，它主要面向个人、组织、项目的一些介绍和使用。对此，我们要心知肚明。</p>
-<p>具体的操作步骤</p>
+                <h3 id="排序算法的分类"><a href="#排序算法的分类" class="headerlink" title="排序算法的分类"></a>排序算法的分类</h3><p>我最开始接触和使用最多的排序算法就是冒泡排序了（可能很多人和我一样）但是把它好好的和其他各类排序算法进行比较。很多时候我们有更好的选择。</p>
+<p>排序算法基本分为三类：</p>
+<table>
+<thead>
+<tr>
+<th>排序算法</th>
+<th align="center">时间复杂度</th>
+<th align="right">是否基于比较</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>冒泡 插入 选择</td>
+<td align="center">O(n<sup>2</sup>)</td>
+<td align="right">是</td>
+</tr>
+<tr>
+<td>快排 归并</td>
+<td align="center">O(nlogn)</td>
+<td align="right">是</td>
+</tr>
+<tr>
+<td>桶 计数 基数</td>
+<td align="center">O(n)</td>
+<td align="right">不是</td>
+</tr>
+</tbody></table>
+<h3 id="排序算法的优异"><a href="#排序算法的优异" class="headerlink" title="排序算法的优异"></a>排序算法的优异</h3><p>几个基本概念：</p>
+<p>原地排序：空间复杂度为O(1)的排序。<br>分析是否是原地排序其实就是分析空间复杂度。</p>
+<p>稳定排序：带排序的序列中含有值相同的元素，经过排序之后，相等元素的前后顺序没有改变过。</p>
+<p>也就是说分析一个排序算法除了要分析时间复杂度、空间复杂度之外还要分析稳定性。</p>
+<h3 id="冒泡排序"><a href="#冒泡排序" class="headerlink" title="冒泡排序"></a>冒泡排序</h3><p><a href="https://zh.wikipedia.org/zh/%E5%86%92%E6%B3%A1%E6%8E%92%E5%BA%8F" target="_blank" rel="noopener">冒泡排序</a><br>冒泡排序算法的运作如下：</p>
 <ol>
-<li><p>创建一个仓库<br><img src="https://i.loli.net/2019/06/18/5d08bdbe04bbe41491.png" alt="创建仓库"><br>这里仓库名称一定要规范<code>[github名称].github.io</code>，这涉及到hexo在部署的时候一些静态资源的路径问题，不按此规范会出现css、js等资源找不到，页面渲染失败的情况。<br>可以勾选<code>README</code>文件，这样初始项目就包含一个<code>README</code>文件而不是空的</p>
-</li>
-<li><p>进入当前项目的配置页面<br>普通项目设置Github page时需要配置Github page的source，我们选择master分支<br><img src="https://i.loli.net/2019/06/18/5d08bdbf7ba0f66580.png" alt="配置Github page"><br>配置成功之后，可以看到page页面的url：<code>https://kylenxu.github.io/myblog/</code>打开已经可以看到页面<br>我们可以回到配置页面设置blog的主题，配置主题之后会创建一次提交<br>选择主题之后会发现blog库中已经新增一个配置文件<code>_config.yml</code>，配置信息很简单，只有一条：<code>theme: jekyll-theme-cayman</code>，Github page会根据这个配置信息使用Jekyll构建静态文件然后部署。<br>若是按照步骤一设置项目名称，可以发现这里不需要再配置直接可以查看Github page页面</p>
-</li>
+<li>比较相邻的元素。如果第一个比第二个大，就交换他们两个。</li>
+<li>对每一对相邻元素作同样的工作，从开始第一对到结尾的最后一对。这步做完后，最后的元素会是最大的数。</li>
+<li>针对所有的元素重复以上的步骤，除了最后一个。</li>
+<li>持续每次对越来越少的元素重复上面的步骤，直到没有任何一对数字需要比较。</li>
 </ol>
-<p>除了Github page。我们还需要一个blog的框架。</p>
-<h3 id="hexo"><a href="#hexo" class="headerlink" title="hexo"></a>hexo</h3><blockquote>
-<p>Hexo 是一个快速、简洁且高效的博客框架。Hexo 使用 Markdown（或其他渲染引擎）解析文章，在几秒内，即可利用靓丽的主题生成静态网页。</p>
-</blockquote>
-<p>类似hexo的博客框架比如：Jekyll、Octopress等。<br>hexo和Jekyll主要的差别：Github page本身使用Jekyll根据工程文件构建静态文件，hexo则是我们在本地直接生成静态文件之后再部署。更多博客框架的区别可以自行搜索。</p>
-<p>hexo具体使用步骤（hexo相关的设计和介绍在<a href="https://hexo.io/zh-cn/docs/" target="_blank" rel="noopener">hexo官网</a>有详细的介绍，以下只是选取的一部分）：</p>
+<p>很好理解，使用JavaScript实现如下：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> bubbleSort = <span class="function"><span class="params">arr</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">const</span> len = arr.length;</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; arr.length; i++) &#123;</span><br><span class="line">    <span class="keyword">let</span> flag = <span class="literal">false</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> j = <span class="number">0</span>; j &lt; len - i - <span class="number">1</span>; j++) &#123;</span><br><span class="line">      <span class="keyword">if</span> (arr[j] &gt; a[j + <span class="number">1</span>]) &#123;</span><br><span class="line">        flag = <span class="literal">true</span>;</span><br><span class="line">        <span class="keyword">const</span> temp = arr[j];</span><br><span class="line">        arr[j] = arr[j + <span class="number">1</span>];</span><br><span class="line">        arr[j + <span class="number">1</span>] = temp;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (!flag) <span class="keyword">break</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>需要注意的是，上面做了一个小优化，当上一次比较没有发生位置交换说明当前序列已经完全有序，不需要再进行下一轮冒泡。</p>
+<p>简单思考一下：冒泡排序的空间复杂度是O(1)是原地排序；只是相邻位置的元素之间会比较交换，所以是稳定排序；时间复杂度的分析就比较复杂了</p>
+<p>最好情况时间复杂度是O(n)，待排序的序列直接就是有序的；最坏时间复杂度是O(n<sup>2</sup>)，待排序的序列是倒序的。<br>平均时间复杂度的分析很复杂，可以从“有序度”和“逆序度”的概念分析，也可以使用概率论的知识分析，最终的平均时间复杂度为)O(n<sup>2</sup>)。这也是预料之中的，最好和最坏情况都是极端的例子，在所有排列的情况（n!）中概率很低。多数情况下时间复杂度都是O(n<sup>2</sup>)</p>
+<h3 id="插入排序"><a href="#插入排序" class="headerlink" title="插入排序"></a>插入排序</h3><p><a href="https://zh.wikipedia.org/wiki/%E6%8F%92%E5%85%A5%E6%8E%92%E5%BA%8F" target="_blank" rel="noopener">插入排序</a><br>具体算法描述如下：</p>
 <ol>
-<li><p>安装前提<br>Hexo要求安装<a href="http://nodejs.org/" target="_blank" rel="noopener">Node.js</a>(版本要求6.9+)、<a href="https://git-scm.com/" target="_blank" rel="noopener">Git</a><br>可通过命令<code>which node</code> <code>which git</code>查看本地是否安装node和git<br>可通过命令<code>node --version</code> <code>git --version</code>查看本地node和git的版本</p>
-</li>
-<li><p>全局安装Hexo<br><code>npm install -g hexo-cli</code><br>安装完毕之后在命令行中可使用<code>hexo</code>命令</p>
-</li>
-<li><p>使用hexo命令初始化项目<br><code>hexo init &lt;folder&gt;</code> 初始化项目<br><code>cd &lt;folder&gt;</code> 进入项目文件夹<br><code>npm install</code> 安装依赖<br><code>cd [projectName]</code>之后可以看到项目基本的文件结构<br><code>hexo serve</code>本地启服务预览效果，默认url:<code>http://localhost:4000/</code></p>
-</li>
-<li><p>使用hexo创建一篇新的文章<br><code>hexo new [layout] &lt;titile&gt;</code><br>layout指定文章的布局，默认值为<code>post</code>可不填，在<code>/source</code>目录下会新建一个对应布局的文件。具体命令可查看<a href="https://hexo.io/zh-cn/docs/writing" target="_blank" rel="noopener">hexo官方文档写作</a></p>
-</li>
+<li>从第一个元素开始，该元素可以认为已经被排序</li>
+<li>取出下一个元素，在已经排序的元素序列中从后向前扫描</li>
+<li>如果该元素（已排序）大于新元素，将该元素移到下一位置</li>
+<li>重复步骤3，直到找到已排序的元素小于或者等于新元素的位置</li>
+<li>将新元素插入到该位置后</li>
+<li>重复步骤2~5</li>
 </ol>
-<h3 id="hexo使用Github-page部署"><a href="#hexo使用Github-page部署" class="headerlink" title="hexo使用Github page部署"></a>hexo使用Github page部署</h3><p>其实到这里我们已经清楚看到使用hexo blog已经构建成功了，不过只能运行在本地。</p>
-<p>hexo和GitHub page的结合其实很简单，在了解了hexo的基本使用之后，我们知道平时我们的写作都会在hexo项目下。</p>
-<p>具体部署到Github page的步骤：<br>在此之前我们已经在Github新建了一个仓库作为blog库，blog库和普通的库没有任何区别，只是blog库的名称是按照特殊规则组织的。</p>
+<p>代码实现：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> insertionSort = <span class="function"><span class="params">arr</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">const</span> len = arr.length;</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">1</span>; i &lt; len; i++) &#123;</span><br><span class="line">    <span class="keyword">const</span> curV = arr[i];</span><br><span class="line">    <span class="keyword">let</span> j = i - <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">for</span> (; j &gt;= <span class="number">0</span>; j--) &#123;</span><br><span class="line">      <span class="keyword">if</span> (arr[j] &gt; curV) &#123;</span><br><span class="line">        a[j + <span class="number">1</span>] = a[j];</span><br><span class="line">      &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    arr[j + <span class="number">1</span>] = curV;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>插入排序的空间复杂度是O(1) 是原地排序；是稳定的排序算法；最好时间复杂度是O(n)，最坏时间复杂度是O(n<sub>2</sub>)，平均时间复杂度同样是O(n<sub>2</sub>)，循环 n 次，每次插入操作都像是在数组中插入一个数据，不过这里的数组是有序的，所以插入排序是有优化空间的，在一个有序的数组中插入数据的时间复杂度可以做到（logn），所有插入时间排序可以做到O(nlogn)，不过这属于插入排序的变种，称为二分查找插入排序。</p>
+<h3 id="选择排序"><a href="#选择排序" class="headerlink" title="选择排序"></a>选择排序</h3><p><a href="https://zh.wikipedia.org/wiki/%E9%80%89%E6%8B%A9%E6%8E%92%E5%BA%8F" target="_blank" rel="noopener">选择排序</a><br>算法描述：</p>
 <ol>
-<li>hexo部署<br>hexo有一套详细的部署规则，具体可查看<a href="https://hexo.io/zh-cn/docs/deployment" target="_blank" rel="noopener">hexo官方文档部署</a>，这里简单介绍下，部署到Github需要安装依赖<a href="https://github.com/hexojs/hexo-deployer-git" target="_blank" rel="noopener">hexo-deployer-git</a>，执行命令<code>npm install hexo-deployer-git --save</code>；修改配置文件，主要修改<code>repo</code>为Github上blog库地址；默认分支为<code>published</code>分支，我们没有此分支，修改为<code>master</code>分支；<code>message</code>可不填。<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">deploy:</span></span><br><span class="line"><span class="attr">  type:</span> <span class="string">git</span></span><br><span class="line"><span class="attr">  repo:</span> <span class="string">&lt;repository</span> <span class="string">url&gt;</span> <span class="comment">#https://bitbucket.org/JohnSmith/johnsmith.bitbucket.io</span></span><br><span class="line"><span class="attr">  branch:</span> <span class="string">[branch]</span> <span class="comment">#published</span></span><br><span class="line"><span class="attr">  message:</span> <span class="string">[message]</span></span><br></pre></td></tr></table></figure>
-
-
+<li>首先在未排序序列中找到最小（大）元素，存放到排序序列的起始位置</li>
+<li>然后，再从剩余未排序元素中继续寻找最小（大）元素，然后放到已排序序列的末尾。以此类推，直到所有元素均排序完毕。<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> selectionSort = <span class="function"><span class="params">arr</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">const</span> len = arr.length;</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; len - <span class="number">1</span>; i++) &#123;</span><br><span class="line">    <span class="keyword">let</span> minIndex = i;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> j = i + <span class="number">1</span>; j &lt; len; j++) &#123;</span><br><span class="line">      <span class="keyword">if</span> (arr[j] &lt; arr[minIndex]) &#123;</span><br><span class="line">        minIndex = j;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (minIndex !== i) &#123;</span><br><span class="line">      <span class="keyword">const</span> temp = arr[minIndex];</span><br><span class="line">      arr[minIndex] = arr[i];</span><br><span class="line">      arr[i] = temp;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
 </li>
 </ol>
-<ol start="2">
-<li>更新<br><code>hexo new [blogname]</code>创建空白blog<br><code>hexo s</code>本地预览<br><code>hexo g</code> 构建静态文件<br><code>hexo d</code> 部署<br>可写为<code>hexo g &amp;&amp; hexo d</code></li>
-</ol>
-<p>ps：过程中遇到的git和github用户名的问题可以自行搜索解决</p>
-<h3 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h3><p><a href="https://help.github.com/en/articles/what-is-github-pages" target="_blank" rel="noopener">Github page介绍说明</a><br><a href="https://hexo.io/zh-cn/docs/index.html" target="_blank" rel="noopener">hexo官方文档</a></p>
+<p>选择排序的空间复杂度是O(1)是原地排序算法；但是选择排序并不是稳定的排序算法，交换位置让值相同的元素可能发生前后位置变化；时间复杂度和冒泡排序、插入排序一样都是O(n<sup>2</sup>)</p>
+<p>选择排序的不稳定是我们很少用它的主要原因。当然数据规模不大的情况下，这几种排序其实差异不大，当数据规模大到一定程度，首选当然是插入排序，因为插入排序的优化空间很大。当然在实际开发中我们会有更多的选择，也就是快排、归并等。</p>
 
                 
 
@@ -267,9 +288,13 @@
                 <ul class="pager">
                     
                         <li class="previous">
-                            <a href="/2019/06/05/workflow小白入门/" data-toggle="tooltip" data-placement="top" title="Alfred workflow小白入门">&larr; Previous Post</a>
+                            <a href="/2019/08/06/数据结构和算法之美-第七篇-递归/" data-toggle="tooltip" data-placement="top" title="数据结构和算法之美-第七篇-递归">&larr; Previous Post</a>
                         </li>
                     
+                    
+                        <li class="next">
+                            <a href="/2019/08/06/数据结构和算法之美-第六篇-队列/" data-toggle="tooltip" data-placement="top" title="数据结构和算法之美-第六篇-队列">Next Post &rarr;</a>
+                        </li>
                     
                 </ul>
 
@@ -294,7 +319,7 @@
         <div id="toc" class="toc-article">
         <strong class="toc-title">Contents</strong>
         
-          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#基本思路"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">基本思路</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#GitHub-page"><span class="toc-nav-number">2.</span> <span class="toc-nav-text">GitHub page</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#hexo"><span class="toc-nav-number">3.</span> <span class="toc-nav-text">hexo</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#hexo使用Github-page部署"><span class="toc-nav-number">4.</span> <span class="toc-nav-text">hexo使用Github page部署</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#参考链接"><span class="toc-nav-number">5.</span> <span class="toc-nav-text">参考链接</span></a></li></ol>
+          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#排序算法的分类"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">排序算法的分类</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#排序算法的优异"><span class="toc-nav-number">2.</span> <span class="toc-nav-text">排序算法的优异</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#冒泡排序"><span class="toc-nav-number">3.</span> <span class="toc-nav-text">冒泡排序</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#插入排序"><span class="toc-nav-number">4.</span> <span class="toc-nav-text">插入排序</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#选择排序"><span class="toc-nav-number">5.</span> <span class="toc-nav-text">选择排序</span></a></li></ol>
         
         </div>
       </aside>
@@ -314,11 +339,11 @@
                     <h5><a href="/tags/">FEATURED TAGS</a></h5>
                     <div class="tags">
                        
-                          <a class="tag" href="/tags/#github" title="github">github</a>
+                          <a class="tag" href="/tags/#数据结构和算法" title="数据结构和算法">数据结构和算法</a>
                         
-                          <a class="tag" href="/tags/#github page" title="github page">github page</a>
+                          <a class="tag" href="/tags/#排序" title="排序">排序</a>
                         
-                          <a class="tag" href="/tags/#blog" title="blog">blog</a>
+                          <a class="tag" href="/tags/#冒泡排序 插入排序 选择排序" title="冒泡排序 插入排序 选择排序">冒泡排序 插入排序 选择排序</a>
                         
                     </div>
                 </section>

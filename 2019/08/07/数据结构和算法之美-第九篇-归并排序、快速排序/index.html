@@ -14,11 +14,11 @@
     <script async defer src="https://buttons.github.io/buttons.js"></script>
     <title>
         
-          计算机是如何工作的？ - Kylen的博客 | Kylen Blog
+          数据结构和算法之美-第九篇-归并排序、快速排序 - Kylen的博客 | Kylen Blog
         
     </title>
 
-    <link rel="canonical" href="http://yoursite.com/2019/07/26/计算机是如何工作的？/">
+    <link rel="canonical" href="http://yoursite.com/2019/08/07/数据结构和算法之美-第九篇-归并排序、快速排序/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -87,16 +87,20 @@
                     <div class="post-heading">
                         <div class="tags">
                             
-                              <a class="tag" href="/tags/#计算机工作原理" title="计算机工作原理">计算机工作原理</a>
+                              <a class="tag" href="/tags/#数据结构和算法" title="数据结构和算法">数据结构和算法</a>
                             
-                              <a class="tag" href="/tags/#电" title="电">电</a>
+                              <a class="tag" href="/tags/#归并排序" title="归并排序">归并排序</a>
+                            
+                              <a class="tag" href="/tags/#快速排序" title="快速排序">快速排序</a>
+                            
+                              <a class="tag" href="/tags/#排序" title="排序">排序</a>
                             
                         </div>
-                        <h1>计算机是如何工作的？</h1>
+                        <h1>数据结构和算法之美-第九篇-归并排序、快速排序</h1>
                         <h2 class="subheading"></h2>
                         <span class="meta">
                             Posted by Kylen on
-                            2019-07-26
+                            2019-08-07
                         </span>
                     </div>
                 
@@ -213,29 +217,36 @@
                 col-md-10 col-md-offset-1
                 post-container">
 
-                <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>本来只想写一篇JS单线程的设计以及这种设计产生的现象问题和解决方案。但接触的概念多了，发现很多以前没有想过的问题、或者想过却因为不在专业领域范围内就忽视的问题，都很值得一谈究竟，所以单独整理这篇，用来记录和加深我对计算机的理解。</p>
-<h3 id="物质结构和电"><a href="#物质结构和电" class="headerlink" title="物质结构和电"></a>物质结构和电</h3><p>没有电就自然就没有电器，计算机要有电才能用（废话）。所以我们先要弄清楚电是什么，或者电能是一种什么样的能量。下面的内容是一些物理和化学的一些常识，上过初中应该都能理解。</p>
-<p>构成物质的基本单位是原子，原子有电子和原子核组成，原子核由质子和中子组成，电子带负电、质子带正电、中子不带电。（当然谁正谁负是人规定的），电子脱离原子会变成自由电子。</p>
-<p>电子速度很慢，但是接通电源，电场瞬间建立（光速），电流的速度是电场建立的速度。这一点就像你用自来水，打开水龙头你就有水用，不是自来水厂的水瞬间到了你面前，而是水管子里本来就有水。用电也是一样，电线中本来就有电子。和自来水不一样的是，电器不消耗电子只是消耗电子动能，电子更像一个能量的搬运工；而且电路是回路，因为不消耗电子，还得有条电线让电子会到发电厂。类比电池，电路是一个回路。</p>
-<p>电路是一个回路，电子流动也是一个回路，电子不会变少。用电不会消耗电子，电子运动就有能量，电器消耗的是能量，比如灯泡的灯丝内部原子核排列更紧密，电子经过消耗的动能转换成了灯泡发光的能量。</p>
-<p>直流电电子一个方向移动，交流电电子来回移动，就像洗衣机一会儿正着转，一会儿反着转。</p>
-<p>所以电能一般就是让电子运动，然后利用电子的动能。电子在钨丝中疯狂运动，钨丝温度就升高了。</p>
-<h3 id="半导体和二极管"><a href="#半导体和二极管" class="headerlink" title="半导体和二极管"></a>半导体和二极管</h3><p>半导体可以制作二极管。原理：给半导体材料里掺入某种元素后，半导体会这样：我讨厌电子；而给半导体掺入另外一种元素后，半导体会这样：我喜欢电子。我们把一个讨厌电子的半导体和一个喜欢电子的半导体放在一起的时候，就可以形成一个二极管了。当二极管外部有电流通过的时候，如果外部电流内的电子的运动方向顺从了其内部的这种电子的趋向，则这个二极管可以视为接通的导线；而如果外部电流的电子运动方向和二极管内部的电子方向相反的时候，外部电流就无法通过这个二极管</p>
-<p>二极管已经可以表示两种状态，正好对应计算机中的0和1。</p>
-<h3 id="计算机和晶体管"><a href="#计算机和晶体管" class="headerlink" title="计算机和晶体管"></a>计算机和晶体管</h3><p>晶体管指半导体器件，二极管也是晶体管的一种。8个晶体管就能够表示一个8位二进制数。比如数字3二进制数为：0000 0011。 这是怎样在硬件上实现的呢？想象一下8个晶体管并列排列，分别加不同的电压来保持0和1的状态。各种运算对应各种门电路，运算的时候不断改变电压。对于电路一窍不通，也就不想深入了。</p>
-<p>这时候计算机更像一个计算器。不过能表示数字就能表示所有信息，能计算就有无限可能。</p>
-<p>再回到现在计算机上，我们的电脑是由一堆硬件组成的，包括CPU、RAM、显卡、主板、硬盘、键鼠等等。CPU做为中央处理器，有寄存器和一堆的运算单元。主要就是用来进行计算的，现代CPU上动不动就是几亿的晶体管。</p>
-<p><img src="https://i.loli.net/2019/06/17/5d075366eee4368694.jpg" alt="computer-work-001"></p>
-<p>电脑的运行，实际就是CPU和相关寄存器以及RAM之间的事情。</p>
-<h3 id="软件和程序"><a href="#软件和程序" class="headerlink" title="软件和程序"></a>软件和程序</h3><p>CPU要工作，必须借助于特定的指令，能够直接识别的也就是机器语言。机器语言对人不友好；汇编语言对机器语言进行了描述，对人依旧不友好；高级语言从人的角度出发，真正执行需要编译成机器码。</p>
-<p>以浏览器运行为例子：</p>
-<ul>
-<li>首先操作系统本身就是个软件程序，电脑开机就会运行</li>
-<li>浏览器当然是高级语言写的，一般是C/C++，打开就运行，都是已经编译过的</li>
-<li>CPU在不断的处理各种程序发来的指令，当然若只有一个CPU，那所有人都得排队，不过幸好CPU很快，超级快的那种，所以你不会觉得慢</li>
-<li>浏览器输入内容点击搜索CPU很快就临幸了浏览器，当然到CPU这里是已经是机器码了</li>
-<li>寄存器和存储器状态改变，也就是晶体管状态改变</li>
-</ul>
+                <h3 id="归并排序"><a href="#归并排序" class="headerlink" title="归并排序"></a>归并排序</h3><p>归并排序使用的是分治的思想，分治算法一般都是由递归实现的。回想一下递归的细节其实和分治很像，递归的思想一般是把一个大问题拆分成几个子问题，除了数据规模不同，子问题的求解思路和大问题没有任何区别。这种把大问题拆分成小问题的的思想其实就是一种分治的思想。而分治和递归的区别也在于此，分治是一种解决问题的思想，而递归是一种编程技巧。</p>
+<p><a href="https://zh.wikipedia.org/zh-hans/%E5%BD%92%E5%B9%B6%E6%8E%92%E5%BA%8F" target="_blank" rel="noopener">归并排序</a><br>算法步骤：</p>
+<ol>
+<li>申请空间，使其大小为两个已经排序序列之和，该空间用来存放合并后的序列</li>
+<li>设定两个指针，最初位置分别为两个已经排序序列的起始位置</li>
+<li>比较两个指针所指向的元素，选择相对小的元素放入到合并空间，并移动指针到下一位置</li>
+<li>重复步骤 3 直到某一指针到达序列尾</li>
+<li>将另一序列剩下的所有元素直接复制到合并序列尾</li>
+</ol>
+<p>或者直接看 gif 图<br><img src="https://i.loli.net/2019/08/07/XQ8IouH3PwpNJfi.gif" alt="归并排序示例图"></p>
+<p>我们用递归来实现，难点在于如何找出它的递归公式以及终止条件。<br>拿到数组之后我们知道数组的起点和终点的下标，假设为 p 和 q，每次取中间点 r。那么公式也就是<code>mergeArr(mergeSort(arr, p, r), mergeSort(r+1, q))</code>，其中 mergeArr 是合并两个有序数组的方法。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> mergeArr = <span class="function">(<span class="params">arrL, arrR</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">let</span> i = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">let</span> j = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">const</span> lenL = arrL.length;</span><br><span class="line">  <span class="keyword">const</span> lenR = arrR.length;</span><br><span class="line">  <span class="keyword">const</span> arr = [];</span><br><span class="line">  <span class="keyword">while</span> (i &lt; lenL &amp;&amp; j &lt; lenR) &#123;</span><br><span class="line">    <span class="keyword">if</span> (arrL[i] &lt; arrR[j]) &#123;</span><br><span class="line">      arr.push(arrL[i]);</span><br><span class="line">      i++;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      arr.push(arrR[j]);</span><br><span class="line">      j++;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">if</span> (i === lenL) &#123;</span><br><span class="line">    arr.push(...arrR.slice(j, lenR));</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    arr.push(...arrL.slice(i, lenL));</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> arr;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">const</span> mergeSort = <span class="function">(<span class="params">arr = [], p = <span class="number">0</span>, q</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">if</span> (q === <span class="literal">undefined</span>) q = arr.length - <span class="number">1</span>;</span><br><span class="line">  <span class="keyword">if</span> (p &gt;= q) <span class="keyword">return</span> [arr[p]];</span><br><span class="line">  <span class="keyword">const</span> r = <span class="built_in">Math</span>.floor((q + p) / <span class="number">2</span>);</span><br><span class="line">  <span class="keyword">return</span> mergeArr(mergeSort(arr, p, r), mergeSort(arr, r + <span class="number">1</span>, q));</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>归并排序是稳定排序<br>需要借助一个数组存储合并后的数组，空间复杂度是 O(n)，所以归并排序不是原地排序<br>归并排序使用的是递归，最好、最坏、平均情况时间复杂度都是 O(nlogn)</p>
+<h3 id="快速排序"><a href="#快速排序" class="headerlink" title="快速排序"></a>快速排序</h3><p>快速排序同样是使用分治的思想。</p>
+<p><a href="https://zh.wikipedia.org/wiki/%E5%BF%AB%E9%80%9F%E6%8E%92%E5%BA%8F" target="_blank" rel="noopener">快速排序</a><br><img src="https://i.loli.net/2019/08/07/PyOVFNiW6ktbX3g.gif" alt="快速排序示例图"></p>
+<p>步骤为：</p>
+<ol>
+<li>挑选基准值：从数列中挑出一个元素，称为“基准”（pivot），</li>
+<li>分割：重新排序数列，所有比基准值小的元素摆放在基准前面，所有比基准值大的元素摆在基准后面（与基准值相等的数可以到任何一边）。在这个分割结束之后，对基准值的排序就已经完成，</li>
+<li>递归排序子序列：递归地将小于基准值元素的子序列和大于基准值元素的子序列排序。</li>
+</ol>
+<p>和归并排序一样都是使用递归实现，我们可以直接以最后一个数做为基准数，比这个数大的我们放一个数组，比这个数小的我们放另一个数组，这样大问题就变成小问题了，然后小问题再继续拆分直到不能拆为止。但是这样空间复杂度是 O(n)，比起归并排序没有任何优势。快速排序其实可以是原地排序。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> quickSort = <span class="function">(<span class="params">arr, p = <span class="number">0</span>, q</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">if</span> (q === <span class="literal">undefined</span>) q = arr.length - <span class="number">1</span>;</span><br><span class="line">  <span class="keyword">if</span> (p &lt; <span class="number">0</span> || q &lt; <span class="number">0</span> || p &gt;= q) <span class="keyword">return</span>;</span><br><span class="line">  <span class="keyword">const</span> pointIndex = partition(arr, p, q);</span><br><span class="line">  <span class="keyword">if</span> (!pointIndex) <span class="keyword">return</span>;</span><br><span class="line">  quickSort(arr, p, pointIndex - <span class="number">1</span>);</span><br><span class="line">  quickSort(arr, pointIndex + <span class="number">1</span>, q);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> partition = <span class="function">(<span class="params">arr, p, q</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">const</span> point = arr[q];</span><br><span class="line">  <span class="keyword">let</span> j;</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">let</span> i = p; i &lt; q; i++) &#123;</span><br><span class="line">    <span class="keyword">if</span> (arr[i] &lt; point) &#123;</span><br><span class="line">      <span class="keyword">if</span> (j !== <span class="literal">undefined</span>) &#123;</span><br><span class="line">        <span class="keyword">const</span> temp = arr[i];</span><br><span class="line">        arr[i] = arr[j];</span><br><span class="line">        arr[j] = temp;</span><br><span class="line">        j++;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (j === <span class="literal">undefined</span>) &#123;</span><br><span class="line">      j = i;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">if</span> (j !== <span class="literal">undefined</span>) &#123;</span><br><span class="line">    <span class="keyword">const</span> temp = arr[j];</span><br><span class="line">    arr[j] = arr[q];</span><br><span class="line">    arr[q] = temp;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> j;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>通过<code>partition</code>实现原地排序，代价就是不稳定，相同大小的元素前后位置有可能发生变化。</p>
+<p>快速排序的最好情况时间复杂度是 O(nlogn)，每次分区都及其均衡一分为二，最坏情况每次分区都极不均匀，时间复杂度退化成 O(n<sup>2</sup>)。平均时间复杂度是 O(nlogn)</p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>归并排序和快速排序使用的都是分治的思想，代码也都是通过递归来实现。找到递归公式是关键，代码的难点分别在于归并排序的 merge 函数以及快速排序的 partition 分区函数，其中 partition 分区函数非常巧妙，他是的快速成为了原地排序不过同时也变成了不稳定函数。</p>
+<p>归并排序很稳定，时间复杂度永远都是 O(nlogn)。致命的缺点是空间复杂度是 O(n)。在数据规模比较大的情况因为此基本不会选择归并排序。</p>
+<p>快速排序时间复杂度在极端情况下会退化成 O(n<sup>2</sup>)，不过几率很小，而且通过一些手段可以避免基准点选的这么差。这也是在实际开发中，使用快排的几率远大于归并的原因。</p>
 
                 
 
@@ -243,13 +254,9 @@
                 <!-- Pager -->
                 <ul class="pager">
                     
-                        <li class="previous">
-                            <a href="/2019/07/26/前端程序员进阶之路/" data-toggle="tooltip" data-placement="top" title="前端程序员进阶之路">&larr; Previous Post</a>
-                        </li>
-                    
                     
                         <li class="next">
-                            <a href="/2019/07/26/JS进阶系列-第八篇-事件循环/" data-toggle="tooltip" data-placement="top" title="JS进阶系列-第八篇-事件循环">Next Post &rarr;</a>
+                            <a href="/2019/08/06/数据结构和算法之美-第八篇-冒泡排序、插入排序、选择排序/" data-toggle="tooltip" data-placement="top" title="数据结构和算法之美-第八篇-冒泡排序、插入排序、选择排序">Next Post &rarr;</a>
                         </li>
                     
                 </ul>
@@ -275,7 +282,7 @@
         <div id="toc" class="toc-article">
         <strong class="toc-title">Contents</strong>
         
-          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#前言"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">前言</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#物质结构和电"><span class="toc-nav-number">2.</span> <span class="toc-nav-text">物质结构和电</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#半导体和二极管"><span class="toc-nav-number">3.</span> <span class="toc-nav-text">半导体和二极管</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#计算机和晶体管"><span class="toc-nav-number">4.</span> <span class="toc-nav-text">计算机和晶体管</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#软件和程序"><span class="toc-nav-number">5.</span> <span class="toc-nav-text">软件和程序</span></a></li></ol>
+          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#归并排序"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">归并排序</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#快速排序"><span class="toc-nav-number">2.</span> <span class="toc-nav-text">快速排序</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#总结"><span class="toc-nav-number">3.</span> <span class="toc-nav-text">总结</span></a></li></ol>
         
         </div>
       </aside>
@@ -295,9 +302,13 @@
                     <h5><a href="/tags/">FEATURED TAGS</a></h5>
                     <div class="tags">
                        
-                          <a class="tag" href="/tags/#计算机工作原理" title="计算机工作原理">计算机工作原理</a>
+                          <a class="tag" href="/tags/#数据结构和算法" title="数据结构和算法">数据结构和算法</a>
                         
-                          <a class="tag" href="/tags/#电" title="电">电</a>
+                          <a class="tag" href="/tags/#归并排序" title="归并排序">归并排序</a>
+                        
+                          <a class="tag" href="/tags/#快速排序" title="快速排序">快速排序</a>
+                        
+                          <a class="tag" href="/tags/#排序" title="排序">排序</a>
                         
                     </div>
                 </section>

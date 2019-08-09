@@ -14,11 +14,11 @@
     <script async defer src="https://buttons.github.io/buttons.js"></script>
     <title>
         
-          图片和文字的随机API - Kylen的博客 | Kylen Blog
+          数据结构和算法之美-第十篇-桶排序、计数排序、基数排序 - Kylen的博客 | Kylen Blog
         
     </title>
 
-    <link rel="canonical" href="http://yoursite.com/2019/06/19/随机语句API/">
+    <link rel="canonical" href="http://yoursite.com/2019/08/09/数据结构和算法之美-第十篇-桶排序、计数排序、基数排序/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -87,22 +87,18 @@
                     <div class="post-heading">
                         <div class="tags">
                             
-                              <a class="tag" href="/tags/#blog" title="blog">blog</a>
+                              <a class="tag" href="/tags/#数据结构和算法" title="数据结构和算法">数据结构和算法</a>
                             
-                              <a class="tag" href="/tags/#Saying" title="Saying">Saying</a>
+                              <a class="tag" href="/tags/#排序" title="排序">排序</a>
                             
-                              <a class="tag" href="/tags/#Quote" title="Quote">Quote</a>
-                            
-                              <a class="tag" href="/tags/#随机图片" title="随机图片">随机图片</a>
-                            
-                              <a class="tag" href="/tags/#random images" title="random images">random images</a>
+                              <a class="tag" href="/tags/#桶排序 计数排序 基数排序" title="桶排序 计数排序 基数排序">桶排序 计数排序 基数排序</a>
                             
                         </div>
-                        <h1>图片和文字的随机API</h1>
+                        <h1>数据结构和算法之美-第十篇-桶排序、计数排序、基数排序</h1>
                         <h2 class="subheading"></h2>
                         <span class="meta">
                             Posted by Kylen on
-                            2019-06-19
+                            2019-08-09
                         </span>
                     </div>
                 
@@ -219,33 +215,37 @@
                 col-md-10 col-md-offset-1
                 post-container">
 
-                <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>blog中需要使用一些随机的图片和句子，于是在网络上找了一些，把一些感觉挺有价值的整理放到这里。</p>
-<h3 id="随机文字类别的API："><a href="#随机文字类别的API：" class="headerlink" title="随机文字类别的API："></a>随机文字类别的API：</h3><ul>
-<li><p><a href="https://hitokoto.cn/" target="_blank" rel="noopener">一言</a><br>一言指一句话，提供一句话服务，包含动画、漫画、游戏、小说等七个分类，这个应该是相当有名了。<br><img src="https://i.loli.net/2019/06/19/5d09d28044f7d13022.png" alt="Saying 2019-06-19 上午11.02.38.png"></p>
-</li>
-<li><p><a href="https://www.jinrishici.com/" target="_blank" rel="noopener">今日诗词</a><br>根据时间、地点、天气、事件智能推荐，好像很腻害。每次返回一句诗词<br><img src="https://i.loli.net/2019/06/19/5d09d27de9a5a59451.png" alt="Saying 2019-06-19 上午10.50.50.png"></p>
-</li>
-<li><p><a href="https://gushi.ci/" target="_blank" rel="noopener">古诗词·一言API</a><br>今日诗词的旧版<br><img src="https://i.loli.net/2019/06/19/5d09d27a56b5192770.png" alt="Saying 2019-06-19 上午10.54.06.png"></p>
-</li>
-<li><p><a href="https://www.liutianyou.com/api/" target="_blank" rel="noopener">https://www.liutianyou.com/260.html</a></p>
-</li>
-<li><p><a href="https://www.apiopen.top/femaleNameApi" target="_blank" rel="noopener">随机网名</a><br>看起来都好中二<br><img src="https://i.loli.net/2019/06/19/5d09ea05599a325212.png" alt="Saying 2019-06-19 下午2.36.12.png"></p>
-</li>
-<li><p><a href="https://github.com/isecret/yuncun/blob/master/DOC.md" target="_blank" rel="noopener">乐评</a><br>随机获取网易云音乐热评<br><img src="https://i.loli.net/2019/06/19/5d09ea0d3f3a965378.png" alt="Saying 2019-06-19 下午2.40.38.png"></p>
-</li>
-</ul>
-<h3 id="随机图片"><a href="#随机图片" class="headerlink" title="随机图片"></a>随机图片</h3><p>图片太多了</p>
-<ul>
-<li><p><a href="https://uploadbeta.com/api/pictures/random/?key=BingEverydayWallpaperPicture" target="_blank" rel="noopener">BING 每日图纸</a><br><a href="https://uploadbeta.com/api/pictures/random/" target="_blank" rel="noopener">BING 随机图纸</a></p>
-</li>
-<li><p><a href="https://source.unsplash.com/random/1920x1080" target="_blank" rel="noopener">Unsplash</a><br><a href="https://source.unsplash.com/random/1920x1080/daily" target="_blank" rel="noopener">Unsplash daily</a><br><a href="https://source.unsplash.com/" target="_blank" rel="noopener">Unsplash 官方网站</a></p>
-</li>
-<li><p><a href="http://lorempixel.com/" target="_blank" rel="noopener">http://lorempixel.com/</a></p>
-</li>
-<li><p><a href="https://picsum.photos/" target="_blank" rel="noopener">https://picsum.photos/</a></p>
-</li>
-</ul>
-<p>使用方式大同小异，都很简单，就不记录了。</p>
+                <p>桶排序、计数排序、基数排序都是线性排序，它们的时间复杂度都是O(n)，这样一看好像很厉害的样子，比我们之前提到的快排、归并都要牛，使用分治的思想结合递归的手段最终的平均时间复杂度也只能做到O(nlogn)。</p>
+<p>其实不然，因为这三种排序只能用于特定的场景，只有在适用的场景中这些排序才能派上用场。</p>
+<h3 id="桶排序"><a href="#桶排序" class="headerlink" title="桶排序"></a>桶排序</h3><p><a href="https://zh.wikipedia.org/wiki/%E6%A1%B6%E6%8E%92%E5%BA%8F" target="_blank" rel="noopener">桶排序</a>的工作的原理是将数组分到有限数量的桶里。每个桶再个别排序（有可能再使用别的排序算法或是以递归方式继续使用桶排序进行排序）</p>
+<p>桶排序以下列程序进行：</p>
+<ol>
+<li>设置一个定量的数组当作空桶子。</li>
+<li>寻访序列，并且把项目一个一个放到对应的桶子去。</li>
+<li>对每个不是空的桶子进行排序。</li>
+<li>从不是空的桶子里把项目再放回原来的序列中。</li>
+</ol>
+<p>假设有 n 个数据，我们把它均匀的分不到 m 个桶里，每个桶里的数据都是 k = n/m ，每个桶里的数据再使用快排进行排序，那 m 个桶的时间复杂度就是O(m * k (logk))，<strong>当桶的个数 m 接近于数据 n 时</strong>，时间复杂度就是O(n)。</p>
+<p><strong>桶排序比较适合用在外部排序中</strong>。所谓的外部排序就是数据存储在外部磁盘中，数据量比较大，内存有限，无法将数据全部加载到内存中。</p>
+<h3 id="计数排序"><a href="#计数排序" class="headerlink" title="计数排序"></a>计数排序</h3><p>计数排序可看成桶排序的一种特殊情况，计数排序的每个桶中的元素的值是一样的。</p>
+<p>算法步骤：<br>算法的步骤如下：</p>
+<ol>
+<li>找出待排序的数组中最大和最小的元素</li>
+<li>统计数组中每个值为 {\displaystyle i} i的元素出现的次数，存入数组 {\displaystyle C}  C 的第 {\displaystyle i} i项</li>
+<li>对所有的计数累加（从 {\displaystyle C}  C 中的第一个元素开始，每一项和前一项相加）</li>
+<li>反向填充目标数组：将每个元素 {\displaystyle i} i放在新数组的第 {\displaystyle C[i]} {\displaystyle C[i]}项，每放一个元素就将 {\displaystyle C[i]} {\displaystyle C[i]}减去1</li>
+</ol>
+<p>举个栗子：假设高考满分900分，最低0分，现有50万考生，我需要给他们排名。这种情况就很适合计数排序。<br>0-900我们要901个桶，遍历一遍数据（内存足够）分别放入这901个桶中，同一个桶内的考生分数是相同的。其实这样基本就已经实现了排序。但想达到完美，还差一步，相同分数的考生排名顺序的问题，这其实也就是之前说过的稳定性的问题。如果我们直接从这901个桶中把数据取出来，那就是一个不稳定的排序，为了达到稳定，需要进行<strong>反向填充</strong>，也就是上面算法步骤的第四步。</p>
+<p>我们假设考生只有8人，分数范围为 [0-5] ，现有数组[2, 5, 3, 0, 2, 3, 0, 3]，排序并保持稳定性。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> countingSort = <span class="function"><span class="params">arr</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">const</span> len = arr.length;</span><br><span class="line">  <span class="keyword">if</span> (!len) <span class="keyword">return</span>;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 找最大值</span></span><br><span class="line">  <span class="keyword">let</span> max = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; len; i++) &#123;</span><br><span class="line">    <span class="keyword">if</span> (arr[i] &gt; max) max = arr[i];</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 计数数组</span></span><br><span class="line">  <span class="keyword">const</span> c = <span class="keyword">new</span> <span class="built_in">Array</span>(max + <span class="number">1</span>).fill(<span class="number">0</span>);</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; len; i++) &#123;</span><br><span class="line">    c[arr[i]]++;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// c累加</span></span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">1</span>; i &lt; c.length; i++) &#123;</span><br><span class="line">    c[i] += c[i - <span class="number">1</span>];</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 存储排名之后的数据</span></span><br><span class="line">  <span class="keyword">const</span> r = [];</span><br><span class="line">  <span class="comment">/**</span></span><br><span class="line"><span class="comment">   * 计数排序代码的精妙之处就是下面这个循环了</span></span><br><span class="line"><span class="comment">   * 从后往前遍历</span></span><br><span class="line"><span class="comment">   */</span></span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">let</span> i = len - <span class="number">1</span>; i &gt;= <span class="number">0</span>; i--) &#123;</span><br><span class="line">    r[c[arr[i]] - <span class="number">1</span>] = arr[i];</span><br><span class="line">    c[arr[i]]--;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> r;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> a = [<span class="number">2</span>, <span class="number">5</span>, <span class="number">3</span>, <span class="number">0</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">0</span>, <span class="number">3</span>];</span><br><span class="line">countingSort(a);</span><br></pre></td></tr></table></figure>
+
+<p>计数排序只能用在数据范围不大的场景，如果数据范围 k 比要排序的数据 n 大很多，就不适合用计数排序了。而且计数排序只适合给非负整数排序，如果要排序的数据是其他类型的，要其在不改变相对大小的情况下，转化为非负整数。</p>
+<h3 id="基数排序"><a href="#基数排序" class="headerlink" title="基数排序"></a>基数排序</h3><p><a href="https://zh.wikipedia.org/wiki/%E5%9F%BA%E6%95%B0%E6%8E%92%E5%BA%8F" target="_blank" rel="noopener">基数排序</a></p>
+<p>实现原理：将所有待比较数值（正整数）统一为同样的数字长度，数字较短的数前面补零。然后，从最低位开始，依次进行一次排序。这样从最低位排序一直到最高位排序完成以后，数列就变成一个有序序列。</p>
+<p>手机号码的排序就很适合使用基数排序。当然前提是数据规模大。若是少量的数据，我们之前提到的快排、归并甚至是冒泡、插入都可以，但是数据规模超大，排序算法细微的性能差异就会被放的超大，所以算法很重要。</p>
+<p>比如现在有十万个手机号，要对它们进行排序。即使用快排时间复杂度也只能是O(nlogn)；如果使用基数排序，基本思路：根据手机号的最后一位使用计数排序，然后按照倒数第二位计数排序，一直排到第一位手机号就都有序了。时间复杂度是11 * O(n)，按照大O表示法，时间复杂度是O(n)</p>
+<p>如果数据量很小的话 logn &lt; 11是很有可能的，所以在具体的场景中，考虑时间复杂度是不能直接忽略系数等变量的，要综合实际情况。</p>
+<p>总结一下：基数排序对要排序的数据是有要求的，需要可以分割出独立的“位”来比较，而且位之间有递进的关系，如果 a 数据的高位比 b 数据大，那剩下的低位就不用比较了。除此之外，每一位的数据范围不能太大，要可以用线性排序算法来排序，否则，基数排序的时间复杂度就无法做到 O(n) 了。</p>
 
                 
 
@@ -253,13 +253,9 @@
                 <!-- Pager -->
                 <ul class="pager">
                     
-                        <li class="previous">
-                            <a href="/2019/06/20/JS进阶系列-第零篇-引言/" data-toggle="tooltip" data-placement="top" title="JS进阶系列-第零篇-引言">&larr; Previous Post</a>
-                        </li>
-                    
                     
                         <li class="next">
-                            <a href="/2019/06/19/使用七牛云搭建个人图片服务器/" data-toggle="tooltip" data-placement="top" title="使用七牛云搭建个人图片服务器">Next Post &rarr;</a>
+                            <a href="/2019/08/07/数据结构和算法之美-第九篇-归并排序、快速排序/" data-toggle="tooltip" data-placement="top" title="数据结构和算法之美-第九篇-归并排序、快速排序">Next Post &rarr;</a>
                         </li>
                     
                 </ul>
@@ -285,7 +281,7 @@
         <div id="toc" class="toc-article">
         <strong class="toc-title">Contents</strong>
         
-          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#前言"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">前言</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#随机文字类别的API："><span class="toc-nav-number">2.</span> <span class="toc-nav-text">随机文字类别的API：</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#随机图片"><span class="toc-nav-number">3.</span> <span class="toc-nav-text">随机图片</span></a></li></ol>
+          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#桶排序"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">桶排序</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#计数排序"><span class="toc-nav-number">2.</span> <span class="toc-nav-text">计数排序</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#基数排序"><span class="toc-nav-number">3.</span> <span class="toc-nav-text">基数排序</span></a></li></ol>
         
         </div>
       </aside>
@@ -305,15 +301,11 @@
                     <h5><a href="/tags/">FEATURED TAGS</a></h5>
                     <div class="tags">
                        
-                          <a class="tag" href="/tags/#blog" title="blog">blog</a>
+                          <a class="tag" href="/tags/#数据结构和算法" title="数据结构和算法">数据结构和算法</a>
                         
-                          <a class="tag" href="/tags/#Saying" title="Saying">Saying</a>
+                          <a class="tag" href="/tags/#排序" title="排序">排序</a>
                         
-                          <a class="tag" href="/tags/#Quote" title="Quote">Quote</a>
-                        
-                          <a class="tag" href="/tags/#随机图片" title="随机图片">随机图片</a>
-                        
-                          <a class="tag" href="/tags/#random images" title="random images">random images</a>
+                          <a class="tag" href="/tags/#桶排序 计数排序 基数排序" title="桶排序 计数排序 基数排序">桶排序 计数排序 基数排序</a>
                         
                     </div>
                 </section>

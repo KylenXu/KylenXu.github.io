@@ -108,7 +108,20 @@
             </div>
         </div>
     </div>
+    <!-- 百度统计 -->
+    <script>
+      var _hmt = _hmt || [];
+      (function() {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?9172d0f64611c21ad2b76b197240fc58";
+        var s = document.getElementsByTagName("script")[0]; 
+        s.parentNode.insertBefore(hm, s);
+      })();
+    </script>
 </header>
+
+
+  
 
 	
     <!-- Navigation -->
@@ -246,6 +259,13 @@
 <p>比如现在有十万个手机号，要对它们进行排序。即使用快排时间复杂度也只能是O(nlogn)；如果使用基数排序，基本思路：根据手机号的最后一位使用计数排序，然后按照倒数第二位计数排序，一直排到第一位手机号就都有序了。时间复杂度是11 * O(n)，按照大O表示法，时间复杂度是O(n)</p>
 <p>如果数据量很小的话 logn &lt; 11是很有可能的，所以在具体的场景中，考虑时间复杂度是不能直接忽略系数等变量的，要综合实际情况。</p>
 <p>总结一下：基数排序对要排序的数据是有要求的，需要可以分割出独立的“位”来比较，而且位之间有递进的关系，如果 a 数据的高位比 b 数据大，那剩下的低位就不用比较了。除此之外，每一位的数据范围不能太大，要可以用线性排序算法来排序，否则，基数排序的时间复杂度就无法做到 O(n) 了。</p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>到此排序基本就告一段落了，常见的排序除了堆排序（了解树结构之后在整理）之外基本都已经涉及了。</p>
+<ul>
+<li>排序算法本身是有一定的优劣之分的，比如冒泡和插入排序比选择排序要更好</li>
+<li>同一排序算法的时间复杂度根据不同情况（最好、最坏）有时会有很大差距，可以通过一些策略来优化，比如三数取中法来优化快排等</li>
+<li>排序算法的选择是要根据具体的场景的，从这个角度看，没有最好的排序算法，只有最合适的排序算法。</li>
+</ul>
+<p>所以，一个好的排序算法需要根据场景去切换，需要各种策略去调整。比如 Glibc 中的 qsort() 函数，qsort() 会优先使用归并排序，当数据量比较大时，会改用快速排序进行排序。qsort() 快速排序选择基准点的策略就是三数取中法。</p>
 
                 
 
@@ -281,7 +301,7 @@
         <div id="toc" class="toc-article">
         <strong class="toc-title">Contents</strong>
         
-          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#桶排序"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">桶排序</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#计数排序"><span class="toc-nav-number">2.</span> <span class="toc-nav-text">计数排序</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#基数排序"><span class="toc-nav-number">3.</span> <span class="toc-nav-text">基数排序</span></a></li></ol>
+          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#桶排序"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">桶排序</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#计数排序"><span class="toc-nav-number">2.</span> <span class="toc-nav-text">计数排序</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#基数排序"><span class="toc-nav-number">3.</span> <span class="toc-nav-text">基数排序</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#总结"><span class="toc-nav-number">4.</span> <span class="toc-nav-text">总结</span></a></li></ol>
         
         </div>
       </aside>

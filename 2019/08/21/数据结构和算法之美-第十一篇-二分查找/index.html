@@ -14,11 +14,11 @@
     <script async defer src="https://buttons.github.io/buttons.js"></script>
     <title>
         
-          数据结构和算法之美-第十篇-桶排序、计数排序、基数排序 - Kylen的博客 | Kylen Blog
+          数据结构和算法之美-第十一篇-二分查找 - Kylen的博客 | Kylen Blog
         
     </title>
 
-    <link rel="canonical" href="http://yoursite.com/2019/08/09/数据结构和算法之美-第十篇-桶排序、计数排序、基数排序/">
+    <link rel="canonical" href="http://yoursite.com/2019/08/21/数据结构和算法之美-第十一篇-二分查找/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -89,16 +89,14 @@
                             
                               <a class="tag" href="/tags/#数据结构和算法" title="数据结构和算法">数据结构和算法</a>
                             
-                              <a class="tag" href="/tags/#排序" title="排序">排序</a>
-                            
-                              <a class="tag" href="/tags/#桶排序 计数排序 基数排序" title="桶排序 计数排序 基数排序">桶排序 计数排序 基数排序</a>
+                              <a class="tag" href="/tags/#二分查找" title="二分查找">二分查找</a>
                             
                         </div>
-                        <h1>数据结构和算法之美-第十篇-桶排序、计数排序、基数排序</h1>
+                        <h1>数据结构和算法之美-第十一篇-二分查找</h1>
                         <h2 class="subheading"></h2>
                         <span class="meta">
                             Posted by Kylen on
-                            2019-08-09
+                            2019-08-21
                         </span>
                     </div>
                 
@@ -227,44 +225,24 @@
                 col-md-10 col-md-offset-1
                 post-container">
 
-                <p>桶排序、计数排序、基数排序都是线性排序，它们的时间复杂度都是O(n)，这样一看好像很厉害的样子，比我们之前提到的快排、归并都要牛，使用分治的思想结合递归的手段最终的平均时间复杂度也只能做到O(nlogn)。</p>
-<p>其实不然，因为这三种排序只能用于特定的场景，只有在适用的场景中这些排序才能派上用场。</p>
-<h3 id="桶排序"><a href="#桶排序" class="headerlink" title="桶排序"></a>桶排序</h3><p><a href="https://zh.wikipedia.org/wiki/%E6%A1%B6%E6%8E%92%E5%BA%8F" target="_blank" rel="noopener">桶排序</a>的工作的原理是将数组分到有限数量的桶里。每个桶再个别排序（有可能再使用别的排序算法或是以递归方式继续使用桶排序进行排序）</p>
-<p>桶排序以下列程序进行：</p>
-<ol>
-<li>设置一个定量的数组当作空桶子。</li>
-<li>寻访序列，并且把项目一个一个放到对应的桶子去。</li>
-<li>对每个不是空的桶子进行排序。</li>
-<li>从不是空的桶子里把项目再放回原来的序列中。</li>
-</ol>
-<p>假设有 n 个数据，我们把它均匀的分不到 m 个桶里，每个桶里的数据都是 k = n/m ，每个桶里的数据再使用快排进行排序，那 m 个桶的时间复杂度就是O(m * k (logk))，<strong>当桶的个数 m 接近于数据 n 时</strong>，时间复杂度就是O(n)。</p>
-<p><strong>桶排序比较适合用在外部排序中</strong>。所谓的外部排序就是数据存储在外部磁盘中，数据量比较大，内存有限，无法将数据全部加载到内存中。</p>
-<h3 id="计数排序"><a href="#计数排序" class="headerlink" title="计数排序"></a>计数排序</h3><p>计数排序可看成桶排序的一种特殊情况，计数排序的每个桶中的元素的值是一样的。</p>
-<p>算法步骤：<br>算法的步骤如下：</p>
-<ol>
-<li>找出待排序的数组中最大和最小的元素</li>
-<li>统计数组中每个值为 {\displaystyle i} i的元素出现的次数，存入数组 {\displaystyle C}  C 的第 {\displaystyle i} i项</li>
-<li>对所有的计数累加（从 {\displaystyle C}  C 中的第一个元素开始，每一项和前一项相加）</li>
-<li>反向填充目标数组：将每个元素 {\displaystyle i} i放在新数组的第 {\displaystyle C[i]} {\displaystyle C[i]}项，每放一个元素就将 {\displaystyle C[i]} {\displaystyle C[i]}减去1</li>
-</ol>
-<p>举个栗子：假设高考满分900分，最低0分，现有50万考生，我需要给他们排名。这种情况就很适合计数排序。<br>0-900我们要901个桶，遍历一遍数据（内存足够）分别放入这901个桶中，同一个桶内的考生分数是相同的。其实这样基本就已经实现了排序。但想达到完美，还差一步，相同分数的考生排名顺序的问题，这其实也就是之前说过的稳定性的问题。如果我们直接从这901个桶中把数据取出来，那就是一个不稳定的排序，为了达到稳定，需要进行<strong>反向填充</strong>，也就是上面算法步骤的第四步。</p>
-<p>我们假设考生只有8人，分数范围为 [0-5] ，现有数组[2, 5, 3, 0, 2, 3, 0, 3]，排序并保持稳定性。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> countingSort = <span class="function"><span class="params">arr</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">const</span> len = arr.length;</span><br><span class="line">  <span class="keyword">if</span> (!len) <span class="keyword">return</span>;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 找最大值</span></span><br><span class="line">  <span class="keyword">let</span> max = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; len; i++) &#123;</span><br><span class="line">    <span class="keyword">if</span> (arr[i] &gt; max) max = arr[i];</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 计数数组</span></span><br><span class="line">  <span class="keyword">const</span> c = <span class="keyword">new</span> <span class="built_in">Array</span>(max + <span class="number">1</span>).fill(<span class="number">0</span>);</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; len; i++) &#123;</span><br><span class="line">    c[arr[i]]++;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// c累加</span></span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">1</span>; i &lt; c.length; i++) &#123;</span><br><span class="line">    c[i] += c[i - <span class="number">1</span>];</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 存储排名之后的数据</span></span><br><span class="line">  <span class="keyword">const</span> r = [];</span><br><span class="line">  <span class="comment">/**</span></span><br><span class="line"><span class="comment">   * 计数排序代码的精妙之处就是下面这个循环了</span></span><br><span class="line"><span class="comment">   * 从后往前遍历</span></span><br><span class="line"><span class="comment">   */</span></span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">let</span> i = len - <span class="number">1</span>; i &gt;= <span class="number">0</span>; i--) &#123;</span><br><span class="line">    r[c[arr[i]] - <span class="number">1</span>] = arr[i];</span><br><span class="line">    c[arr[i]]--;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> r;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> a = [<span class="number">2</span>, <span class="number">5</span>, <span class="number">3</span>, <span class="number">0</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">0</span>, <span class="number">3</span>];</span><br><span class="line">countingSort(a);</span><br></pre></td></tr></table></figure>
-
-<p>计数排序只能用在数据范围不大的场景，如果数据范围 k 比要排序的数据 n 大很多，就不适合用计数排序了。而且计数排序只适合给非负整数排序，如果要排序的数据是其他类型的，要其在不改变相对大小的情况下，转化为非负整数。</p>
-<h3 id="基数排序"><a href="#基数排序" class="headerlink" title="基数排序"></a>基数排序</h3><p><a href="https://zh.wikipedia.org/wiki/%E5%9F%BA%E6%95%B0%E6%8E%92%E5%BA%8F" target="_blank" rel="noopener">基数排序</a></p>
-<p>实现原理：将所有待比较数值（正整数）统一为同样的数字长度，数字较短的数前面补零。然后，从最低位开始，依次进行一次排序。这样从最低位排序一直到最高位排序完成以后，数列就变成一个有序序列。</p>
-<p>手机号码的排序就很适合使用基数排序。当然前提是数据规模大。若是少量的数据，我们之前提到的快排、归并甚至是冒泡、插入都可以，但是数据规模超大，排序算法细微的性能差异就会被放的超大，所以算法很重要。</p>
-<p>比如现在有十万个手机号，要对它们进行排序。即使用快排时间复杂度也只能是O(nlogn)；如果使用基数排序，基本思路：根据手机号的最后一位使用计数排序，然后按照倒数第二位计数排序，一直排到第一位手机号就都有序了。时间复杂度是11 * O(n)，按照大O表示法，时间复杂度是O(n)</p>
-<p>如果数据量很小的话 logn &lt; 11是很有可能的，所以在具体的场景中，考虑时间复杂度是不能直接忽略系数等变量的，要综合实际情况。</p>
-<p>总结一下：基数排序对要排序的数据是有要求的，需要可以分割出独立的“位”来比较，而且位之间有递进的关系，如果 a 数据的高位比 b 数据大，那剩下的低位就不用比较了。除此之外，每一位的数据范围不能太大，要可以用线性排序算法来排序，否则，基数排序的时间复杂度就无法做到 O(n) 了。</p>
-<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>到此排序基本就告一段落了，常见的排序除了堆排序（了解树结构之后在整理）之外基本都已经涉及了。</p>
+                <h3 id="二分查找"><a href="#二分查找" class="headerlink" title="二分查找"></a>二分查找</h3><p><a href="https://zh.wikipedia.org/zh-hans/二分搜索算法" target="_blank" rel="noopener">二分搜索算法</a><br>二分查找是我们都熟识的算法，它明确的定义是：<strong>是一种在有序数组中查找某一特定元素搜索算法</strong></p>
+<p>二分查找针对的是一个有序的数据集合，查找思想有点类似分治思想。每次都通过跟区间的中间元素对比，将待查找的区间缩小为之前的一半，直到找到要查找的元素，或者区间被缩小为 0</p>
+<p>由此可见，二分查找的时间复杂度是O(logn)，这是一个很可怕的数字，因为数据规模 n 再怎么大，它的对数 logn 都会很小。我们都知道指数级别的增长很可怕，logn 其实就是与之对应的指数级的减小。举个例子假如 n = 2<sup>10</sup> = 1024，最多只要 10 次比较就能找到0-1024中找到我们要的数据；n = 2<sup>10</sup> = 18446744073709551616 (1844 亿亿)看清楚是亿亿，通过二分查找最多只需要比较 64 次。</p>
+<p>小结</p>
 <ul>
-<li>排序算法本身是有一定的优劣之分的，比如冒泡和插入排序比选择排序要更好</li>
-<li>同一排序算法的时间复杂度根据不同情况（最好、最坏）有时会有很大差距，可以通过一些策略来优化，比如三数取中法来优化快排等</li>
-<li>排序算法的选择是要根据具体的场景的，从这个角度看，没有最好的排序算法，只有最合适的排序算法。</li>
+<li>二分查找作为对数阶的查找算法本身非常高效。</li>
+<li>但高效的前提是数据需要使用数组来存储因为数组可以通过下标实现快速访问，如果使用链表存储，时间复杂度就变成了O(n)，二分查找就没有了意义</li>
+<li>二分查找的序列必须是已经排好序的序列。</li>
 </ul>
-<p>所以，一个好的排序算法需要根据场景去切换，需要各种策略去调整。比如 Glibc 中的 qsort() 函数，qsort() 会优先使用归并排序，当数据量比较大时，会改用快速排序进行排序。qsort() 快速排序选择基准点的策略就是三数取中法。</p>
+<h3 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h3><p>二分查找的代码很容易实现，最简单的情况就是有序数组中不存在重复的元素。</p>
+<p>递归实现</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> bSearch = <span class="function">(<span class="params">arr, low, high, v</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">if</span> (low &gt; high) <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">  <span class="keyword">const</span> mid = <span class="built_in">Math</span>.floor((low + high) / <span class="number">2</span>);</span><br><span class="line">  <span class="keyword">if</span> (v &lt; arr[mid]) &#123;</span><br><span class="line">    <span class="keyword">return</span> bSearch(arr, low, mid - <span class="number">1</span>, v);</span><br><span class="line">  &#125; <span class="keyword">else</span> <span class="keyword">if</span> (v &gt; arr[mid]) &#123;</span><br><span class="line">    <span class="keyword">return</span> bSearch(arr, mid + <span class="number">1</span>, high, v);</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> mid;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>循环实现</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> bSearch = <span class="function">(<span class="params">arr, low, high, v</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">while</span> (low &lt;= high) &#123;</span><br><span class="line">    <span class="keyword">const</span> mid = <span class="built_in">Math</span>.floor((low + high) / <span class="number">2</span>);</span><br><span class="line">    <span class="keyword">if</span> (v &lt; arr[mid]) &#123;</span><br><span class="line">      high = mid - <span class="number">1</span>;</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (v &gt; arr[mid]) &#123;</span><br><span class="line">      low = mid + <span class="number">1</span>;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      <span class="keyword">return</span> mid;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>二分查找依赖数组，所以就有数组的弊端，数据量太大不适合使用数组存储自然无法使用二分查找，数据量太小，直接遍历和使用二分查找区别不大。<br>另外，数组的优势在于随机访问，插入和删除操作则比不上链表，所以对于需要频繁的插入和删除的业务场景也不适合使用数组。<br>最后就是使用二分查找的数据前提是先有序。</p>
+<p>这样一看，二分查找虽然性能优秀，但是应用场景其实很有限。和之前学习的数据结构一样，我们需要结合具体的业务场景选择最合适的数据结构存储数据，算法必须建立在特定的数据结构之上。</p>
 
                 
 
@@ -272,13 +250,9 @@
                 <!-- Pager -->
                 <ul class="pager">
                     
-                        <li class="previous">
-                            <a href="/2019/08/21/数据结构和算法之美-第十一篇-二分查找/" data-toggle="tooltip" data-placement="top" title="数据结构和算法之美-第十一篇-二分查找">&larr; Previous Post</a>
-                        </li>
-                    
                     
                         <li class="next">
-                            <a href="/2019/08/07/数据结构和算法之美-第九篇-归并排序、快速排序/" data-toggle="tooltip" data-placement="top" title="数据结构和算法之美-第九篇-归并排序、快速排序">Next Post &rarr;</a>
+                            <a href="/2019/08/09/数据结构和算法之美-第十篇-桶排序、计数排序、基数排序/" data-toggle="tooltip" data-placement="top" title="数据结构和算法之美-第十篇-桶排序、计数排序、基数排序">Next Post &rarr;</a>
                         </li>
                     
                 </ul>
@@ -304,7 +278,7 @@
         <div id="toc" class="toc-article">
         <strong class="toc-title">Contents</strong>
         
-          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#桶排序"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">桶排序</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#计数排序"><span class="toc-nav-number">2.</span> <span class="toc-nav-text">计数排序</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#基数排序"><span class="toc-nav-number">3.</span> <span class="toc-nav-text">基数排序</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#总结"><span class="toc-nav-number">4.</span> <span class="toc-nav-text">总结</span></a></li></ol>
+          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#二分查找"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">二分查找</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#代码实现"><span class="toc-nav-number">2.</span> <span class="toc-nav-text">代码实现</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#总结"><span class="toc-nav-number">3.</span> <span class="toc-nav-text">总结</span></a></li></ol>
         
         </div>
       </aside>
@@ -326,9 +300,7 @@
                        
                           <a class="tag" href="/tags/#数据结构和算法" title="数据结构和算法">数据结构和算法</a>
                         
-                          <a class="tag" href="/tags/#排序" title="排序">排序</a>
-                        
-                          <a class="tag" href="/tags/#桶排序 计数排序 基数排序" title="桶排序 计数排序 基数排序">桶排序 计数排序 基数排序</a>
+                          <a class="tag" href="/tags/#二分查找" title="二分查找">二分查找</a>
                         
                     </div>
                 </section>
